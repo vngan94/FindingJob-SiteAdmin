@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import { useRef, useState } from "react";
 
 import styles from "./LoginForm.module.scss";
+import { post } from "../../../utils/axiosAPI";
 
 const cx = classNames.bind(styles);
 
@@ -33,12 +34,14 @@ function LoginForm({ handleShowLogin }) {
       passwordRef.current.focus();
       return;
     }
-    if (username === "nghia" && password === "123") {
-      alert("Đăng nhập thành công!");
-      handleShowLogin();
-    } else {
-      setErrorMessage("Tên tài khoản hoặc mật khẩu không đúng!");
+    const login = () => {
+      const data = post("auth/login", {
+        username,
+        password
+      });
+      console.log(data);
     }
+    login();
   }
   return (
     <div className={cx("Body")}>
