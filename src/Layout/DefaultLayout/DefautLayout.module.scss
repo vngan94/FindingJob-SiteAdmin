@@ -1,0 +1,34 @@
+.MainLayout {
+    display: flex;
+    flex-direction: column;
+    // width: 100vw;
+    min-height: 100vh;
+}
+
+.MainBody {
+    min-height: 1000px;
+    // margin-top: var(--menu-height); // fixed
+}
+
+.BackToTop {
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    position: fixed;
+    right: 45px;
+    bottom: 45px;
+    transition: all 0.8s linear 0s;
+}
+
+a.BackToTop {
+    color: #fff;
+    text-decoration: none;
+}
+
+.BackToTop:active {
+    box-shadow: 0 0 0 .25rem #009CFF;
+}

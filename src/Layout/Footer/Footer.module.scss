@@ -1,0 +1,130 @@
+.Outer {
+    margin-top: 90px;
+    background-color: rgb(0, 0, 0);
+}
+
+.Inner {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: flex;
+}
+
+.Inner>div {
+    padding-top: 60px;
+    padding-bottom: 65px;
+}
+
+@media screen and (min-width: 1024px) {
+    .Inner>div {
+        padding-bottom: 40px;
+    }
+}
+
+.CompanyInfo {
+    margin: 0px auto;
+}
+
+.BrandContainer {
+    font-size: 3em;
+    display: inline-flex;
+}
+
+.BrandImage {
+    width: 3em;
+    height: 3em;
+    object-fit: contain;
+}
+
+.RegionalHeading {
+    color: rgb(255, 255, 255);
+    margin-top: 10px;
+}
+
+.Regional {
+    margin-top: 16px;
+}
+
+.Regional a {
+    width: 30px;
+    height: 30px;
+    margin-right: 13px;
+}
+
+.SmallWhiteText {
+    font-size: 12px;
+}
+
+.About {
+    margin-top: 10px;
+}
+
+.Social {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.Social a {
+    display: inline-flex;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.Copyright{
+    margin-top: 30px;
+}
+.DisclaimerPart{
+    margin-top: 8px;
+}
+.DisclaimerPart a{
+    text-decoration: none;
+    color: rgb(1, 126, 183);
+}
+
+@media screen and (min-width: 1024px) {
+    .CompanyInfo {
+        max-width: 600px;
+        margin-right: 80px;
+        text-align: left;
+    }
+}
+
+.Paragraph {
+    color: rgb(255, 255, 255);
+}
+
+.DisclaimerPart {
+    color: rgb(255, 255, 255);
+}
+
+.Sections0 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px 40px;
+    text-align: left;
+}
+
+.Section1 ul {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    padding: 0px;
+    list-style-type: none;
+}
+
+.SectionListItem {
+    padding: 8px 0px;
+}
+
+.SectionListItem a,
+a:visited {
+    text-decoration: none;
+}
+
+.ListItemAnchor {
+    line-height: 1.6;
+    color: rgb(255, 255, 255);
+    opacity: 0.8;
+}
