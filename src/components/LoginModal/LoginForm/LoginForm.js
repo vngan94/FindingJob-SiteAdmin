@@ -2,9 +2,10 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import { useRef, useState } from "react";
+import axios from 'axios';
 
 import styles from "./LoginForm.module.scss";
-import { post } from "../../../utils/axiosAPI";
+import { get, post } from "../../../utils/axiosAPI";
 
 const cx = classNames.bind(styles);
 
@@ -34,12 +35,20 @@ function LoginForm({ handleShowLogin }) {
       passwordRef.current.focus();
       return;
     }
-    const login = () => {
-      const data = post("auth/login", {
-        username,
-        password
-      });
-      console.log(data);
+
+    const login = async () => {
+      // try {
+      //   const data = await get("/users");
+      //   console.log(data);
+      // } catch (error) {
+      //   console.log(error);
+      // }
+      try {
+        const data = await post("auth/login", { username, password });
+        console.log(data);
+      } catch (error) {
+        console.log(error.response.data);
+      }
     }
     login();
   }

@@ -2,10 +2,6 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
-  withCredentials: false,
-  headers: {
-    'Content-Type': 'application/json',
-  },
 })
 
 export const get = async (path, config = {}) => {
@@ -13,8 +9,8 @@ export const get = async (path, config = {}) => {
   return response.data;
 }
 
-export const post = async (path, config = {}) => {
-  const response = await instance.post(path, config);
+export const post = async (path, data = {}, config = {}) => {
+  const response = await instance.post(path, data, config);
   return response.data;
 }
 
