@@ -37,17 +37,12 @@ function LoginForm({ handleShowLogin }) {
     }
 
     const login = async () => {
-      // try {
-      //   const data = await get("/users");
-      //   console.log(data);
-      // } catch (error) {
-      //   console.log(error);
-      // }
       try {
         const data = await post("auth/login", { username, password });
         console.log(data);
       } catch (error) {
         console.log(error.response.data);
+        setErrorMessage(error.response.data.message);
       }
     }
     login();
