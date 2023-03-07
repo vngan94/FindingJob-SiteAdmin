@@ -12,6 +12,7 @@ html {
 /* custome scrollbar */
 html::-webkit-scrollbar {
     width: 10px;
+    scroll-behavior: smooth;
 }
 
 html::-webkit-scrollbar-track {

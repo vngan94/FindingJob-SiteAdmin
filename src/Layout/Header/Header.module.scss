@@ -115,6 +115,18 @@ a:visited {
     transform: scaleX(1);
 }
 
+.UserMenuContainer {
+    display: flex;
+    align-items: center;
+}
+
+.ProfilePicture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
 .LanguageSwitcherContainer {
     display: inline-flex;
     justify-content: center;

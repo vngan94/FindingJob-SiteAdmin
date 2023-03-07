@@ -2,9 +2,10 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import { useRef, useState } from "react";
-import axios from 'axios';
+import { useDispatch } from "react-redux";
 
 import styles from "./LoginForm.module.scss";
+import { loginSuccess } from "../../../redux/authSlice";
 import { get, post } from "../../../utils/axiosAPI";
 
 const cx = classNames.bind(styles);
@@ -16,6 +17,8 @@ function LoginForm({ handleShowLogin }) {
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const dispatch = useDispatch();
 
   const usernameRef = useRef();
   const passwordRef = useRef();
@@ -38,8 +41,10 @@ function LoginForm({ handleShowLogin }) {
 
     const login = async () => {
       try {
-        const data = await post("auth/login", { username, password });
-        console.log(data);
+        const res = await post("auth/login", { username, password });
+        console.log(res);
+        dispatch(loginSuccess(res.data));
+        handleShowLogin();
       } catch (error) {
         console.log(error.response.data);
         setErrorMessage(error.response.data.message);
