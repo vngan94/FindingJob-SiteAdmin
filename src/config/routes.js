@@ -1,9 +1,13 @@
 const routes = {
-    home: '/',
-    job: '/job',
-    company: '/company',
-    blog: '/blog',
-    recruitment: 'https://www.google.com/'
+    // public
+    home: "/",
+    job: "/job",
+    company: "/company",
+    blog: "/blog",
+    recruitment: "https://www.google.com/",
+    error: "*",
+    // private
+    test: "test",
 }
 
 export default routes;

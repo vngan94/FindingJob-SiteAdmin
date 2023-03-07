@@ -15,7 +15,6 @@ const cx = classNames.bind(styles);
 
 function Header() {
 	const currentUser = useSelector(selectUser);
-	console.log(currentUser);
 	const [showLogin, setShowLogin] = useState(false);
 	const languageRef = useRef();
 	const handleShowLogin = () => {
@@ -28,7 +27,7 @@ function Header() {
 				{showLogin && <LoginModal handleShowLogin={handleShowLogin} />}
 				<nav className={cx("Container")}>
 					<NavLink to={config.routes.home}>
-						<img src={"https://images.glints.com/unsafe/glints-dashboard.s3.amazonaws.com/images/logo.png"} alt="icon" className={cx("Logo")} />
+						<img src={"/static/images/logo.webp"} alt="icon" className={cx("Logo")} />
 					</NavLink>
 					<div className={cx("MenuItem")}>
 						<NavLink to={config.routes.job}

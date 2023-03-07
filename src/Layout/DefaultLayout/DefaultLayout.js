@@ -39,12 +39,6 @@ function DefaultLayout({ children }) {
                     <Footer />
                 </div>
             </div>
-            {/* {
-                gotoTop && <a href="#top" className={cx("BackToTop")} aria-label="#top"
-                    title='Back to top'>
-                    <FontAwesomeIcon icon={faArrowUp} />
-                </a>
-            } */}
             {
                 <a href="#top" style={{ opacity: gotoTop ? "1" : "0" }} className={cx("BackToTop")} aria-label="#top"
                     title='Back to top'>

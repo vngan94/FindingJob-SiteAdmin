@@ -8,7 +8,7 @@ import {
   PAUSE,
   PERSIST,
   PURGE,
-  // REGISTER,
+  REGISTER,
 } from 'redux-persist';
 
 import authSlice from "./authSlice";
