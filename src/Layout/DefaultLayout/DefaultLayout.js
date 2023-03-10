@@ -32,11 +32,9 @@ function DefaultLayout({ children }) {
                 <div className={cx("MainLayout")}>
                     <Header />
                     <div className={cx("MainBody")}>
-                        <div className={cx("Landing")}>
-                            {children}
-                        </div>
+                        {children}
+                        <Footer />
                     </div>
-                    <Footer />
                 </div>
             </div>
             {

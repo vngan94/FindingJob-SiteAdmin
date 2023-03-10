@@ -1,11 +1,23 @@
 import GlintContainer from "../../components/GlintContainer/GlintContainer";
 import SearchSection from "../../components/SearchSection/SearchSection";
 
+import ValueProposition from '../../components/GlintContainer/ValueProposition';
+import StatisticDisplay from "../../components/GlintContainer/StatisticDisplay/";
+import CareersGrid from "../../components/GlintContainer/CareersGrid/";
+import PressFeatures from "../../components/GlintContainer/PressFeatures/PressFeatures";
+import Testimonial from "../../components/GlintContainer/Testimonial/Testimonial";
+
 function Home() {
     return (
-        <div>
+        <div className="Landing">
             <SearchSection />
-            <GlintContainer />
+            <GlintContainer>
+                <StatisticDisplay />
+                <CareersGrid />
+                <ValueProposition />
+                <PressFeatures />
+                <Testimonial />
+            </GlintContainer>
         </div>
     )
 }

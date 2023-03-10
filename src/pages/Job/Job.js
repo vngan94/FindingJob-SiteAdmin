@@ -1,9 +1,10 @@
+import ExploreTab from "../../components/ExploreTab/ExploreTab";
+
 function Job() {
-    return (
-        <div>
-            Job Page
-        </div>
-    )
+    return <>
+        <ExploreTab />
+    </>
+
 }
 
 export default Job;

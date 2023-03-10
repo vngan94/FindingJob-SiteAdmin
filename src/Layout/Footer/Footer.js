@@ -110,22 +110,22 @@ function Footer() {
 								</a>
 							</li>
 							<li className={cx("SectionListItem")}>
-								<a href="//s3-ap-southeast-1.amazonaws.com/glints-dashboard/docs/terms-and-conditions-vn.pdf" target="_blank" className={cx("ListItemAnchor")}>
+								<a href="https://s3-ap-southeast-1.amazonaws.com/glints-dashboard/docs/terms-and-conditions-vn.pdf" target="_blank" className={cx("ListItemAnchor")}>
 									<span>Điều khoản sử dụng</span>
 								</a>
 							</li>
 							<li className={cx("SectionListItem")}>
-								<a href="//s3-ap-southeast-1.amazonaws.com/glints-dashboard/docs/operation-regulation-vn.pdf" target="_blank" className={cx("ListItemAnchor")}>
+								<a href="https://s3-ap-southeast-1.amazonaws.com/glints-dashboard/docs/operation-regulation-vn.pdf" target="_blank" className={cx("ListItemAnchor")}>
 									<span>Quy Chế Hoạt Động Website Cung Cấp Dịch vụ TMĐT Glints.com/vn</span>
 								</a>
 							</li>
 							<li className={cx("SectionListItem")}>
-								<a href="//s3-ap-southeast-1.amazonaws.com/glints-dashboard/docs/Information-security-policy-vn.pdf" target="_blank" className={cx("ListItemAnchor")}>
+								<a href="https://s3-ap-southeast-1.amazonaws.com/glints-dashboard/docs/Information-security-policy-vn.pdf" target="_blank" className={cx("ListItemAnchor")}>
 									<span>Chính Sách Bảo Mật</span>
 								</a>
 							</li>
 							<li className={cx("SectionListItem")}>
-								<a href="//s3-ap-southeast-1.amazonaws.com/glints-dashboard/docs/dispute-settlement-mechanism-vn.pdf" target="_blank" className={cx("ListItemAnchor")}>
+								<a href="https://s3-ap-southeast-1.amazonaws.com/glints-dashboard/docs/dispute-settlement-mechanism-vn.pdf" target="_blank" className={cx("ListItemAnchor")}>
 									<span>Cơ Chế Giải Quyết Các Tranh Chấp</span>
 								</a>
 							</li>

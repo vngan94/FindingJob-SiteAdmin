@@ -5,21 +5,36 @@ import { useSelector } from 'react-redux';
 import styles from './Header.module.scss';
 import config from '../../config';
 import { LanguageIcon, DropdownIcon, RightArrowIcon } from '../../components/Icon';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import LoginModal from '../../components/LoginModal/LoginModal';
 import { selectUser } from '../../redux/selector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
+import UserMenu from './UserMenu/UserMenu';
 
 const cx = classNames.bind(styles);
 
 function Header() {
 	const currentUser = useSelector(selectUser);
 	const [showLogin, setShowLogin] = useState(false);
+	const [showLanguageMenu, setShowLanguageMenu] = useState(false);
 	const languageRef = useRef();
 	const handleShowLogin = () => {
 		setShowLogin(!showLogin);
 	}
+	useEffect(() => {
+		const handleLanguageMenuMousedown = (e) => {
+			if (!languageRef.current?.contains(e.target)) {
+				setShowLanguageMenu(false);
+			}
+		}
+
+		window.addEventListener("mousedown", handleLanguageMenuMousedown);
+
+		return () => {
+			window.removeEventListener("mousedown", handleLanguageMenuMousedown);
+		}
+	})
 	return (
 		<div className={cx("MainHeader")}>
 			<div className={cx("GlintContainer")}>
@@ -44,39 +59,55 @@ function Header() {
 							className={(nav) => cx({ Active: nav.isActive })}
 						>blog</NavLink>
 					</div>
-					<div className={cx("RightMenuContainer", "text-uppercase")}>
-						<div className={cx("UserMenuItem", "dropdown")}>
-							<div className={cx("LanguageSwitcherContainer")}>
-								<LanguageIcon width="12px" height="12px" />
-								<span>vi</span>
-								<DropdownIcon className={cx("dropdown-icon")} />
-							</div>
-							<div ref={languageRef} className={cx("dropdown-menu")}>
-								<Link to={"/"} className={cx("dropdown-item")}>Tiếng Anh</Link>
-								<Link to={"/"} className={cx("dropdown-item")}>Tiếng Việt</Link>
+					<div className={cx("RightMenuContainer")}>
+						<div className={cx("UserMenuItem")}>
+							<div className={cx("language")}>
+								<div className={cx("DropdownStyle__DropdownContainer")}>
+									<div className={cx("DropdownStyle__DropdownWrapper")}>
+										<div className={cx("DropdownStyle__DropdownHeader")}
+											onClick={() => {
+												setShowLanguageMenu(!showLanguageMenu);
+											}} >
+											<LanguageIcon width="12px" height="12px" />
+											<span className={cx("mx-2")}>vi</span>
+											<span className={cx("DropdownStyle__IconWrapper")}
+												style={{ transform: showLanguageMenu ? "rotate(180deg)" : "rotate(0)" }} >
+												<DropdownIcon className={cx("IconStyle__VerticalCenteredSvg")} />
+											</span>
+										</div>
+										<div ref={languageRef} className={cx("DropdownStyle__DropdownBody", "DropdownStyle__DropdownBody--Left")}
+											style={{ display: showLanguageMenu ? "block" : "none" }} >
+											<Link to={"/"} className={cx("DropdownStyle__DropdownItemWrapper")}>
+												Tiếng Anh
+											</Link>
+											<Link to={"/"} className={cx("DropdownStyle__DropdownItemWrapper")}>
+												Tiếng Việt
+											</Link>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 						{currentUser
 							? <>
-								<div className={cx("UserMenuItem")} style={{ width: 20, height: 20 }}>
-									{/* chuaw code xong */}
-									<FontAwesomeIcon icon={faBell} />
-								</div>
 								<div className={cx("UserMenuItem")}>
-									<div className={cx("UserMenuContainer")}>
-										<a>
-											<img className={cx("ProfilePicture")} 
-											src="/static/images/defaultUser.webp" />
-										</a>
+									{/* chuaw code xong */}
+									<div className={cx("DropdownStyle__DropdownContainer")}>
 										<div>
-											{currentUser.username}
+											<button className={cx("UnstyleButton")} aria-label="Notification"
+											type="button" >
+												<FontAwesomeIcon className={cx("IconStyle__VerticalCenteredSvg")} icon={faBell} />
+											</button>
 										</div>
 									</div>
 								</div>
+								<div className={cx("UserMenuItem")}>
+									{<UserMenu currentUser={currentUser} />}
+								</div>
 							</>
 							: <>
-								<div className={cx("UserMenuItem")}>đăng ký</div>
-								<div onClick={handleShowLogin} className={cx("UserMenuItem")}>đăng nhập</div>
+								<div className={cx("MenuItem")}>đăng ký</div>
+								<div onClick={handleShowLogin} className={cx("MenuItem")}>đăng nhập</div>
 								<div className={cx("EmployersButton")}>
 									<Link
 										to={config.routes.recruitment}

@@ -6,7 +6,9 @@
 }
 
 .MainBody {
-    min-height: 1000px;
+    flex-grow: 1;
+    -webkit-box-flex: 1;
+    // min-height: 1000px;
     // margin-top: var(--menu-height); // fixed
 }
 
