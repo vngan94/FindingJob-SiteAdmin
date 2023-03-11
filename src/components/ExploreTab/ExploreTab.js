@@ -22,7 +22,7 @@ function ExploreTab() {
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await get("/job/list");
+      const res = await get("job/list");
       startTransition(() => {
         setJobList(res.data);
       })

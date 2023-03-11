@@ -1,4 +1,4 @@
-import ExploreTab from "../../components/ExploreTab/ExploreTab";
+import ExploreTab from "../../components/ExploreTab";
 
 function Job() {
     return <>

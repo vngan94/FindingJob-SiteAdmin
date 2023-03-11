@@ -21,7 +21,7 @@
     border-radius: 8px;
     font-size: 14px;
     letter-spacing: 1px;
-    width: 170px;
+    min-width: 170px;
     font-weight: bold;
     line-height: 1.5;
 }
@@ -160,6 +160,7 @@
 .DropdownStyle__DropdownItemWrapper {
     min-width: 110px;
     padding: 10px 15px;
+    color: black;
 }
 
 .DropdownStyle__DropdownItemWrapper:hover {
@@ -433,4 +434,217 @@
     position: absolute;
     right: 1em;
     cursor: pointer;
+}
+
+.DividerStyle__DividerContainer {
+    width: 100%;
+    height: 1px;
+    background: rgb(198, 198, 198);
+}
+
+.TopFold__CompanyAndJobInfo {
+    display: flex;
+    padding-top: 32px;
+}
+
+.TopFold__CompanyLogo {
+    min-width: 64px;
+}
+
+.TopFold__CompanyLogo img {
+    width: 70px;
+}
+
+.TopFold__JobOverViewContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 16px;
+    margin-left: 30px;
+}
+
+.TopFold__JobOverViewHeader {
+    display: flex;
+    gap: 20px;
+}
+
+.TopFold__JobOverViewTitle {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.TopFold__JobOverViewCompanyInfo {
+    display: flex;
+    flex-flow: row;
+    margin-bottom: 8px;
+}
+
+.TopFold__JobOverViewCompanyName {
+    margin-right: 8px;
+}
+
+div.TopFold__JobOverViewCompanyName a {
+    text-decoration: none;
+    color: rgb(1, 126, 183);
+}
+
+.TopFold__JobOverViewInfoContainer {
+    margin-left: 94px;
+    font-size: 16px;
+}
+
+.TopFold__JobOverViewInfo {
+    display: flex;
+    align-items: center;
+    -webkit-box-align: center;
+    margin-bottom: 8px;
+}
+
+.TopFold__JobOverViewInfo svg {
+    margin-right: 8px;
+}
+
+div.TopFold__JobOverViewInfo a {
+    text-decoration: none;
+    color: rgb(1, 126, 183);
+}
+
+.TopFold__SalaryJobOverView {
+    flex-wrap: unset;
+}
+
+
+.TopFold__BadgesAndJobOverViewTimeContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 24px;
+}
+
+.TopFold__JobOverViewTime {
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: rgb(119, 119, 119);
+}
+
+.TopFold__JobOverViewTime svg {
+    margin-right: 8px;
+}
+
+.TopFold__PostedAt {
+    margin-right: 8px;
+}
+
+.TopFold__UpdateAt {
+    font-size: 14px;
+    color: rgb(119, 119, 119);
+}
+
+.TopFold__ButtonContainer {
+    margin-bottom: 32px;
+}
+
+.TopFold__ApplyButtonDesktop {
+    margin-right: 16px;
+}
+
+.ApplyButton__ApplyButton .ButtonStyle__SolidBtn {
+    border-radius: 0;
+}
+
+.SimilarJobsSection__HeaderWrapper {
+    margin-bottom: 16px;
+}
+
+.SimilarJobsSection__Header {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.SimilarJobsSection__JobCardWrapper {
+    margin-bottom: 16px;
+}
+
+.SimilarJobCard__Card {
+    position: relative;
+    border-radius: 4px;
+    border: 1px solid rgb(198, 198, 198);
+    padding: 8px;
+}
+
+.SimilarJobCard__Container {
+    display: flex;
+    color: black;
+}
+
+.SimilarJobCard__Logo {
+    min-width: 50px;
+    margin-right: 4px;
+    margin-top: 2px;
+}
+
+.SimilarJobCard__Logo img {
+    width: 50px;
+}
+
+.SimilarJobCard__Detail {
+    margin-left: 8px;
+    width: 252px;
+}
+
+.SimilarJobCard__Detail a, .SimilarJobCard__Detail a:visited{
+    position: relative;
+    text-decoration: none;
+    color: rgb(1, 126, 183);
+    z-index: 100;
+}
+
+.SimilarJobCard__Title {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.SimilarJobCard__InfoWrapper {
+    margin-top: 4px;
+    font-size: 12px;
+}
+
+.SimilarJobCard__InfoWrapper svg {
+    margin-right: 2px;
+}
+
+.SimilarJobCard__SalaryInfoContainer {
+    display: flex;
+    align-items: center;
+}
+
+.SimilarJobCard__SalaryInfoContainer svg {
+    margin-right: 6px;
+}
+
+.SimilarJobCard__Bookmark {
+    margin-top: 5px;
+    margin-left: auto;
+}
+
+.SimilarJobCard__DividerContainer {
+    margin: 8px 0;
+}
+
+.SimilarJobCard__Footer {
+    font-size: 12px;
+    color: rgb(100, 100, 100);
+}
+
+.SimilarJobCard__Footer svg {
+    margin-right: 4px;
+}
+
+.BookmarkButton__ButtonWrapper {
+    display: flex;
+}
+
+.BookmarkButton__BookmarkOutlineIcon {
+    width: 20px;
+    height: 20px;
 }

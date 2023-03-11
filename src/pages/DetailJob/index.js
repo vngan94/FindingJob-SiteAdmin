@@ -1,1 +1,1 @@
-export { default } from "./DetailJob";
+export { default, JobContext } from "./DetailJob";
