@@ -13,6 +13,10 @@
     overflow: auto;
 }
 
+.ModalContainer::-webkit-scrollbar {
+    display: none;
+}
+
 .ModalDialog {
     position: relative;
 }

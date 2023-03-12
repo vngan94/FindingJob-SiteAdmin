@@ -23,10 +23,10 @@ function UserMenu({ currentUser }) {
       }
     }
 
-    window.addEventListener("mousedown", handleUserMenuMousedown);
+    window.addEventListener("click", handleUserMenuMousedown);
 
     return () => {
-      window.removeEventListener("mousedown", handleUserMenuMousedown);
+      window.removeEventListener("click", handleUserMenuMousedown);
     }
   }, []);
 
@@ -39,7 +39,7 @@ function UserMenu({ currentUser }) {
       <div className={cx("UserSettingSection")}>
         <div className={cx("DropdownStyle__DropdownContainer")}>
           <div className={cx("DropdownStyle__DropdownWrapper")}>
-            <div className={cx("DropdownStyle__DropdownHeader")}
+            <div ref={userMenuRef} className={cx("DropdownStyle__DropdownHeader")}
               onClick={() => {
                 setShowUserMenu(!showUserMenu);
               }} >
@@ -49,7 +49,7 @@ function UserMenu({ currentUser }) {
                 <DropdownIcon className={cx("IconStyle__VerticalCenteredSvg")} />
               </span>
             </div>
-            <div ref={userMenuRef} className={cx("DropdownStyle__DropdownBody", "DropdownStyle__DropdownBody--Right")}
+            <div className={cx("DropdownStyle__DropdownBody", "DropdownStyle__DropdownBody--Right")}
               style={{ display: showUserMenu ? "block" : "none" }} >
               <Link to={"/setting"} className={cx("DropdownStyle__DropdownItemWrapper")}>
                 <div className={cx("DropdownWrapper")}>

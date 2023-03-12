@@ -1,6 +1,7 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
+import { useRef } from "react";
 import LoginForm from "./LoginForm/LoginForm";
 
 import styles from "./LoginModal.module.scss";
@@ -8,16 +9,23 @@ import styles from "./LoginModal.module.scss";
 const cx = classNames.bind(styles);
 
 function LoginModal({ handleShowLogin }) {
+  const modalRef = useRef();
+
   return (
     <div className={cx("LoginModalContainer")}>
-      <div className={cx("ModalContainer")}>
+      <div className={cx("ModalContainer")} onClick={(e) => {
+        console.log(modalRef.current);
+        if (!modalRef.current?.contains(e.target)) {
+          handleShowLogin();
+        }
+      }} >
         <div className={cx("ModalDialog")}>
-          <div className={cx("ModalContentArea")}>
+          <div ref={modalRef} className={cx("ModalContentArea")}>
             <header className={cx("ModalHeader")}>
               <h3>
                 <p className={cx("modal-title", "Large-Text")}><span>Login</span></p>
               </h3>
-              <button onClick={handleShowLogin} className={cx("UnstyleButton")} type="button">
+              <button onClick={handleShowLogin} className={cx("UnstyleButton")} title="Close" type="button">
                 <span className={cx("VerticalCenteredSvg")}> {<FontAwesomeIcon icon={faXmark} />} </span>
               </button>
             </header>

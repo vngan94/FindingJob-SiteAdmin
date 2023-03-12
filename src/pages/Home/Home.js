@@ -6,8 +6,10 @@ import StatisticDisplay from "../../components/GlintContainer/StatisticDisplay/"
 import CareersGrid from "../../components/GlintContainer/CareersGrid/";
 import PressFeatures from "../../components/GlintContainer/PressFeatures/PressFeatures";
 import Testimonial from "../../components/GlintContainer/Testimonial/Testimonial";
+import { useDocumentTitle } from "../../hooks";
 
 function Home() {
+    useDocumentTitle("Glints - Kênh Tuyển Dụng");
     return (
         <div className="Landing">
             <SearchSection />

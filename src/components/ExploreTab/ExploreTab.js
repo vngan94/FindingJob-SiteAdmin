@@ -81,7 +81,7 @@ function ExploreTab() {
               <div className={cx("CollapsibleStyle__CollapsibleContainer", "Style__Collapsible")}>
                 <div className={cx("CollapsibleStyle__CollapsibleContent")}>
                   <div className={cx("CollapsibleStyle__CollapsibleHeader")}>
-                    Loại công việc
+                    Danh mục công việc
                     <FontAwesomeIcon className={cx("IconStyle__VerticalCenteredSvg")} icon={faAngleUp} />
                   </div>
                   <div className={cx("CollapsibleStyle__CollapsibleBody")}>

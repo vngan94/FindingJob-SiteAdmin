@@ -9,6 +9,12 @@
 }
 
 .ButtonStyle__Button {
+    display: flex;
+    position: relative;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
     background-color: var(--primary-color);
     color: rgb(255, 255, 255);
     outline: none;
@@ -311,6 +317,17 @@
     font-size: 18px;
 }
 
+.ParagraphStyle__Paragraph {
+    margin: 0px;
+    font-size: 14px;
+    line-height: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    color: rgb(0, 0, 0);
+}
+
 .UnstyleButton {
     outline: none;
     border: none;
@@ -385,7 +402,6 @@
 .TagStyle__TagContainer {
     display: inline-flex;
     border: 1px solid rgb(198, 198, 198);
-    ;
     border-radius: 20px;
 }
 
@@ -548,6 +564,16 @@ div.TopFold__JobOverViewInfo a {
     margin-right: 16px;
 }
 
+.TitleStyle__Title {
+    margin: 0px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+}
+
 .ApplyButton__ApplyButton .ButtonStyle__SolidBtn {
     border-radius: 0;
 }
@@ -592,7 +618,8 @@ div.TopFold__JobOverViewInfo a {
     width: 252px;
 }
 
-.SimilarJobCard__Detail a, .SimilarJobCard__Detail a:visited{
+.SimilarJobCard__Detail a,
+.SimilarJobCard__Detail a:visited {
     position: relative;
     text-decoration: none;
     color: rgb(1, 126, 183);
@@ -647,4 +674,64 @@ div.TopFold__JobOverViewInfo a {
 .BookmarkButton__BookmarkOutlineIcon {
     width: 20px;
     height: 20px;
+}
+
+.Skills__TitleContainer {
+    margin-bottom: 16px;
+}
+
+.Skills__Title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.SkillsTagOverride {
+    display: inline-flex;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    color: rgb(0, 0, 0);
+}
+
+.SkillsTagOverride.TagStyle__TagContainer {
+    border-radius: 20px;
+    border-width: 1px;
+    border-style: solid;
+    font-size: 14px;
+    color: rgb(0, 0, 0);
+    background: rgb(243, 243, 243);
+    border-color: rgb(198, 198, 198);
+}
+
+.SkillsTagOverride .TagStyle__TagContent {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 5px 15px;
+    outline: none;
+}
+
+.JobDescriptionContainer {}
+
+.JobDescription__TitleContainer {
+    margin-bottom: 16px;
+}
+
+.JobDescription__Title {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.58;
+}
+
+/* .JobDescription__DescriptionContainer {}
+
+.DraftEditorContainer__DraftEditorContainer {}
+
+.DraftEditor-root {}
+
+.DraftEditor-editorContainer {}
+
+.public-DraftEditor-content {} */
+
+.JobDescription__ReadButton {
+    margin-top: 7px;
 }

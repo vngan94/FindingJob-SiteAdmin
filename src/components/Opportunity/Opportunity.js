@@ -1,9 +1,19 @@
-import { faBookmark, faCircle, faClock, faDollar, faHotel, faHourglassStart, faLocation, faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleUp,
+  faBookmark,
+  faCircle,
+  faClock,
+  faDollar,
+  faHotel,
+  faHourglassStart,
+  faLocation
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import { useContext } from "react";
-import { JobContext } from "../../pages/DetailJob";
 
+import { JobContext } from "../../pages/DetailJob";
+import ReadMore from "../ReadMore/ReadMore";
 import styles from "./Opportunity.module.scss";
 
 const cx = classNames.bind(styles);
@@ -74,11 +84,20 @@ function Opportunity() {
         <div className={cx("Skills__TitleContainer")}>
           <h2 className={cx("Skills__Title")}>Skills</h2>
         </div>
-        <div className={cx("TagStyle__TagContainer", "SkillsTagOverride")}>
-          <label className="TagStyle__TagContent">
+        <div className={cx("SkillsTagOverride", "TagStyle__TagContainer")}>
+          <label className={cx("TagStyle__TagContent")}>
             {job.requirement}
           </label>
         </div>
+      </div>
+      <div className={cx("JobDescriptionContainer")}>
+        <div className={cx("JobDescription__TitleContainer")}>
+          <h2 className={cx("JobDescription__Title")}>
+            Chi tiết công việc {job.name} tại {job.idCompany}
+          </h2>
+        </div>
+        {/* ReadMore here */}
+        <ReadMore text={"Mô tả công việc- Tham gia xây dựng và phát triển dự án.- Làm việc theo quy trình, các công cụ phần mềm hỗ trợ của công ty (quản lý dự án, phân công công việc…).- Nghiên cứu công nghệ và phát triển sản phẩm.- Triển khai sự kiện theo lịch phân công từ Team Leader.- Được hướng dẫn sử dụng thiết bị và các công cụ triển khai.- Đảm nhận vị trí kỹ thuật theo từng vai trò được giao.Yêu cầu ứng viên- Sinh viên năm cuối hoặc mới tốt nghiệp trung cấp, cao đẳng, đại học CNTT- Có kiến thức về lập trình về ngôn ngữ C#, Asp.net, SQL.- Có kiến thức cơ bản về html, javascript, css. AngularJS là một lợi thế. - Ưu tiên các thực tập sinh hiểu biết về ngôn ngữ Python.- Có khả năng làm việc nhóm tốt và chủ động trong công việc- Thái độ tốt, khả năng giao tiếp và xử lý tình huống tốtQuyền lợi- Có lương trợ cấp theo năng lực.- Môi trường làm việc sáng tạo, chuyên nghiệp.- Hỗ trợ phụ cấp và dấu mộc cho thực tập sinh. Cơ hội trở thành nhân viên chính thức tại công ty.- Được hưởng tất cả chế độ, quyền lợi, đãi ngộ theo quy định tại Công Ty TNHH CLOUDMEDIA- Được tham gia các khóa đào tạo nội bộ và bên ngoài nhằm trang bị, bồi dưỡng kiến thức, kỹ năng mềm phục vụ cho công việc."} />
       </div>
     </main>
     <aside className={cx("DesktopAside")}>

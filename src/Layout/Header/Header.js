@@ -26,13 +26,14 @@ function Header() {
 		const handleLanguageMenuMousedown = (e) => {
 			if (!languageRef.current?.contains(e.target)) {
 				setShowLanguageMenu(false);
+				// setShowLanguageMenu(!showLanguageMenu);
 			}
 		}
 
-		window.addEventListener("mousedown", handleLanguageMenuMousedown);
+		window.addEventListener("click", handleLanguageMenuMousedown);
 
 		return () => {
-			window.removeEventListener("mousedown", handleLanguageMenuMousedown);
+			window.removeEventListener("click", handleLanguageMenuMousedown);
 		}
 	})
 	return (
@@ -64,7 +65,7 @@ function Header() {
 							<div className={cx("language")}>
 								<div className={cx("DropdownStyle__DropdownContainer")}>
 									<div className={cx("DropdownStyle__DropdownWrapper")}>
-										<div className={cx("DropdownStyle__DropdownHeader")}
+										<div ref={languageRef} className={cx("DropdownStyle__DropdownHeader")}
 											onClick={() => {
 												setShowLanguageMenu(!showLanguageMenu);
 											}} >
@@ -75,12 +76,12 @@ function Header() {
 												<DropdownIcon className={cx("IconStyle__VerticalCenteredSvg")} />
 											</span>
 										</div>
-										<div ref={languageRef} className={cx("DropdownStyle__DropdownBody", "DropdownStyle__DropdownBody--Left")}
+										<div className={cx("DropdownStyle__DropdownBody", "DropdownStyle__DropdownBody--Left")}
 											style={{ display: showLanguageMenu ? "block" : "none" }} >
-											<Link to={"/"} className={cx("DropdownStyle__DropdownItemWrapper")}>
+											<Link to={"/en"} className={cx("DropdownStyle__DropdownItemWrapper")}>
 												Tiếng Anh
 											</Link>
-											<Link to={"/"} className={cx("DropdownStyle__DropdownItemWrapper")}>
+											<Link to={"/vi"} className={cx("DropdownStyle__DropdownItemWrapper")}>
 												Tiếng Việt
 											</Link>
 										</div>
@@ -95,7 +96,7 @@ function Header() {
 									<div className={cx("DropdownStyle__DropdownContainer")}>
 										<div>
 											<button className={cx("UnstyleButton")} aria-label="Notification"
-											type="button" >
+												type="button" >
 												<FontAwesomeIcon className={cx("IconStyle__VerticalCenteredSvg")} icon={faBell} />
 											</button>
 										</div>

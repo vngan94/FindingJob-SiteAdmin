@@ -6,11 +6,13 @@ import GlintContainer from "../../components/GlintContainer";
 import OpportunitySticky from "../../components/OpportunitySticky";
 import Opportunity from "../../components/Opportunity";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
+import { useDocumentTitle } from "../../hooks";
 
 export const JobContext = createContext();
 
 function DetailJob() {
   console.log("Render DetailJob");
+  useDocumentTitle("Chi Tiết Công Việc");
   const { _id } = useParams(); // id must match id in url
   const [job, setJob] = useState({});
   useEffect(() => {
