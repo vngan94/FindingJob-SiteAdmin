@@ -19,6 +19,7 @@ function ExploreTab() {
   const [jobList, setJobList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isPending, startTransition] = useTransition();
+  const [state, setState] = useState(false);
 
   useEffect(() => {
     const fetchApi = async () => {
@@ -78,14 +79,26 @@ function ExploreTab() {
         <div className={cx("DesktopStickyFilterContainer")}>
           <div className={cx("ModalStyle__ModalDialog")}>
             <div className={cx("Style__FilterList")}>
-              <div className={cx("CollapsibleStyle__CollapsibleContainer", "Style__Collapsible")}>
+              <div className={cx("CollapsibleStyle__CollapsibleContainer",
+                "Style__Collapsible")}>
                 <div className={cx("CollapsibleStyle__CollapsibleContent")}>
                   <div className={cx("CollapsibleStyle__CollapsibleHeader")}>
                     Danh mục công việc
-                    <FontAwesomeIcon className={cx("IconStyle__VerticalCenteredSvg")} icon={faAngleUp} />
+                    <FontAwesomeIcon className={cx("IconStyle__VerticalCenteredSvg")}
+                      icon={faAngleUp} />
                   </div>
                   <div className={cx("CollapsibleStyle__CollapsibleBody")}>
-                    body
+                    <div className={cx("Style__CheckboxContainer")}>
+                      <div className={cx("CheckboxStyle__CheckboxContainer",
+                        "Style__Checkbox")} aria-checked={state ? "true" : "false"}>
+                        <input type="checkbox" id="jobTypesINTERNSHIP" value="INTERNSHIP" />
+                        <label htmlFor="jobTypesINTERNSHIP" onClick={() => {
+                          setState(!state);
+                        }}>
+                          Thực tập
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -93,15 +106,18 @@ function ExploreTab() {
           </div>
         </div>
         <div className={cx("Box__StyledBox", "Flex__StyledFlex", "Flex")}>
-          <div className={cx("CompactJobCardList__JobCardListContainer", "Style__CompactJobCardList")}>
+          <div className={cx("CompactJobCardList__JobCardListContainer",
+            "Style__CompactJobCardList")}>
             {/* <div className="ModalStyle__ModalContainer"></div> */}
             <Suspense fallback={() => (<p>Calling...</p>)}>
               {isPending ? <p>loading...</p> : jobList.map((job, index) => {
                 return (
                   <Fragment key={job._id}>
-                    <div className={cx("JobCard_JobCardContainer", "CompactOpportunityCard__CompactJobCardWrapper")}>
+                    <div className={cx("JobCard_JobCardContainer",
+                      "CompactOpportunityCard__CompactJobCardWrapper")}>
                       <div className={cx("JobCard__JobCardWrapper")}>
-                        <Link to={`/job/${job._id}`} className={cx("CompactOpportunityCard__CardAnchorWrapper")}
+                        <Link to={`/job/${job._id}`}
+                          className={cx("CompactOpportunityCard__CardAnchorWrapper")}
                           href="/test" target="_blank" />
                         <div className={cx("CompactOpportunityCard__CompactJobCard")}>
                           <div className={cx("CompactOpportunityCard__CompactJobCardHeader")}>
