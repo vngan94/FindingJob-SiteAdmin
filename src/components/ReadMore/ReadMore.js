@@ -8,10 +8,10 @@ import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 const cx = classNames.bind(styles);
 
 function ReadMore({ text, maxLength = 300 }) {
-  const [isTruncated, setIsTruncated] = useState(true);
+  const [isTruncated, setIsTruncated] = useState(text?.length < maxLength);
   return <>
     <div>
-      <p>{isTruncated ? `${text.slice(0, maxLength)}....` : text}</p>
+      <p>{isTruncated ? `${text?.slice(0, maxLength)}....` : text}</p>
     </div>
     <div className={cx("JobDescription__ReadButton")}>
       <button type="button" className={cx("ButtonStyle__Button", "ButtonStyle__LinkBtn")}

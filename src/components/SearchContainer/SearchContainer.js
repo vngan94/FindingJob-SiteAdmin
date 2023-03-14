@@ -1,16 +1,16 @@
 import classNames from "classnames/bind";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { searchFilter } from "../../redux/filterSlice";
 
 import { SearchIcon, LocationIcon, CloseIcon } from "../Icon";
 import styles from './SearchContainer.module.scss';
 
 const cx = classNames.bind(styles);
 
-function SearchContainer({ setSearchInput }) {
+function SearchContainer() {
+  const dispatch = useDispatch();
   const [userInput, setUserInput] = useState("");
-  const handleSearch = () => {
-    setSearchInput(userInput);
-  }
   return (
     <div className={cx("Container")}>
       <div className={cx("FieldWrapper")}>
@@ -23,7 +23,8 @@ function SearchContainer({ setSearchInput }) {
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                handleSearch();
+                // handleSearch();
+                dispatch(searchFilter(userInput));
               }
             }}
           />
@@ -49,7 +50,10 @@ function SearchContainer({ setSearchInput }) {
       <div className={cx("ButtonStyle__SolidBtnContainer")}>
         <button type="button"
           className={cx("ButtonStyle__Button", "ButtonStyle__SolidBtn")}
-          onClick={handleSearch}
+          onClick={() => {
+            // handleSearch();
+            dispatch(searchFilter(userInput));
+          }}
         >TÌM KIẾM</button>
       </div>
     </div>

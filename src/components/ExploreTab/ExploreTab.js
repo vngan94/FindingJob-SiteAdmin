@@ -1,41 +1,37 @@
 import classNames from "classnames/bind";
+import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { memo, Suspense, useEffect, useState, useTransition } from "react";
 
 import styles from "./ExploreTab.module.scss";
 import GlintContainer from "../GlintContainer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import SearchContainer from "../SearchContainer";
-import { Suspense, useEffect, useState, useTransition } from "react";
 import { get } from "../../utils/axiosAPI";
 import Collapsible from "../Collapsible/Collapsible";
 import Checkbox from "../Checkbox";
 import JobList from "../JobList/JobList";
+import { selectLocationWorking, selectSearch } from "../../redux/selector";
 
 const cx = classNames.bind(styles);
 
-const address = [
-  { id: 1, label: "Hồ Chí Minh", ariaLabel: "hcm", value: "Hồ Chí Minh", checked: false },
-  { id: 2, label: "Hà Nội", ariaLabel: "hn", value: "Hà Nội", checked: false },
-  { id: 3, label: "Đà Nẵng", ariaLabel: "dn", value: "Đà Nẵng", checked: false }
-]
-
 function ExploreTab() {
   console.log("Render ExploreTab");
+  const addressArray = useSelector(selectLocationWorking);
+  const searchInput = useSelector(selectSearch);
   const [jobList, setJobList] = useState([]);
   const [isPending, startTransition] = useTransition();
-  const [searchInput, setSearchInput] = useState("");
-  const [addressState, setAddressState] = useState([]);
-  const filterJob = (searchInput) => {
+
+  const filterJob = (searchInput, addressArray) => {
+    console.log("filter job");
     const addressFilter = [];
-    address.forEach((item) => {
+    addressArray.forEach((item) => {
       if (item.checked) {
         addressFilter.push(item.value);
       }
     })
-    console.log(addressFilter);
     if (!searchInput && !addressFilter.length) {
-      console.log("Full List");
       return jobList;
     }
     if (searchInput && !addressFilter.length) {
@@ -48,7 +44,6 @@ function ExploreTab() {
         return job && inFilter(addressFilter, job.locationWorking);
       })
     }
-
     if (searchInput && addressFilter.length) {
       return jobList.filter((job) => {
         return job.name.includes(searchInput) && inFilter(addressFilter, job.locationWorking);
@@ -57,30 +52,21 @@ function ExploreTab() {
 
   }
   const inFilter = (arr, value) => {
-    console.log("value", value);
-    console.log("arr", arr);
     for (let index = 0; index < arr.length; index++) {
       const element = arr[index];
-      if (value.includes(element)) {
-        console.log("Enter True");
+      if (value?.includes(element)) {
         return true;
       }
     }
     return false;
   }
-  const result = filterJob(searchInput);
+  const result = filterJob(searchInput, addressArray);
   useEffect(() => {
     const fetchApi = async () => {
       const res = await get("job/list");
       startTransition(() => {
         setJobList(res.data);
       })
-      // axios.get("https://jsonplaceholder.typicode.com/comments")
-      //   .then((res) => {
-      //     startTransition(() => {
-      //       setJobList(res.data);
-      //     })
-      //   })
     }
     fetchApi();
   }, []);
@@ -88,7 +74,7 @@ function ExploreTab() {
     <GlintContainer className="Style__ExploreTabBody">
       <div className={cx("DesktopSearchBoxWrapper")}>
         <div className={cx("Box__StyledBox")}>
-          <SearchContainer setSearchInput={setSearchInput} />
+          <SearchContainer />
         </div>
       </div>
       {/* Tìm kiếm gần đây lưu ở local */}
@@ -116,7 +102,7 @@ function ExploreTab() {
             <label className={cx("TagStyle__TagContent")}>
               <FontAwesomeIcon icon={faSearch} />
               <span>Từ khóa hot:</span>
-              <span>Glints 5 ngày</span>
+              <span>Marketing</span>
             </label>
           </div>
         </div>
@@ -128,8 +114,8 @@ function ExploreTab() {
             <div className={cx("Style__FilterList")}>
               <Collapsible title="Thành Phố">
                 <div className={cx("Style__CheckboxContainer")}>
-                  {address.map((item) => {
-                    return <Checkbox key={item.id} obj={item} setState={setAddressState} />
+                  {addressArray.map((item) => {
+                    return <Checkbox key={item.id} obj={item} />
                   })}
                 </div>
               </Collapsible>
@@ -152,4 +138,4 @@ function ExploreTab() {
   )
 }
 
-export default ExploreTab;
+export default memo(ExploreTab);
