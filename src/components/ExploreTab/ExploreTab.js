@@ -3,24 +3,72 @@ import classNames from "classnames/bind";
 import styles from "./ExploreTab.module.scss";
 import GlintContainer from "../GlintContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleUp, faBookmark, faBriefcase, faClock, faDollarSign, faLocationDot, faSearch, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import SearchContainer from "../SearchContainer";
-import { Fragment, memo, startTransition, Suspense, useEffect, useState, useTransition } from "react";
+import { Suspense, useEffect, useState, useTransition } from "react";
 import { get } from "../../utils/axiosAPI";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import config from "../../config";
+import Collapsible from "../Collapsible/Collapsible";
+import Checkbox from "../Checkbox";
+import JobList from "../JobList/JobList";
 
 const cx = classNames.bind(styles);
+
+const address = [
+  { id: 1, label: "Hồ Chí Minh", ariaLabel: "hcm", value: "Hồ Chí Minh", checked: false },
+  { id: 2, label: "Hà Nội", ariaLabel: "hn", value: "Hà Nội", checked: false },
+  { id: 3, label: "Đà Nẵng", ariaLabel: "dn", value: "Đà Nẵng", checked: false }
+]
 
 function ExploreTab() {
   console.log("Render ExploreTab");
   const [jobList, setJobList] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [isPending, startTransition] = useTransition();
-  const [state, setState] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const [addressState, setAddressState] = useState([]);
+  const filterJob = (searchInput) => {
+    const addressFilter = [];
+    address.forEach((item) => {
+      if (item.checked) {
+        addressFilter.push(item.value);
+      }
+    })
+    console.log(addressFilter);
+    if (!searchInput && !addressFilter.length) {
+      console.log("Full List");
+      return jobList;
+    }
+    if (searchInput && !addressFilter.length) {
+      return jobList.filter((job) => {
+        return job.name.includes(searchInput);
+      })
+    }
+    if (!searchInput && addressFilter.length) {
+      return jobList.filter((job) => {
+        return job && inFilter(addressFilter, job.locationWorking);
+      })
+    }
 
+    if (searchInput && addressFilter.length) {
+      return jobList.filter((job) => {
+        return job.name.includes(searchInput) && inFilter(addressFilter, job.locationWorking);
+      })
+    }
+
+  }
+  const inFilter = (arr, value) => {
+    console.log("value", value);
+    console.log("arr", arr);
+    for (let index = 0; index < arr.length; index++) {
+      const element = arr[index];
+      if (value.includes(element)) {
+        console.log("Enter True");
+        return true;
+      }
+    }
+    return false;
+  }
+  const result = filterJob(searchInput);
   useEffect(() => {
     const fetchApi = async () => {
       const res = await get("job/list");
@@ -35,16 +83,15 @@ function ExploreTab() {
       //   })
     }
     fetchApi();
-    setLoading(false);
   }, []);
-
   return (
     <GlintContainer className="Style__ExploreTabBody">
       <div className={cx("DesktopSearchBoxWrapper")}>
         <div className={cx("Box__StyledBox")}>
-          <SearchContainer />
+          <SearchContainer setSearchInput={setSearchInput} />
         </div>
       </div>
+      {/* Tìm kiếm gần đây lưu ở local */}
       <div className={cx("Style__Container")}>
         <div className={cx("Style__ItemWrapper")}>
           <div className={cx("TagStyle__TagContainer")}>
@@ -74,34 +121,18 @@ function ExploreTab() {
           </div>
         </div>
       </div>
-      <h1 className={cx("JobCount")}>{jobList.length} việc làm tại Vietnam</h1>
+      <h1 className={cx("JobCount")}>{result.length} việc làm tại Vietnam</h1>
       <div className={cx("Body")}>
         <div className={cx("DesktopStickyFilterContainer")}>
           <div className={cx("ModalStyle__ModalDialog")}>
             <div className={cx("Style__FilterList")}>
-              <div className={cx("CollapsibleStyle__CollapsibleContainer",
-                "Style__Collapsible")}>
-                <div className={cx("CollapsibleStyle__CollapsibleContent")}>
-                  <div className={cx("CollapsibleStyle__CollapsibleHeader")}>
-                    Danh mục công việc
-                    <FontAwesomeIcon className={cx("IconStyle__VerticalCenteredSvg")}
-                      icon={faAngleUp} />
-                  </div>
-                  <div className={cx("CollapsibleStyle__CollapsibleBody")}>
-                    <div className={cx("Style__CheckboxContainer")}>
-                      <div className={cx("CheckboxStyle__CheckboxContainer",
-                        "Style__Checkbox")} aria-checked={state ? "true" : "false"}>
-                        <input type="checkbox" id="jobTypesINTERNSHIP" value="INTERNSHIP" />
-                        <label htmlFor="jobTypesINTERNSHIP" onClick={() => {
-                          setState(!state);
-                        }}>
-                          Thực tập
-                        </label>
-                      </div>
-                    </div>
-                  </div>
+              <Collapsible title="Thành Phố">
+                <div className={cx("Style__CheckboxContainer")}>
+                  {address.map((item) => {
+                    return <Checkbox key={item.id} obj={item} setState={setAddressState} />
+                  })}
                 </div>
-              </div>
+              </Collapsible>
             </div>
           </div>
         </div>
@@ -110,80 +141,7 @@ function ExploreTab() {
             "Style__CompactJobCardList")}>
             {/* <div className="ModalStyle__ModalContainer"></div> */}
             <Suspense fallback={() => (<p>Calling...</p>)}>
-              {isPending ? <p>loading...</p> : jobList.map((job, index) => {
-                return (
-                  <Fragment key={job._id}>
-                    <div className={cx("JobCard_JobCardContainer",
-                      "CompactOpportunityCard__CompactJobCardWrapper")}>
-                      <div className={cx("JobCard__JobCardWrapper")}>
-                        <Link to={`/job/${job._id}`}
-                          className={cx("CompactOpportunityCard__CardAnchorWrapper")}
-                          href="/test" target="_blank" />
-                        <div className={cx("CompactOpportunityCard__CompactJobCard")}>
-                          <div className={cx("CompactOpportunityCard__CompactJobCardHeader")}>
-                            <div className={cx("CompactOpportunityCard__CompanyAvatarWrapper")}>
-                              <img className={cx("CompactOpportunityCard__CompanyAvatar")}
-                                alt="Company Avatar"
-                                src="/static/images/defaultImageCompany.webp" />
-                            </div>
-                            <div className={cx("CompactOpportunityCard__CompactJobCardInfo")}>
-                              <h3 className={cx("CompactOpportunityCard__JobTitle")}>
-                                {job.name}
-                              </h3>
-                              <span className={cx("CompactOpportunityCard__CompanyLinkContainer")}>
-                                <div className={cx("CompactOpportunityCard__Ellipsis")}>
-                                  <a className={cx("CompactOpportunityCard__CompanyLink")}
-                                    href="www.google.com" >
-                                    {/* code findOne company here */}
-                                    {job.idCompany}
-                                  </a>
-                                </div>
-                              </span>
-                            </div>
-                            <div>
-                              {(index < 4) ?
-                                <div className={cx("CheckMarkHotJobBadge__CheckMarkHotJobBadgeContainer")}>
-                                  <span>HOT</span>
-                                  <FontAwesomeIcon icon={faStar}
-                                    className={cx("IconStyle__VerticalCenteredSvg")} />
-                                </div> : ""}
-                              <div className={cx("CompactOpportunityCard__BookmarkIconContainer")}>
-                                <div className={cx("BookmarkButton__ButtonWrapper")}>
-                                  <FontAwesomeIcon icon={faBookmark} />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className={cx("CompactOpportunityCard__OpportunityInfoContainer")}>
-                            <div className={cx("CompactOpportunityCard__OpportunityInfo")}>
-                              <FontAwesomeIcon icon={faLocationDot} />
-                              <span>{job.locationWorking}</span>
-                            </div>
-                            <div className={cx("CompactOpportunityCard__OpportunityInfo")}>
-                              <FontAwesomeIcon icon={faDollarSign} />
-                              <span>{job.salary}</span>
-                            </div>
-                            <div className={cx("CompactOpportunityCard__OpportunityInfo")}>
-                              <FontAwesomeIcon icon={faBriefcase} />
-                              <span>Kinh nghiệm công việc</span>
-                            </div>
-                          </div>
-                          <div className={cx("CompactOpportunityCard__OpportunityMeta")}>
-                            <div className={cx("CompactOpportunityCard__CardBottomFlexContainer")}>
-                              <div className={cx("CompactOpportunityCard__UpdatedTimeContainer")}>
-                                <FontAwesomeIcon className={cx("IconStyle__VerticalCenteredSvg")} icon={faClock} />
-                                <span className={cx("CompactOpportunityCard__UpdatedAtMessage")}>
-                                  {new Date(job.postingDate).toLocaleString()}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Fragment>
-                )
-              })}
+              {isPending ? <p>loading...</p> : <JobList jobList={result} />}
             </Suspense>
           </div>
           <div className={cx("InfiniteScroll_InfiniteScrollContainer")}></div>

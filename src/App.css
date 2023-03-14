@@ -307,49 +307,7 @@
     font-weight: 700;
 }
 
-.CheckboxStyle__CheckboxContainer {
-    display: inline-flex;
-    font-size: 14px;
-}
 
-.CheckboxStyle__CheckboxContainer input {
-    display: none;
-}
-
-.CheckboxStyle__CheckboxContainer label {
-    position: relative;
-    display: flex;
-    cursor: pointer;
-}
-
-.CheckboxStyle__CheckboxContainer label::before {
-    content: "";
-    position: relative;
-    display: inline-block;
-    width: 1.29em;
-    height: 1.29em;
-    margin-right: 10px;
-    border: 1px solid rgb(119, 119, 119);
-    border-radius: 4px;
-}
-
-.CheckboxStyle__CheckboxContainer[aria-checked=true] label::before {
-    background-color: rgb(0, 132, 100);
-}
-
-.CheckboxStyle__CheckboxContainer[aria-checked=true] label::after {
-    content: "";
-    position: absolute;
-    display: block;
-    border: solid rgb(255, 255, 255);
-
-    top: 0;
-    left: 0.45em;
-    width: 0.43em;
-    height: 0.86em;
-    border-width: 0px 0.143em 0.143em 0px;
-    transform: rotate(45deg);
-}
 
 .GlintContainer {
     position: relative;
@@ -429,29 +387,7 @@
     margin-bottom: 8px;
 }
 
-.CollapsibleStyle__CollapsibleContainer {
-    color: black;
-    background-color: rgb(255, 255, 255);
-    cursor: pointer;
-}
 
-.CollapsibleStyle__CollapsibleContent {
-    outline: none;
-}
-
-.CollapsibleStyle__CollapsibleHeader {
-    padding: 16px 0px;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    align-items: center;
-}
-
-.CollapsibleStyle__CollapsibleBody {
-    padding: 0px 0px 16px;
-    cursor: default;
-}
 
 .TagStyle__TagContainer {
     display: inline-flex;
