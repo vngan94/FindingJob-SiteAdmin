@@ -341,49 +341,49 @@
     font-size: 20px;
 }
 
-.Style__ExploreTabBody {
+.styles__ExploreTabBody {
     padding-top: 24px;
 }
 
-.Style__Container {
+.styles__Container {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     -webkit-box-align: center;
 }
 
-.Style__ItemWrapper {
+.styles__ItemWrapper {
     margin-right: 8px;
     margin-bottom: 8px;
 }
 
-.Style__SearchTypeLabel {
+.styles__SearchTypeLabel {
     font-size: 14px;
 }
 
-.Style__SearchKeywordLabel {
+.styles__SearchKeywordLabel {
     margin-left: 4px;
     text-transform: capitalize;
 }
 
-.Style__CompactJobCardList {
+.styles__CompactJobCardList {
     gap: 12px 16px;
 }
 
-.Style__FilterList {
+.styles__FilterList {
     padding: 0px 16px;
 }
 
-.Style__Collapsible {
+.styles__Collapsible {
     border-bottom: 1px solid rgba(198, 198, 198, 0.6);
 }
 
-.Style__CheckboxContainer {
+.styles__CheckboxContainer {
     display: flex;
     flex-flow: column;
 }
 
-.Style__Checkbox {
+.styles__Checkbox {
     margin-bottom: 8px;
 }
 

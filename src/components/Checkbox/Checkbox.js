@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 function Checkbox({ obj }) {
   const dispatch = useDispatch();
   return (
-    <div className={cx("CheckboxContainer", "Style__Checkbox")}
+    <div className={cx("CheckboxContainer", "styles__Checkbox")}
       aria-label={obj?.ariaLabel} tabIndex="0"
       aria-checked={obj?.checked ? "true" : "false"}
     >

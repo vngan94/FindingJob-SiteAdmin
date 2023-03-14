@@ -5,6 +5,8 @@ import Blog from "../pages/Blog/";
 import config from "../config";
 import DetailJob from "../pages/DetailJob";
 import ErrorPage from "../pages/ErrorPage";
+import SignUp from "../pages/SignUp";
+import HeaderOnly from "../Layout/HeaderOnly";
 
 export const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -14,6 +16,7 @@ export const publicRoutes = [
     // {path: "/test", component: Test, layout: HeaderOnly}
     { path: config.routes.job, component: Job },
     { path: config.routes.detailJob, component: DetailJob },
+    { path: config.routes.signUp, component: SignUp, layout: HeaderOnly },
 ];
 
 // must login
