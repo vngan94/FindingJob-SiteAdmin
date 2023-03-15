@@ -1,0 +1,23 @@
+.global__Background{
+    background-image: url("../../../public/static/images/oval.svg");
+    background-repeat: no-repeat;
+    background-position: bottom right -5em;
+    background-size: 200px;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.SignUpPage__Title{
+    position: relative;
+    top: 4em;
+    text-align: center;
+}
+.signupWithEmail__SignUpWrapper{
+    // position: relative;
+    max-width: 800px;
+    margin: 10em auto 2em;
+}
+.signupWithEmail__SignUpTwoCols{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}

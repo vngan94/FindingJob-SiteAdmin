@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, redirect, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import styles from './Header.module.scss';
@@ -19,8 +19,12 @@ function Header() {
 	const [showLogin, setShowLogin] = useState(false);
 	const [showLanguageMenu, setShowLanguageMenu] = useState(false);
 	const languageRef = useRef();
+	const navigate = useNavigate();
 	const handleShowLogin = () => {
 		setShowLogin(!showLogin);
+	}
+	const handleSignUp = () => {
+		navigate(config.routes.signUp);
 	}
 	useEffect(() => {
 		const handleLanguageMenuMousedown = (e) => {
@@ -107,13 +111,12 @@ function Header() {
 								</div>
 							</>
 							: <>
-								<div className={cx("MenuItem")}>đăng ký</div>
+								<div onClick={handleSignUp} className={cx("MenuItem")}>đăng ký</div>
 								<div onClick={handleShowLogin} className={cx("MenuItem")}>đăng nhập</div>
 								<div className={cx("EmployersButton")}>
 									<Link
 										to={config.routes.recruitment}
-										target="_blank"
-									>
+										target="_blank" >
 										dành cho nhà tuyển dụng
 										<span><RightArrowIcon className={cx("EndIconContainer")} /></span>
 									</Link>
