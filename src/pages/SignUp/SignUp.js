@@ -7,6 +7,8 @@ import Alerts__ErrorMessage from "../../components/Alerts__ErrorMessage";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { post } from "../../utils/axiosAPI";
+import { login } from "../../services/authService";
+import { useDispatch } from "react-redux";
 
 const cx = classNames.bind(styles);
 
@@ -14,6 +16,7 @@ function SignUp() {
   console.log("Render SignUp");
   useDocumentTitle("Sign-up");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     fullName: "",
     username: "",
@@ -69,9 +72,12 @@ function SignUp() {
         role: "user",
         username: formData.username
       });
-      console.log(res);
-      navigate("/");
+      alert(res.message);
       // toast message and set state current user
+      login({
+        username: formData.username,
+        password: formData.password
+      }, dispatch, navigate);
     } catch (error) {
       console.log(error.response.data);
       setResError(error.response.data.message);

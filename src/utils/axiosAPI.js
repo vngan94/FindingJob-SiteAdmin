@@ -15,8 +15,10 @@ export const post = async (path, data = {}, config = {}) => {
 }
 
 export const path = {
+  // auth
   login: "auth/login",
   register: "auth/register"
+  // job
 }
 
 export default instance;
