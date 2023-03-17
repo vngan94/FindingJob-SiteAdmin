@@ -5,7 +5,7 @@ const routes = {
     company: "/company",
     blog: "/blog",
     signUp: "/sign-up",
-    recruitment: "https://www.google.com/",
+    recruitment: "https://employers.glints.vn/",
     error: "*",
     // private
     job: "/job",

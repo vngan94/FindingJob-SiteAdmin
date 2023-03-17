@@ -13,6 +13,7 @@ import Collapsible from "../Collapsible/Collapsible";
 import Checkbox from "../Checkbox";
 import JobList from "../JobList/JobList";
 import { selectLocationWorking, selectSearch } from "../../redux/selector";
+import { element } from "prop-types";
 
 const cx = classNames.bind(styles);
 
@@ -22,6 +23,10 @@ function ExploreTab() {
   const searchInput = useSelector(selectSearch);
   const [jobList, setJobList] = useState([]);
   const [isPending, startTransition] = useTransition();
+  const pastJobSearch = [
+    { id: 1, label: "Tìm kiếm gần đây:", keyword: "Reactjs" },
+    { id: 2, label: "Tìm kiếm gần đây:", keyword: "Marketing" },
+  ]
 
   const filterJob = (searchInput, addressArray) => {
     console.log("filter job");
@@ -79,24 +84,17 @@ function ExploreTab() {
       </div>
       {/* Tìm kiếm gần đây lưu ở local */}
       <div className={cx("styles__Container")}>
-        <div className={cx("styles__ItemWrapper")}>
-          <div className={cx("TagStyle__TagContainer")}>
-            <label className={cx("TagStyle__TagContent")}>
-              <FontAwesomeIcon icon={faSearch} />
-              <span className={cx("Style_SearchTypeLabel")}>Tìm kiếm gần đây:</span>
-              <span className={cx("styles__SearchKeywordLabel")}>Reactjs</span>
-            </label>
+        {pastJobSearch.map((element) => (
+          <div key={element.id} className={cx("styles__ItemWrapper")}>
+            <div className={cx("TagStyle__TagContainer")}>
+              <label className={cx("TagStyle__TagContent")}>
+                <FontAwesomeIcon icon={faSearch} />
+                <span className={cx("Style_SearchTypeLabel")}>{element.label}</span>
+                <span className={cx("styles__SearchKeywordLabel")}>{element.keyword}</span>
+              </label>
+            </div>
           </div>
-        </div>
-        <div className={cx("styles__ItemWrapper")}>
-          <div className={cx("TagStyle__TagContainer")}>
-            <label className={cx("TagStyle__TagContent")}>
-              <FontAwesomeIcon icon={faSearch} />
-              <span>Từ khóa hot:</span>
-              <span>Marketing</span>
-            </label>
-          </div>
-        </div>
+        ))}
         <div className={cx("styles__ItemWrapper")}>
           <div className={cx("TagStyle__TagContainer")}>
             <label className={cx("TagStyle__TagContent")}>
@@ -107,6 +105,7 @@ function ExploreTab() {
           </div>
         </div>
       </div>
+      {/* end past job search */}
       <h1 className={cx("JobCount")}>{result.length} việc làm tại Vietnam</h1>
       <div className={cx("Body")}>
         <div className={cx("DesktopStickyFilterContainer")}>

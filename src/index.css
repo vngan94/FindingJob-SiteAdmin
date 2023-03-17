@@ -38,7 +38,21 @@ body {
     box-sizing: border-box;
 }
 
+::before,
+::after {
+    box-sizing: border-box;
+}
+
 /* custom css */
 input[type="password"]::-ms-reveal {
     display: none;
+}
+
+a,
+a:visited {
+    text-decoration: none;
+}
+
+a {
+    color: var(--primary-color);
 }

@@ -5,19 +5,20 @@ import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import styles from "./LoginForm.module.scss";
-import { loginSuccess } from "../../../redux/authSlice";
-import { get, post } from "../../../utils/axiosAPI";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../../services/authService";
 
 const cx = classNames.bind(styles);
 
 function LoginForm({ handleShowLogin }) {
+  console.log("Render Login Form");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const usernameRef = useRef();
@@ -29,7 +30,7 @@ function LoginForm({ handleShowLogin }) {
   const handleLogin = (e) => {
     e.preventDefault();
     if (username === "") {
-      setUsernameError("Chưa nhập tài khoản");
+      setUsernameError("Chưa nhập tài khoản"); // set many time cause re-render
       usernameRef.current.focus();
       return;
     }
@@ -38,19 +39,15 @@ function LoginForm({ handleShowLogin }) {
       passwordRef.current.focus();
       return;
     }
-
-    const login = async () => {
-      try {
-        const res = await post("auth/login", { username, password });
-        console.log(res);
-        dispatch(loginSuccess(res.data));
+    const loginRequest = async () => {
+      const hasErr = await login({ username, password }, dispatch, navigate);
+      if (hasErr) {
+        setErrorMessage(hasErr);
+      }else{
         handleShowLogin();
-      } catch (error) {
-        console.log(error.response.data);
-        setErrorMessage(error.response.data.message);
       }
     }
-    login();
+    loginRequest();
   }
   return (
     <div className={cx("Body")}>
