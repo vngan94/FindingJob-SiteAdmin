@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { post } from "../../utils/axiosAPI";
 import { login } from "../../services/authService";
 import { useDispatch } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 
 const cx = classNames.bind(styles);
 
@@ -72,8 +73,9 @@ function SignUp() {
         role: "user",
         username: formData.username
       });
-      alert(res.message);
-      // toast message and set state current user
+      toast(res.message, {
+        position: "top-center"
+      });
       login({
         username: formData.username,
         password: formData.password

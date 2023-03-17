@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 import styles from "./LoginForm.module.scss";
 import { useNavigate } from "react-router-dom";
@@ -43,7 +45,10 @@ function LoginForm({ handleShowLogin }) {
       const hasErr = await login({ username, password }, dispatch, navigate);
       if (hasErr) {
         setErrorMessage(hasErr);
-      }else{
+      } else {
+        toast("Đăng nhập thành công!", {
+          position: "top-center"
+        });
         handleShowLogin();
       }
     }
