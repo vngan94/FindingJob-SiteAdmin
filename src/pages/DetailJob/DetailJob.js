@@ -30,6 +30,7 @@ function DetailJob() {
         <Opportunity />
       </GlintContainer>
       <OpportunitySticky />
+      {/* modal here */}
     </JobContext.Provider>
   </>
 }

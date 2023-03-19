@@ -21,7 +21,7 @@ function OpportunitySticky() {
             <div className={cx("BadgesAndCompanyInfoContainer")}>
               <div className={cx("JobOverViewCompanyInfo")}>
                 <div className={cx("JobOverViewCompanyName")}>
-                  <a href="/company/sadsdas">{job.idCompany}</a>
+                  <a href="/company/sadsdas">{job?.idCompany?.name}</a>
                 </div>
               </div>
             </div>

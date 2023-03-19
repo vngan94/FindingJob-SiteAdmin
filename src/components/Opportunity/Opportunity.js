@@ -36,7 +36,7 @@ function Opportunity() {
             </div>
             <div className={cx("TopFold__JobOverViewCompanyInfo")}>
               <div className={cx("TopFold__JobOverViewCompanyName")}>
-                <a href="https://www.google.com">{job.idCompany}</a>
+                <a href="https://www.google.com">{job?.idCompany?.name}</a>
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@ function Opportunity() {
         </div>
         <div className={cx("TopFold__JobOverViewInfo")}>
           <FontAwesomeIcon className={cx("IconStyle__VerticalCenteredSvg")} icon={faHotel} />
-          <a href="https://google.com">{job.idOccupation}</a>
+          <a href="https://google.com">{job?.idOccupation?.name}</a>
         </div>
         <div className={cx("TopFold__JobOverViewInfo")}>
           <FontAwesomeIcon className={cx("IconStyle__VerticalCenteredSvg")} icon={faHourglassStart} />
@@ -93,7 +93,7 @@ function Opportunity() {
       <div className={cx("JobDescriptionContainer")}>
         <div className={cx("JobDescription__TitleContainer")}>
           <h2 className={cx("JobDescription__Title")}>
-            Chi tiết công việc {job.name} tại {job.idCompany}
+            Chi tiết công việc {job.name} tại {job?.idCompany?.name}
           </h2>
         </div>
         {/* ReadMore here */}

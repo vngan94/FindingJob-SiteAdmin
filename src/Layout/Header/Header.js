@@ -93,8 +93,8 @@ function Header() {
 								</div>
 							</div>
 						</div>
-						{currentUser
-							? <>
+						{currentUser ?
+							<>
 								<div className={cx("UserMenuItem")}>
 									{/* chuaw code xong */}
 									<div className={cx("DropdownStyle__DropdownContainer")}>
@@ -109,8 +109,8 @@ function Header() {
 								<div className={cx("UserMenuItem")}>
 									{<UserMenu currentUser={currentUser} />}
 								</div>
-							</>
-							: <>
+							</> :
+							<>
 								<div onClick={handleSignUp} className={cx("MenuItem")}>đăng ký</div>
 								<div onClick={handleShowLogin} className={cx("MenuItem")}>đăng nhập</div>
 								<div className={cx("EmployersButton")}>
