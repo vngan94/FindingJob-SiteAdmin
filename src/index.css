@@ -21,6 +21,7 @@ html {
 ::-webkit-scrollbar-thumb {
     background: var(--primary-color);
     border-radius: 8px;
+    transition: color 0.2s ease 0s;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -30,6 +31,7 @@ html {
 body {
     font-family: 'Poppins', sans-serif;
     /* overflow-y: overlay; */
+    overflow-x: hidden;
 }
 
 * {

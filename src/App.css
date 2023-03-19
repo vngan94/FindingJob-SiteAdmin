@@ -613,7 +613,7 @@ div.TopFold__JobOverViewInfo a {
     position: relative;
     text-decoration: none;
     color: rgb(1, 126, 183);
-    z-index: 100;
+    z-index: 1;
 }
 
 .SimilarJobCard__Title {

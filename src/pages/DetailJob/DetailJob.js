@@ -16,6 +16,7 @@ function DetailJob() {
   useDocumentTitle("Chi Tiết Công Việc");
   const [showPsychFlat, setShowPsychFlat] = useState(false);
   const handleShowPsychFlat = () => {
+    // check user then login then redirect
     setShowPsychFlat(!showPsychFlat);
   }
   const { _id } = useParams(); // id must match id in url
