@@ -16,10 +16,10 @@ function LoginModal({ handleShowLogin }) {
 
   return (
     <div className={cx("LoginModalContainer")}>
-      <ModalContainer handleShowLogin={handleShowLogin} modalRef={modalRef}>
+      <ModalContainer handleShowModal={handleShowLogin} modalRef={modalRef}>
         <ModalDialog>
           <ModalContentArea modalRef={modalRef}>
-            <ModalHeader header="Login" handleShowLogin={handleShowLogin} />
+            <ModalHeader header="Login" handleShowModal={handleShowLogin} />
             <ModalBody>
               <div className={cx("Large-Text")}
                 style={{ padding: " 20px 20px 0px" }} >

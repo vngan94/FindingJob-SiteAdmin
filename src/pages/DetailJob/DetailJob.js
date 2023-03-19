@@ -7,12 +7,17 @@ import OpportunitySticky from "../../components/OpportunitySticky";
 import Opportunity from "../../components/Opportunity";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
 import { useDocumentTitle } from "../../hooks";
+import PsychFlatModal from "../../components/PsychFlatModal";
 
 export const JobContext = createContext();
 
 function DetailJob() {
   console.log("Render DetailJob");
   useDocumentTitle("Chi Tiết Công Việc");
+  const [showPsychFlat, setShowPsychFlat] = useState(false);
+  const handleShowPsychFlat = () => {
+    setShowPsychFlat(!showPsychFlat);
+  }
   const { _id } = useParams(); // id must match id in url
   const [job, setJob] = useState({});
   useEffect(() => {
@@ -27,10 +32,11 @@ function DetailJob() {
       {/* breadcrumpm has not completed yet */}
       <BreadCrump />
       <GlintContainer>
-        <Opportunity />
+        <Opportunity openModal={handleShowPsychFlat} />
       </GlintContainer>
-      <OpportunitySticky />
+      <OpportunitySticky openModal={handleShowPsychFlat} />
       {/* modal here */}
+      {showPsychFlat && <PsychFlatModal handleShowPsychFlat={handleShowPsychFlat} />}
     </JobContext.Provider>
   </>
 }

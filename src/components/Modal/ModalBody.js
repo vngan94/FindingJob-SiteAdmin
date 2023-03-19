@@ -4,9 +4,9 @@ import styles from "./Modal.module.scss";
 
 const cx = classNames.bind(styles);
 
-function ModalBody({ children }) {
+function ModalBody({ className, children }) {
   return (
-    <section className={cx("ModalBody")}>
+    <section className={cx("ModalBody", { [className]: className })}>
       {children}
     </section>
   )

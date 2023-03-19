@@ -68,7 +68,7 @@ function ExploreTab() {
   const result = filterJob(searchInput, addressArray);
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await get("job/list");
+      const res = await get("job/list/sort-by-date");
       startTransition(() => {
         setJobList(res.data);
       })
