@@ -3,6 +3,12 @@ import classNames from "classnames/bind";
 import styles from "./PasswordReset.module.scss";
 import { TextFieldContainer, TextFieldInput, TextFieldLabel } from "../TextFieldStyle";
 import Paragraph from "../ParagraphStyle/Paragraph";
+import {
+  GhostBtn,
+  GhostBtnContainer,
+  SolidBtnContainer,
+  SolidButton
+} from "../ButtonStyle";
 
 const cx = classNames.bind(styles);
 
@@ -17,7 +23,7 @@ function PasswordReset() {
           Bạn quên mật khẩu?
         </h3>
         <div className={cx("FormContainer")}>
-          <form novalidate="" onSubmit={handleSubmit}>
+          <form noValidate onSubmit={handleSubmit}>
             <TextFieldContainer className={"aries-textfield"}>
               <TextFieldInput type="email" name="email" ariaLabel="Địa chỉ email"
                 placeholder={"Địa chỉ email"} />
@@ -25,26 +31,26 @@ function PasswordReset() {
                 Địa chỉ email
               </TextFieldLabel>
             </TextFieldContainer>
-            <p class="ParagraphStyles__Paragraph aries-typography-paragraph" color="#EC272B">
-              Địa chỉ e-mail là bắt buộc
-            </p>
             <Paragraph color="#EC272B"
               className={cx("aries-typography-paragraph", "FieldError")}>
-              lorem
+              {"Địa chỉ e-mail là bắt buộc"}
             </Paragraph>
-            <p className={cx("ParagraphStyles__Paragraph aries-typography-paragraph FieldDescription")} color="#000000">
+            <Paragraph color="#000000"
+              className={cx("aries-typography-paragraph", "FieldDescription")} >
               Nhập địa chỉ email của bạn và chúng tôi sẽ gửi cho bạn một liên kết để đặt lại mật khẩu của bạn.
-            </p>
-            <div className={cx("ButtonStyle__SolidBtnContainer aries-solid-btn SubmitBtn")}>
-              <button className={cx("ButtonStyle__Button ButtonStyle__SolidBtn solid-btn-content")} type="submit">
+            </Paragraph>
+            <SolidBtnContainer className={cx("aries-solid-btn", "SubmitBtn")}>
+              <SolidButton type="submit"
+                className={cx("solid-btn-content")}>
                 Gửi email
-              </button>
-            </div>
-            <div className={cx("ButtonStyle__GhostBtnContainer aries-ghostbtn SubmitBtn")}>
-              <button className={cx("ButtonStyle__Button ButtonStyle__GhostBtn ghostbtn-content")} type="button">
+              </SolidButton>
+            </SolidBtnContainer>
+            <GhostBtnContainer className={cx("aries-ghostbtn", "SubmitBtn")}>
+              <GhostBtn type="button"
+                className={cx("ghostbtn-content")}>
                 Back
-              </button>
-            </div>
+              </GhostBtn>
+            </GhostBtnContainer>
           </form>
         </div>
       </section>
