@@ -5,6 +5,14 @@ import Blog from "../pages/Blog/";
 import config from "../config";
 import DetailJob from "../pages/DetailJob";
 import ErrorPage from "../pages/ErrorPage";
+import HomeCompany from "../pages/HomeComany/HomeCompany";
+import AddPost from "../pages/post/AddPost";
+import PostList from "../pages/post/PostList";
+import EditPost from "../pages/post/EditPost";
+import Post from "../pages/post/Post";
+import Login from "../pages/login/Login";
+import Register from "../pages/register/Register";
+import ApplicationList from "../pages/applicationList/ApplicationList";
 
 export const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -14,6 +22,17 @@ export const publicRoutes = [
     // {path: "/test", component: Test, layout: HeaderOnly}
     { path: config.routes.job, component: Job },
     { path: config.routes.detailJob, component: DetailJob },
+
+    // company
+    { path: config.routes.recruitment, component: HomeCompany, layout: null},
+    { path: config.routes.login, component: Login, layout: null},
+    { path: config.routes.addPost, component: AddPost, layout: null},
+    { path: config.routes.posts, component: PostList, layout: null},
+    { path: config.routes.editPost, component: EditPost, layout: null},
+    { path: config.routes.post, component: Post, layout: null},
+    { path: config.routes.applications, component: ApplicationList, layout: null},
+    { path: config.routes.register, component: Register, layout: null},
+    
 ];
 
 // must login

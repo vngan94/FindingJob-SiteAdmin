@@ -5,10 +5,22 @@ const routes = {
     detailJob: "/job/:_id",
     company: "/company",
     blog: "/blog",
-    recruitment: "https://www.google.com/",
     error: "*",
     // private
     test: "test",
+
+    // company
+    recruitment: "/reCompany",
+    addPost: "/addPost",
+    posts: "/posts",
+    editPost: "/editPost/:id",
+    post:"/post/:id",
+    applications: ":id/applications",
+    login: "/recLogin",
+    register: "/recRegister",
+
+    
+
 }
 
 export default routes;

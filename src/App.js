@@ -6,6 +6,7 @@ import './App.css';
 import { privateRoutes, publicRoutes } from './routes/routes';
 import DefaultLayout from './Layout/DefaultLayout';
 import { selectUser } from './redux/selector';
+import { Fragment } from 'react';
 
 const ProtectedRoute = ({ user, redirectPath = '/' }) => {
 	if (!user) {
@@ -23,7 +24,7 @@ function App() {
 				<Routes>
 					{/* public routes */}
 					{publicRoutes.map((route, index) => {
-						const Layout = route.layout ?? DefaultLayout; // null or undefined
+						const Layout = route.layout === null ? Fragment: DefaultLayout; // null or undefined
 						const Page = route?.component;
 						return (
 							<Route key={index} path={route.path}

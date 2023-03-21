@@ -1,0 +1,48 @@
+.others {
+    position: relative;
+    /* top: 50px; */
+    left: 230px;
+    /* height: calc(100vh - (135px)); */
+    height: 460px;
+    width: calc(100% - (270px));
+    margin: 0 20px 20px; 
+}
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.userListUser {
+    display: flex;
+    align-items: center;
+}
+
+.userListImg {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+.action {
+    display: flex;
+    align-items: center;
+    
+}
+.btnEdit {
+    border: none;
+    border-radius: 10px;
+    background-color: darkblue;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: white;
+}
+.delete {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.breaking {
+    border: 1px solid #e6e2e2;
+    margin: 0px 404px 25px 404px;
+    
+}
