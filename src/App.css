@@ -546,16 +546,6 @@ div.TopFold__JobOverViewInfo a {
     margin-right: 16px;
 }
 
-.TitleStyles__Title {
-    margin: 0px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: normal;
-    color: rgb(0, 0, 0);
-    font-size: 30px;
-}
-
 .ApplyButton__ApplyButton .ButtonStyle__SolidBtn {
     border-radius: 0;
 }

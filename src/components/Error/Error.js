@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 
 import styles from "./Error.module.scss";
 import GlintContainer from "../GlintContainer";
+import { SolidBtnContainer, SolidButton } from "../ButtonStyle";
 
 const cx = classNames.bind(styles);
 
@@ -20,6 +21,11 @@ function Error() {
             Quay Lại Trang Chủ
           </a>
         </div>
+        <SolidBtnContainer>
+          <SolidButton>
+          Quay Lại Trang Chủ
+          </SolidButton>
+        </SolidBtnContainer>
       </div>
     </div>
   </GlintContainer>

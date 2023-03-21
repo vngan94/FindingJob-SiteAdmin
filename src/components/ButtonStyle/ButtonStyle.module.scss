@@ -44,7 +44,7 @@
 }
 
 .GhostBtn {
-    transition: background-color 0.5s ease 0s;
+    // transition: background-color 0.5s ease 0s;
     width: 100%;
     background: rgb(255, 255, 255);
     padding: 8px 18px;
@@ -54,7 +54,7 @@
 }
 
 .GhostBtn:hover {
-    transition: background-color 0.5s ease 0s;
+    // transition: background-color 0.5s ease 0s;
     text-decoration: none;
     background-color: var(--primary-color);
     color: rgb(255, 255, 255);

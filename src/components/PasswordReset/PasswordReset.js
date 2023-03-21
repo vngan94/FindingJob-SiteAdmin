@@ -9,6 +9,7 @@ import {
   SolidBtnContainer,
   SolidButton
 } from "../ButtonStyle";
+import Title from "../TitleStyle/Title";
 
 const cx = classNames.bind(styles);
 
@@ -19,9 +20,10 @@ function PasswordReset() {
   return (
     <div className={cx("GlintContainer")}>
       <section className={cx("Section")}>
-        <h3 className={cx("TitleStyles__Title", "aries-typography-title", "Title")} color="#000000">
+        <Title As="h3"
+          className={cx("aries-typography-title", "Title")} >
           Bạn quên mật khẩu?
-        </h3>
+        </Title>
         <div className={cx("FormContainer")}>
           <form noValidate onSubmit={handleSubmit}>
             <TextFieldContainer className={"aries-textfield"}>

@@ -45,6 +45,7 @@ function PsychFlatModal({ handleShowPsychFlat }) {
               </div>
             </div>
             <form onSubmit={handleSubmit}>
+              <input style={{display: "none"}} />
               <section className={cx("Section")}>
                 <p className={cx(
                   "ParagraphStyle__Paragraph",
