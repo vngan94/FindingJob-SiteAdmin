@@ -6,7 +6,11 @@ import './App.css';
 import { privateRoutes, publicRoutes } from './routes/routes';
 import DefaultLayout from './Layout/DefaultLayout';
 import { selectUser } from './redux/selector';
+<<<<<<< HEAD
 import { Fragment } from 'react';
+=======
+import { ToastContainer } from 'react-toastify';
+>>>>>>> 898eca25ee11eb250ea80c50efcd125549dd4f49
 
 const ProtectedRoute = ({ user, redirectPath = '/' }) => {
 	if (!user) {
@@ -21,6 +25,7 @@ function App() {
 	return (
 		<BrowserRouter>
 			<div className="App">
+				<ToastContainer />
 				<Routes>
 					{/* public routes */}
 					{publicRoutes.map((route, index) => {

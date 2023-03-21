@@ -6,7 +6,7 @@ import { JobContext } from "../../pages/DetailJob";
 
 const cx = classNames.bind(styles);
 
-function OpportunitySticky() {
+function OpportunitySticky({ openModal }) {
   const job = useContext(JobContext);
   return <div className={cx("OpportunityStickyContainer")}>
     <div className={cx("GlintContainer", "StyledGlintContainer")}>
@@ -21,7 +21,7 @@ function OpportunitySticky() {
             <div className={cx("BadgesAndCompanyInfoContainer")}>
               <div className={cx("JobOverViewCompanyInfo")}>
                 <div className={cx("JobOverViewCompanyName")}>
-                  <a href="/company/sadsdas">{job.idCompany}</a>
+                  <a href="/company/sadsdas">{job?.idCompany?.name}</a>
                 </div>
               </div>
             </div>
@@ -31,7 +31,8 @@ function OpportunitySticky() {
           <div className={cx("ApplyButton__ApplyButton")}>
             <div className={cx("ButtonStyle__SolidBtnContainer")}>
               <button type="button"
-                className={cx("ButtonStyle__Button", "ButtonStyle__SolidBtn")}>
+                className={cx("ButtonStyle__Button", "ButtonStyle__SolidBtn")}
+                onClick={openModal} >
                 Ứng tuyển nhanh
               </button>
             </div>

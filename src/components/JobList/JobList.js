@@ -35,7 +35,7 @@ function JobList({ jobList }) {
                         <a className={cx("CompactOpportunityCard__CompanyLink")}
                           href="www.google.com" >
                           {/* code findOne company here */}
-                          {job.idCompany}
+                          {job.idCompany.name}
                         </a>
                       </div>
                     </span>

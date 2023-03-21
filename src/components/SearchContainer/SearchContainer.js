@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { searchFilter } from "../../redux/filterSlice";
 
@@ -11,12 +11,20 @@ const cx = classNames.bind(styles);
 function SearchContainer() {
   const dispatch = useDispatch();
   const [userInput, setUserInput] = useState("");
+  const testArray = useRef(Array.from({ length: 2 }));
+  const savePastJobSearch = (keyword) => {
+    if (testArray.current.length >= 2) {
+      testArray.current?.shift();
+    }
+    testArray.current.push(keyword);
+    console.log("test array", testArray);
+  }
   return (
     <div className={cx("Container")}>
       <div className={cx("FieldWrapper")}>
         <div className={cx("TextFieldStyled__TextFieldContainer")}>
           <input className={cx("TextFieldStyled__TextFieldInput")}
-            placeholder="Tìm kiếm việc làm"
+            placeholder="Tìm kiếm việc làm" spellCheck={false}
             value={userInput}
             onChange={(e) => {
               setUserInput(e.target.value);
@@ -24,6 +32,7 @@ function SearchContainer() {
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 // handleSearch();
+                savePastJobSearch(userInput);
                 dispatch(searchFilter(userInput));
               }
             }}
@@ -52,6 +61,7 @@ function SearchContainer() {
           className={cx("ButtonStyle__Button", "ButtonStyle__SolidBtn")}
           onClick={() => {
             // handleSearch();
+            savePastJobSearch(userInput);
             dispatch(searchFilter(userInput));
           }}
         >TÌM KIẾM</button>

@@ -10,7 +10,7 @@
 
 .MainHeader,
 .Container {
-    background: linear-gradient(to right, rgb(226, 246, 255), rgb(243, 251, 255));
+    background: linear-gradient(to right, rgb(188, 231, 255), rgb(209, 236, 252));
 }
 
 .Container {
@@ -40,8 +40,7 @@
 }
 
 .MenuItem a,
-a:visited {
-    text-decoration: none;
+.MenuItem a:visited {
     color: black;
 }
 
@@ -126,6 +125,7 @@ a:visited {
     display: flex;
     z-index: 1;
     border-radius: 0px;
+    text-transform: uppercase;
     cursor: pointer;
     user-select: none;
 }

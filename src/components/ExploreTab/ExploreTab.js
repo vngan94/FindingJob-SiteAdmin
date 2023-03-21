@@ -13,6 +13,7 @@ import Collapsible from "../Collapsible/Collapsible";
 import Checkbox from "../Checkbox";
 import JobList from "../JobList/JobList";
 import { selectLocationWorking, selectSearch } from "../../redux/selector";
+import { element } from "prop-types";
 
 const cx = classNames.bind(styles);
 
@@ -22,6 +23,10 @@ function ExploreTab() {
   const searchInput = useSelector(selectSearch);
   const [jobList, setJobList] = useState([]);
   const [isPending, startTransition] = useTransition();
+  const pastJobSearch = [
+    { id: 1, label: "Tìm kiếm gần đây:", keyword: "Reactjs" },
+    { id: 2, label: "Tìm kiếm gần đây:", keyword: "Marketing" },
+  ]
 
   const filterJob = (searchInput, addressArray) => {
     console.log("filter job");
@@ -41,17 +46,17 @@ function ExploreTab() {
     }
     if (!searchInput && addressFilter.length) {
       return jobList.filter((job) => {
-        return job && inFilter(addressFilter, job.locationWorking);
+        return job && handleAddressFilter(addressFilter, job.locationWorking);
       })
     }
     if (searchInput && addressFilter.length) {
       return jobList.filter((job) => {
-        return job.name.includes(searchInput) && inFilter(addressFilter, job.locationWorking);
+        return job.name.includes(searchInput) && handleAddressFilter(addressFilter, job.locationWorking);
       })
     }
 
   }
-  const inFilter = (arr, value) => {
+  const handleAddressFilter = (arr, value) => {
     for (let index = 0; index < arr.length; index++) {
       const element = arr[index];
       if (value?.includes(element)) {
@@ -63,7 +68,7 @@ function ExploreTab() {
   const result = filterJob(searchInput, addressArray);
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await get("job/list");
+      const res = await get("job/list/sort-by-date");
       startTransition(() => {
         setJobList(res.data);
       })
@@ -71,33 +76,26 @@ function ExploreTab() {
     fetchApi();
   }, []);
   return (
-    <GlintContainer className="Style__ExploreTabBody">
+    <GlintContainer className="styles__ExploreTabBody">
       <div className={cx("DesktopSearchBoxWrapper")}>
         <div className={cx("Box__StyledBox")}>
           <SearchContainer />
         </div>
       </div>
       {/* Tìm kiếm gần đây lưu ở local */}
-      <div className={cx("Style__Container")}>
-        <div className={cx("Style__ItemWrapper")}>
-          <div className={cx("TagStyle__TagContainer")}>
-            <label className={cx("TagStyle__TagContent")}>
-              <FontAwesomeIcon icon={faSearch} />
-              <span className={cx("Style_SearchTypeLabel")}>Tìm kiếm gần đây:</span>
-              <span className={cx("Style__SearchKeywordLabel")}>Reactjs</span>
-            </label>
+      <div className={cx("styles__Container")}>
+        {pastJobSearch.map((element) => (
+          <div key={element.id} className={cx("styles__ItemWrapper")}>
+            <div className={cx("TagStyle__TagContainer")}>
+              <label className={cx("TagStyle__TagContent")}>
+                <FontAwesomeIcon icon={faSearch} />
+                <span className={cx("Style_SearchTypeLabel")}>{element.label}</span>
+                <span className={cx("styles__SearchKeywordLabel")}>{element.keyword}</span>
+              </label>
+            </div>
           </div>
-        </div>
-        <div className={cx("Style__ItemWrapper")}>
-          <div className={cx("TagStyle__TagContainer")}>
-            <label className={cx("TagStyle__TagContent")}>
-              <FontAwesomeIcon icon={faSearch} />
-              <span>Từ khóa hot:</span>
-              <span>Marketing</span>
-            </label>
-          </div>
-        </div>
-        <div className={cx("Style__ItemWrapper")}>
+        ))}
+        <div className={cx("styles__ItemWrapper")}>
           <div className={cx("TagStyle__TagContainer")}>
             <label className={cx("TagStyle__TagContent")}>
               <FontAwesomeIcon icon={faSearch} />
@@ -107,13 +105,14 @@ function ExploreTab() {
           </div>
         </div>
       </div>
+      {/* end past job search */}
       <h1 className={cx("JobCount")}>{result.length} việc làm tại Vietnam</h1>
       <div className={cx("Body")}>
         <div className={cx("DesktopStickyFilterContainer")}>
           <div className={cx("ModalStyle__ModalDialog")}>
-            <div className={cx("Style__FilterList")}>
+            <div className={cx("styles__FilterList")}>
               <Collapsible title="Thành Phố">
-                <div className={cx("Style__CheckboxContainer")}>
+                <div className={cx("styles__CheckboxContainer")}>
                   {addressArray.map((item) => {
                     return <Checkbox key={item.id} obj={item} />
                   })}
@@ -124,7 +123,7 @@ function ExploreTab() {
         </div>
         <div className={cx("Box__StyledBox", "Flex__StyledFlex", "Flex")}>
           <div className={cx("CompactJobCardList__JobCardListContainer",
-            "Style__CompactJobCardList")}>
+            "styles__CompactJobCardList")}>
             {/* <div className="ModalStyle__ModalContainer"></div> */}
             <Suspense fallback={() => (<p>Calling...</p>)}>
               {isPending ? <p>loading...</p> : <JobList jobList={result} />}

@@ -13,7 +13,7 @@ function Collapsible({ title, children }) {
     setOpen(!open);
   }
   return <div className={cx("CollapsibleContainer",
-    "Style__Collapsible")}>
+    "styles__Collapsible")}>
     <div className={cx("CollapsibleContent")}>
       <div className={cx("CollapsibleHeader")}
         onClick={toggleOpen} >

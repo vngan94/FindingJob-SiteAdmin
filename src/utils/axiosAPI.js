@@ -14,4 +14,12 @@ export const post = async (path, data = {}, config = {}) => {
   return response.data;
 }
 
+export const path = {
+  // auth
+  login: "auth/login",
+  register: "auth/register",
+  getUser: "auth/info-user"
+  // job
+}
+
 export default instance;

@@ -1,5 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 
+export const selectAccessToken = state => state.auth.accessToken;
+
 export const selectUser = state => state.auth.currentUser;
 
 export const selectJobList = state => state.jobList;

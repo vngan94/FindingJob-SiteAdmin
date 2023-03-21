@@ -28,6 +28,7 @@
     font-size: 14px;
     letter-spacing: 1px;
     min-width: 170px;
+    /* text-transform: uppercase; */
     font-weight: bold;
     line-height: 1.5;
 }
@@ -319,16 +320,7 @@
     font-size: 18px;
 }
 
-.ParagraphStyle__Paragraph {
-    margin: 0px;
-    font-size: 14px;
-    line-height: normal;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: normal;
-    color: rgb(0, 0, 0);
-}
+
 
 .UnstyleButton {
     outline: none;
@@ -341,49 +333,49 @@
     font-size: 20px;
 }
 
-.Style__ExploreTabBody {
+.styles__ExploreTabBody {
     padding-top: 24px;
 }
 
-.Style__Container {
+.styles__Container {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     -webkit-box-align: center;
 }
 
-.Style__ItemWrapper {
+.styles__ItemWrapper {
     margin-right: 8px;
     margin-bottom: 8px;
 }
 
-.Style__SearchTypeLabel {
+.styles__SearchTypeLabel {
     font-size: 14px;
 }
 
-.Style__SearchKeywordLabel {
+.styles__SearchKeywordLabel {
     margin-left: 4px;
     text-transform: capitalize;
 }
 
-.Style__CompactJobCardList {
+.styles__CompactJobCardList {
     gap: 12px 16px;
 }
 
-.Style__FilterList {
+.styles__FilterList {
     padding: 0px 16px;
 }
 
-.Style__Collapsible {
+.styles__Collapsible {
     border-bottom: 1px solid rgba(198, 198, 198, 0.6);
 }
 
-.Style__CheckboxContainer {
+.styles__CheckboxContainer {
     display: flex;
     flex-flow: column;
 }
 
-.Style__Checkbox {
+.styles__Checkbox {
     margin-bottom: 8px;
 }
 
@@ -554,16 +546,6 @@ div.TopFold__JobOverViewInfo a {
     margin-right: 16px;
 }
 
-.TitleStyle__Title {
-    margin: 0px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: normal;
-    color: rgb(0, 0, 0);
-    font-size: 30px;
-}
-
 .ApplyButton__ApplyButton .ButtonStyle__SolidBtn {
     border-radius: 0;
 }
@@ -613,7 +595,7 @@ div.TopFold__JobOverViewInfo a {
     position: relative;
     text-decoration: none;
     color: rgb(1, 126, 183);
-    z-index: 100;
+    z-index: 1;
 }
 
 .SimilarJobCard__Title {
