@@ -25,6 +25,10 @@
     text-decoration: none;
 }
 
+.Button:disabled {
+    cursor: not-allowed;
+}
+
 .SolidBtn {
     width: 100%;
     border-radius: 0px;
@@ -34,6 +38,11 @@
 
 .SolidBtn:active {
     background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}
+
+.SolidBtn:disabled {
+    background-color: rgb(198, 198, 198);
     color: rgb(255, 255, 255);
 }
 

@@ -1,5 +1,4 @@
 import {
-  faAngleUp,
   faBookmark,
   faCircle,
   faClock,

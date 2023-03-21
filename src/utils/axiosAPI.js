@@ -17,7 +17,8 @@ export const post = async (path, data = {}, config = {}) => {
 export const path = {
   // auth
   login: "auth/login",
-  register: "auth/register"
+  register: "auth/register",
+  getUser: "auth/info-user"
   // job
 }
 

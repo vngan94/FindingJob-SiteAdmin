@@ -1,7 +1,8 @@
 import { faFileLines, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 import {
   ModalContainer,
@@ -10,17 +11,55 @@ import {
   ModalHeader,
   ModalBody
 } from "../ModalStyle";
+import { JobContext } from "../../pages/DetailJob";
+import { SolidBtnContainer, SolidButton } from "../ButtonStyle";
 import styles from "./PsychFlatModal.module.scss";
+import { convertSizeFile } from "../../utils/helpers";
+import { post } from "../../utils/axiosAPI";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/selector";
 
 const cx = classNames.bind(styles);
 
 function PsychFlatModal({ handleShowPsychFlat }) {
   // should pass from higher level
-  const [loadedFile, setLoadedFile] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
   const modalRef = useRef();
+  const cvInputRef = useRef(null);
+  const job = useContext(JobContext);
+  // const timeUpload = useRef(new Date());
+  const timeUpload = new Date();
+  const currentUser = useSelector(selectUser);
   // giải pháp tạm thời tạo input type file và ẩn
+  const handleUploadFile = () => {
+    if (!selectedFile) {
+      cvInputRef.current.value = "";
+      cvInputRef.current.click();
+    }
+  }
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const lastModified = file.lastModified;
+    const date = new Date(lastModified);
+    console.log(date);
+    if (file?.size / (1024 * 1024) > 5) {
+      toast.error("Tệp tải lên tối đa 5MB");
+    } else {
+      setSelectedFile(file);
+    }
+  }
+  console.log(currentUser);
+  const applyJob = async ()=>{
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
+    toast.success("ung tuyen ngay");
+    
   }
   return (
     <ModalContainer className={cx("CustomModal")}
@@ -45,7 +84,12 @@ function PsychFlatModal({ handleShowPsychFlat }) {
               </div>
             </div>
             <form onSubmit={handleSubmit}>
-              <input style={{display: "none"}} />
+              <input ref={cvInputRef}
+                type="file"
+                accept=".pdf"
+                name="cv-file"
+                style={{ display: "none" }}
+                onChange={handleFileChange} />
               <section className={cx("Section")}>
                 <p className={cx(
                   "ParagraphStyle__Paragraph",
@@ -55,9 +99,12 @@ function PsychFlatModal({ handleShowPsychFlat }) {
                   {"Hồ sơ xin việc"}
                   {"*"}
                 </p>
-                <div className={cx("UploadResumesc__UploadArea")}>
+                <div className={cx(selectedFile ?
+                  "UploadResumesc__UploadArea--Loaded" :
+                  "UploadResumesc__UploadArea")}
+                  onClick={handleUploadFile} >
                   <div className={cx("UploadResumesc__GlintsDropzoneWrapper")}
-                    style={{ display: !loadedFile ? "" : "none" }} >
+                    style={{ display: !selectedFile ? "" : "none" }} >
                     <div className={cx("filepicker", "dropzone", "dz-clickable")}>
                       <div className={cx("dz-default", "dz-message")}>
                         <span>
@@ -70,27 +117,36 @@ function PsychFlatModal({ handleShowPsychFlat }) {
                       </div>
                     </div>
                   </div>
-                  {loadedFile &&
+                  {selectedFile &&
                     <div className={cx("UploadResumesc__ResumeWrapper")}>
                       <p className={cx(
                         "ParagraphStyles__Paragraph",
                         "aries-typography-paragraph",
                         "UploadResumesc__ResumeName")} color="#000000" data-gtm-resume="true">
-                        Bai giang Giai Tich 1 - PTIT.pdf
+                        {selectedFile.name}
                       </p>
                       <div className={cx("UploadResumesc__ResumeDetailContainer")}>
                         <p className={cx(
                           "ParagraphStyles__Paragraph",
                           "aries-typography-paragraph",
                           "UploadResumesc__ResumeDetail")} color="#777777">
-                          {"1.9MB"}
+                          {convertSizeFile(selectedFile.size)}
                           <span className={cx("UploadResumesc__Dot")}></span>
-                          {"Đã tải lên vào 19 Thg 03 2023, 20:11"}
+                          {/* {"Đã tải lên vào 19 Thg 03 2023, 20:11"} */}
+                          {selectedFile &&
+                            `${timeUpload?.getDate()} Thg 
+                          ${timeUpload?.getMonth() + 1} 
+                          ${timeUpload?.getFullYear()}, 
+                          ${timeUpload?.getHours()}:
+                          ${timeUpload?.getMinutes()}`}
                         </p>
                       </div>
                       <div className={cx(
                         "UploadResumesc__CenterIconWithText",
-                        "UploadResumesc__RemoveButton")}>
+                        "UploadResumesc__RemoveButton")}
+                        onClick={() => {
+                          setSelectedFile(null);
+                        }}>
                         <FontAwesomeIcon icon={faTrashCan}
                           className={cx("IconStyle__VerticalCenterSvg")} />
                         {"Xoá tập tin"}
@@ -106,17 +162,15 @@ function PsychFlatModal({ handleShowPsychFlat }) {
                   {"Hồ sơ đã đăng tải sẽ được lưu lại cho lần nộp đơn sau."}
                 </p>
               </section>
-              <div className={cx(
-                "ButtonStyle__SolidBtnContainer",
-                "aries-solid-btn",
-                "ApplyBtn")} disabled="">
-                <button className={cx(
-                  "ButtonStyle__Button",
-                  "ButtonStyle__SolidBtn",
-                  "solid-btn-content")} disabled="" type="submit">
+              <SolidBtnContainer
+                className={cx("aries-solid-btn", "ApplyBtn")} >
+                <SolidButton
+                  type="submit"
+                  disable={selectedFile ? false : true}
+                  className={cx("solid-btn-content")} >
                   Ứng Tuyển Ngay
-                </button>
-              </div>
+                </SolidButton>
+              </SolidBtnContainer>
             </form>
           </ModalBody>
         </ModalContentArea>

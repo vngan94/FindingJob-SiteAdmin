@@ -47,7 +47,7 @@ function LoginForm({ handleShowLogin }) {
       if (hasErr) {
         setErrorMessage(hasErr);
       } else {
-        toast("Đăng nhập thành công!", {
+        toast.success("Đăng nhập thành công!", {
           position: "top-center"
         });
         handleShowLogin();

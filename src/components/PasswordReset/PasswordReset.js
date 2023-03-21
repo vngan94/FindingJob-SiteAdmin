@@ -20,7 +20,7 @@ function PasswordReset() {
   return (
     <div className={cx("GlintContainer")}>
       <section className={cx("Section")}>
-        <Title As="h3"
+        <Title as="h3"
           className={cx("aries-typography-title", "Title")} >
           Bạn quên mật khẩu?
         </Title>
