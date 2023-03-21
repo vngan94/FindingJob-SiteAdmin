@@ -1,10 +1,10 @@
 import classNames from "classnames/bind";
 import { useRef } from "react";
-import ModalBody from "../Modal/ModalBody";
-import ModalContainer from "../Modal/ModalContainer";
-import ModalContentArea from "../Modal/ModalContentArea";
-import ModalDialog from "../Modal/ModalDialog";
-import ModalHeader from "../Modal/ModalHeader";
+import ModalBody from "../ModalStyle/ModalBody";
+import ModalContainer from "../ModalStyle/ModalContainer";
+import ModalContentArea from "../ModalStyle/ModalContentArea";
+import ModalDialog from "../ModalStyle/ModalDialog";
+import ModalHeader from "../ModalStyle/ModalHeader";
 import LoginForm from "./LoginForm/LoginForm";
 
 import styles from "./LoginModal.module.scss";

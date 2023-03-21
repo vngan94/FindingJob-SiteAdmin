@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import styles from "./LoginForm.module.scss";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../services/authService";
+import config from "../../../config";
 
 const cx = classNames.bind(styles);
 
@@ -83,7 +84,11 @@ function LoginForm({ handleShowLogin }) {
             {passwordError && <p className={cx("ValidationError")}>{passwordError}</p>}
           </div>
           <div className={cx("ForgotPasswordLinkWrapper")}>
-            <button type="button" className={cx("ForgotPasswordLink")}>Quên mật khẩu?</button>
+            <button type="button" className={cx("ForgotPasswordLink")}
+            onClick={()=>{
+              handleShowLogin();
+              navigate(config.routes.forgotPassword);
+            }} >Quên mật khẩu?</button>
           </div>
           {errorMessage && <div className={cx("ErrorMessage")}>
             <p className={cx("MessageHeader")}>{errorMessage}</p>

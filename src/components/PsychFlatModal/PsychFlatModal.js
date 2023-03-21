@@ -9,7 +9,7 @@ import {
   ModalContentArea,
   ModalHeader,
   ModalBody
-} from "../Modal";
+} from "../ModalStyle";
 import styles from "./PsychFlatModal.module.scss";
 
 const cx = classNames.bind(styles);
@@ -18,6 +18,7 @@ function PsychFlatModal({ handleShowPsychFlat }) {
   // should pass from higher level
   const [loadedFile, setLoadedFile] = useState(false);
   const modalRef = useRef();
+  // giải pháp tạm thời tạo input type file và ẩn
   const handleSubmit = (e) => {
     e.preventDefault();
   }

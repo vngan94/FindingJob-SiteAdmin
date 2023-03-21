@@ -5,6 +5,7 @@ const routes = {
     company: "/company",
     blog: "/blog",
     signUp: "/sign-up",
+    forgotPassword: "/forgot-password",
     recruitment: "https://employers.glints.vn/",
     error: "*",
     // private

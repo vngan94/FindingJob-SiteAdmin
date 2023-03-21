@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import styles from "./Modal.module.scss";
+import styles from "./ModalTest.module.scss";
 
 const cx = classNames.bind(styles);
 

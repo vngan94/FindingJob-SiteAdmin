@@ -28,6 +28,7 @@
     font-size: 14px;
     letter-spacing: 1px;
     min-width: 170px;
+    /* text-transform: uppercase; */
     font-weight: bold;
     line-height: 1.5;
 }
@@ -319,16 +320,7 @@
     font-size: 18px;
 }
 
-.ParagraphStyle__Paragraph {
-    margin: 0px;
-    font-size: 14px;
-    line-height: normal;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: normal;
-    color: rgb(0, 0, 0);
-}
+
 
 .UnstyleButton {
     outline: none;
@@ -554,7 +546,7 @@ div.TopFold__JobOverViewInfo a {
     margin-right: 16px;
 }
 
-.TitleStyle__Title {
+.TitleStyles__Title {
     margin: 0px;
     font-weight: bold;
     font-stretch: normal;

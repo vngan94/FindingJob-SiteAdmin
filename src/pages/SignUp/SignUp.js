@@ -108,7 +108,7 @@ function SignUp() {
   return (
     <section className={cx("global__Background")}>
       <div className={cx("global__TitleWrapper")}>
-        <h1 className={cx("TitleStyle__Title", "SignUpPage__Title")}>
+        <h1 className={cx("TitleStyles__Title", "SignUpPage__Title")}>
           Cùng tạo hồ sơ <br />
           <span className={cx("SignUpPage__Psychedelic")}>
             Glints

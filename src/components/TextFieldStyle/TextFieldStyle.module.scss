@@ -1,0 +1,38 @@
+.TextFieldContainer {
+    position: relative;
+    display: flex;
+    flex-flow: row;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.TextFieldInput {
+    width: 100%;
+    position: relative;
+    padding: 13px 15px;
+}
+
+.TextFieldInput:focus {
+    outline-color: var(--primary-color);
+}
+
+.TextFieldInput::placeholder {
+    color: transparent;
+}
+
+.TextFieldLabel {
+    position: absolute;
+    left: 16px;
+    color: rgb(119, 119, 119);
+    pointer-events: none;
+}
+
+.TextFieldInput:focus~.TextFieldLabel,
+.TextFieldInput:not(:placeholder-shown)~.TextFieldLabel {
+    padding: 0 5px;
+    font-size: 12px;
+    top: 1em;
+    transform: translate3d(-10px, -20px, 0);
+    transition: all 0.2s ease 0s;
+    background: rgb(255, 255, 255);
+}
