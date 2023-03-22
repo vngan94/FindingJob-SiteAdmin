@@ -17,7 +17,8 @@ import styles from "./PsychFlatModal.module.scss";
 import { convertSizeFile } from "../../utils/helpers";
 import { post } from "../../utils/axiosAPI";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../redux/selector";
+import { selectAccessToken, selectUser } from "../../redux/selector";
+import { applyJob } from "../../services/jobService";
 
 const cx = classNames.bind(styles);
 
@@ -30,6 +31,7 @@ function PsychFlatModal({ handleShowPsychFlat }) {
   // const timeUpload = useRef(new Date());
   const timeUpload = new Date();
   const currentUser = useSelector(selectUser);
+  const accessToken = useSelector(selectAccessToken);
   // giải pháp tạm thời tạo input type file và ẩn
   const handleUploadFile = () => {
     if (!selectedFile) {
@@ -48,18 +50,14 @@ function PsychFlatModal({ handleShowPsychFlat }) {
       setSelectedFile(file);
     }
   }
-  console.log(currentUser);
-  const applyJob = async ()=>{
-    try {
-      
-    } catch (error) {
-      
-    }
-  }
   const handleSubmit = (e) => {
     e.preventDefault();
-    toast.success("ung tuyen ngay");
-    
+    const formData = new FormData();
+    formData.append("idJobSeeker", currentUser._id);
+    formData.append("idJob", job._id);
+    formData.append("cv", selectedFile);
+    formData.append("submitDate", new Date());
+    applyJob(formData, accessToken);
   }
   return (
     <ModalContainer className={cx("CustomModal")}
