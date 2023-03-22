@@ -19,10 +19,12 @@ import { post } from "../../utils/axiosAPI";
 import { useSelector } from "react-redux";
 import { selectAccessToken, selectUser } from "../../redux/selector";
 import { applyJob } from "../../services/jobService";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
 function PsychFlatModal({ handleShowPsychFlat }) {
+  const navigate = useNavigate();
   // should pass from higher level
   const [selectedFile, setSelectedFile] = useState(null);
   const modalRef = useRef();
@@ -57,7 +59,7 @@ function PsychFlatModal({ handleShowPsychFlat }) {
     formData.append("idJob", job._id);
     formData.append("cv", selectedFile);
     formData.append("submitDate", new Date());
-    applyJob(formData, accessToken);
+    applyJob(formData, accessToken, navigate);
   }
   return (
     <ModalContainer className={cx("CustomModal")}
