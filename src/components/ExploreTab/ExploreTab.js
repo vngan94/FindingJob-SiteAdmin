@@ -14,6 +14,8 @@ import Checkbox from "../Checkbox";
 import JobList from "../JobList/JobList";
 import { selectLocationWorking, selectSearch } from "../../redux/selector";
 import { element } from "prop-types";
+import TagContainer from "../TagStyle/TagContainer";
+import TagContent from "../TagStyle/TagContent";
 
 const cx = classNames.bind(styles);
 
@@ -86,23 +88,23 @@ function ExploreTab() {
       <div className={cx("styles__Container")}>
         {pastJobSearch.map((element) => (
           <div key={element.id} className={cx("styles__ItemWrapper")}>
-            <div className={cx("TagStyle__TagContainer")}>
-              <label className={cx("TagStyle__TagContent")}>
+            <TagContainer>
+              <TagContent>
                 <FontAwesomeIcon icon={faSearch} />
                 <span className={cx("Style_SearchTypeLabel")}>{element.label}</span>
                 <span className={cx("styles__SearchKeywordLabel")}>{element.keyword}</span>
-              </label>
-            </div>
+              </TagContent>
+            </TagContainer>
           </div>
         ))}
         <div className={cx("styles__ItemWrapper")}>
-          <div className={cx("TagStyle__TagContainer")}>
-            <label className={cx("TagStyle__TagContent")}>
+          <TagContainer>
+            <TagContent>
               <FontAwesomeIcon icon={faSearch} />
               <span>Từ khóa hot:</span>
-              <span>Marketing</span>
-            </label>
-          </div>
+              <span>Component</span>
+            </TagContent>
+          </TagContainer>
         </div>
       </div>
       {/* end past job search */}

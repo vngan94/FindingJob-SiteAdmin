@@ -7,10 +7,13 @@ import Header from "../Header/Header";
 import styles from './DefautLayout.module.scss';
 import Footer from '../Footer/Footer';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import ScrollTopContainer from '../../components/ScrollTopButton/ScrollTopContainer';
+import { useLog } from '../../hooks';
 
 const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
+    useLog("Render DefaultLayout", 0);
     const [gotoTop, setGoToTop] = useState(false);
     useEffect(() => {
         const handleScroll = () => {
@@ -37,12 +40,9 @@ function DefaultLayout({ children }) {
                     </div>
                 </div>
             </div>
-            {
-                <a href="#top" style={{ opacity: gotoTop ? "1" : "0" }} className={cx("BackToTop")} aria-label="#top"
-                    title='Back to top'>
-                    <FontAwesomeIcon icon={faArrowUp} />
-                </a>
-            }
+            {<ScrollTopContainer isVisible={gotoTop}>
+                <FontAwesomeIcon icon={faArrowUp} />
+            </ScrollTopContainer>}
         </div>
     )
 }

@@ -4,13 +4,22 @@ import styles from "./ButtonStyle.module.scss";
 
 const cx = classNames.bind(styles);
 
-function SolidButton({ type, disable = false, className, children }) {
+function SolidButton({
+  as: As = "button",
+  type,
+  block = false,
+  disable = false,
+  className,
+  onClick,
+  children }) {
   return (
-    <button type={type}
+    <As type={type}
+      onClick={onClick}
       disabled={disable}
+      style={{ width: block ? "100%" : "" }}
       className={cx(className, "Button", "SolidBtn")}>
       {children}
-    </button>
+    </As>
   )
 }
 

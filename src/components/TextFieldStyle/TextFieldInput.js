@@ -12,9 +12,9 @@ function TextFieldInput({
   value,
   maxLength,
   onChange
-}, passwordRef) {
+}, inputRef) {
   return (
-    <input ref={passwordRef}
+    <input ref={inputRef}
       // type={showPassword ? "text" : "password"}
       type={type}
       aria-label={ariaLabel} className={cx("TextFieldInput")}

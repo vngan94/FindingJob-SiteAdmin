@@ -14,11 +14,18 @@ export const post = async (path, data = {}, config = {}) => {
   return response.data;
 }
 
+export const put = async (path, data = {}, config = {}) => {
+  const response = await instance.put(path, data, config);
+  return response.data;
+};
+
 export const path = {
   login: "auth/login",
   register: "auth/register",
   getUser: "auth/info-user",
-  applyJob: "application/create"
+  applyJob: "application/create",
+  forgotPassword: "auth/forgot-password",
+  resetPassword: "auth/confirm-password"
 }
 
 export default instance;
