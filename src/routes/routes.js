@@ -6,7 +6,7 @@ import config from "../config";
 import DetailJob from "../pages/DetailJob";
 import ErrorPage from "../pages/ErrorPage";
 import SignUp from "../pages/SignUp";
-import HeaderOnly from "../Layout/HeaderOnly";
+import HeaderOnly from "../layouts/HeaderOnly";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage/ResetPasswordPage";
 

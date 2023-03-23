@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import './App.css';
 import { privateRoutes, publicRoutes } from './routes/routes';
-import DefaultLayout from './Layout/DefaultLayout';
+import DefaultLayout from './layouts/DefaultLayout';
 import { selectUser } from './redux/selector';
 import { ToastContainer } from 'react-toastify';
 
