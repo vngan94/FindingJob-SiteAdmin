@@ -3,6 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { postRows } from "../../dummyData";
 import { Link } from "react-router-dom";
+import BlockIcon from '@mui/icons-material/Block';
 
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import Topbar from "../../components/topbar/Topbar";
@@ -10,58 +11,102 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import { useSelector } from "react-redux";
 import { selectUser } from '../../redux/selector';
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function PostList() {
   const currentUser = useSelector(selectUser);
   const [data, setData] = useState(postRows);
   const [postList, setPostList] = useState([]);
+  const [postListChange, setPostListChange] = useState([]);
+  const [idDelete, setIdDelete] = useState('')
+ 
+  const isAvailable = (x) => {
+    var y =  new Date().toISOString().split('T')[0] // yyyy-mm-dd
+    return x >= y
+  }
+  
+  const isClose = (status, deadline) => {
+    
+    if(!status) 
+      return "Job đã ẩn"
+    return isAvailable( new Date(deadline).toISOString().split('T')[0]) == true ? "Còn hạn nộp hồ sơ" : "Hết hạn nộp hồ sơ"
+      
+  }
   useEffect(()=>{
-    console.log("current ", currentUser)
     const fetchData = async()=> {
-        fetch(`http://localhost:8000/job/list/company/${currentUser._id}`, {
-            method: 'GET',
-            
-        })
-        .then((response) => response.json())
-        .then((responseData) => { 
-        console.log(responseData.data)
-        
-         })
-        .catch((error) => { console.log(error) })
-        .done()
+        try { 
+          const res = await axios.get(`http://localhost:8000/job/list/company/${currentUser._id}`)
+          setPostListChange(res.data.data.map(function(item){
+            return {
+             id: item._id,
+             congviec: item.name,
+             deadline: (item.deadline != null) ? item.deadline.split("T")[0].split("-").reverse().join("-"): null,
+             locationWorking: item.locationWorking,
+             postingDate: item.postingDate.split("T")[0].split("-").reverse().join("-"),
+            //  status: isAvailable( new Date(item.deadline).toISOString().split('T')[0]) == true ? "Còn hạn nộp hồ sơ" : "Hết hạn nộp hồ sợ"
+            status: isClose(item.status, item.deadline)
+          }
+          }))
+
+      }
+      catch(err) {
+          console.log(err)
+      } 
     }
     fetchData()
-},[])
+    
+    
+},[idDelete])
 
-  
+  const handleDelete = async (id) => {
+    setIdDelete(id)
+    try {   
+        await fetch("http://localhost:8000/job/delete", {
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+      
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            "_id": id,
+          }),
+        }).then(response => {
+            
+            console.log(response);
 
-  const handleDelete = (id) => {
-    setData(data.filter(item=> item.id !== id))
+          }
+        );
+        
+        
+      
+  } 
+  catch(err) {
+      console.log(err)
+  }
     
 }
-  
-  console.log(data)
-    
 
     const columns = [
-      { field: "id", headerName: "ID", width: 20 },
+      
       {
-        field: "post",
+        field: "congviec",
         headerName: "Công việc",  // hiện 
         width: 200,
         renderCell: (params)=> {
           return (
             <div className="userListUser">
                 {/* <img className="userListImg" src={params.row.avatar}></img> */}
-                {params.row.post}
+                {params.row.congviec}
             </div>
           )
         }
         
       },
-      { field: "address", headerName: "Địa chỉ", width: 200 },
+      { field: "locationWorking", headerName: "Địa chỉ", width: 200 },
+      
       {
-        field: "uploadDate",
+        field: "postingDate",
         headerName: "Ngày đăng",
         width: 150,
       },
@@ -71,10 +116,11 @@ export default function PostList() {
         width: 150,
       },
       {
-        field: "number",
-        headerName: "Số lượng hồ sơ",
-        width: 120,
+        field: "status",
+        headerName: "Tình trạng",
+        width: 170,
       },
+      
       
       {
         field: "action",
@@ -88,9 +134,9 @@ export default function PostList() {
                 <button className="btnEdit" >Edit</button>
               </Link>
               <Link to = {`/post/${params.row.id}`} >
-                <RemoveRedEyeIcon className="delete"/>
+                <RemoveRedEyeIcon className="delete" />
               </Link>
-              <DeleteIcon className="delete" onClick= { ()=> handleDelete(params.row.id)}/>
+              <BlockIcon className="delete" onClick= { ()=> handleDelete(params.row.id)}/>
               
           </div>
           )
@@ -109,7 +155,8 @@ export default function PostList() {
             <h2>Danh sách tin tuyển dụng</h2>
             <div className="breaking"></div>
           <DataGrid 
-            rows={data}
+            //  rows={data}
+            rows = {postListChange}
             columns={columns}
             pageSize={2}
             rowsPerPageOptions={[2]}

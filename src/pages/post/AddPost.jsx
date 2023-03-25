@@ -2,7 +2,7 @@ import "./addPost.css"
 
 import PaidIcon from '@mui/icons-material/Paid';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import FactoryIcon from '@mui/icons-material/Factory';
 import UploadIcon from '@mui/icons-material/Upload';
 import HourglassTopIcon from '@mui/icons-material/HourglassTop';
@@ -19,18 +19,31 @@ import axios from "axios";
 import { post } from "../../utils/axiosAPI";
 
 export default function AddPost() {
+    const state = useLocation().state
+    console.log("state ", state)
+    const [value, setValue] = useState(state?.description||'')
     const currentUser = useSelector(selectUser);
-    const [requirement, setRequirement] = useState('')
+    const [requirement, setRequirement] = useState(state?.requirement||'')
     const [optionList,setOptionList] = useState([]);
-    const [selected, setSelected]  = useState('');
-    const [name, setName] = useState('')
-    const [locationWorking, setLocationWorking] = useState('')
-    const [salary, setSalary] = useState('')
-    const [hourWorking, setHourWorking] = useState('')
-    const [deadline, setDeadline] = useState('')
-    const [description, setDescription] = useState('')
+    const [selected, setSelected]  = useState(state?.idOccupation._id||'');
+    const [name, setName] = useState(state?.name||'')
+    const [locationWorking, setLocationWorking] = useState(state?.locationWorking||'')
+    const [salary, setSalary] = useState(state?.salary||'')
+    const [hourWorking, setHourWorking] = useState(state?.hourWorking||'')
+    const [deadline, setDeadline] = useState(state?.deadline.split('T')[0]||'')
+    const [description, setDescription] = useState(state?.description||'')
+    const [postingDate, setPostingDate] = useState(state?.postingDate || '')
     const current = new Date();
+    console.log("in ", currentUser._id)
     const navigate = useNavigate()
+
+    const isAvailable = (x) => {
+        var y =  new Date().toISOString().split('T')[0] // yyyy-mm-dd
+        
+ 
+    
+        return x >= y
+      }
     
     const [errors, setErrors] = useState({
         name: '',
@@ -42,12 +55,13 @@ export default function AddPost() {
         requirement: '',
         selected: ''
       });
-      const [resError, setResError] = useState("")
+      
+      
+    
 
       const validateForm = () => {
         const errs = {};
         if (!name) {
-            console.log("Hello")
           errs.name = "Vui lòng nhập tên công việc!";
         }
         if (!locationWorking) {
@@ -57,11 +71,16 @@ export default function AddPost() {
           errs.salary = "Vui lòng nhập lương";
         }
         if (!hourWorking) {
-          errs.hourWorking = "Vui lòng nhập giờ làm việc";
+          errs.hourWorking = "Vui lòng nhập thời gian làm việc";
         }
         if (!deadline) {
             errs.deadline = "Vui lòng nhập thời hạn nộp hồ sơ";
-          }
+        }
+        else 
+            if(isAvailable(deadline) === false) {
+                errs.deadline = "Hạn nộp hồ sơ trễ hơn hoặc bằng thời điểm hiện tại"
+                
+            }
         if (!description) 
           errs.description = "Vui lòng nhập mô tả công việc";
         if (!requirement) {
@@ -69,12 +88,13 @@ export default function AddPost() {
         if(!selected) {
             errs.selected = "Vui lòng chọn lĩnh vực của công việc";
         }
+        
         return errs;
       }
     }
 
-
     useEffect(()=>{
+        
         const fetchData = async()=> {
             fetch('http://localhost:8000/occupation/list', {
                 method: 'GET',
@@ -86,11 +106,10 @@ export default function AddPost() {
             })
             .then((response) => response.json())
             .then((responseData) => { 
-            // console.log(responseData.data)
-            setOptionList(responseData.data)
+                setOptionList(responseData.data)
              })
             .catch((error) => { console.log(error) })
-            .done()
+            
         }
         fetchData()
     },[])
@@ -98,14 +117,41 @@ export default function AddPost() {
       const handleSubmit = async(e) => {
         e.preventDefault();
         const errs = validateForm();
-        console.log(currentUser.accessToken)
+        
         if (errs == null) {
             setErrors({});
             axios.defaults.headers.common = {'Authorization': `bearer ${currentUser.accessToken}`}
-          
             try {
-                
-                const res = await axios.post("http://localhost:8000/job/create", {
+                // console.log("in" , name)
+                // console.log("desc" , name)
+                // console.log("description",description)
+                // console.log("requirement",requirement)
+                // console.log("hourWorking",hourWorking)
+                // console.log("postingDate", postingDate)
+                // console.log("deadline", deadline)
+                // console.log("salary",salary)
+                // console.log("locationWorking", locationWorking)
+                 console.log("idOccupation", selected)
+                console.log("idcompany", currentUser._id)
+                let  dates = deadline.split('-')
+                dates = dates[1] + '-' + dates[2] + '-' + dates[0]
+                console.log("in ", dates)
+                const res = state 
+                ? 
+                await axios.put("http://localhost:8000/job/update", {
+                    "name": name,
+                    "description":description,
+                    "requirement":requirement,
+                    "hourWorking":hourWorking,
+                    "postingDate": postingDate,
+                    "deadline": dates,
+                    "salary":salary,
+                    "locationWorking": locationWorking,
+                    "idOccupation": selected,
+                    "idcompany": state._id ,
+                })
+
+                : await axios.post("http://localhost:8000/job/create", {
                     "name": name,
                     "description":description,
                     "requirement":requirement,
@@ -118,9 +164,8 @@ export default function AddPost() {
                     "idcompany": currentUser._id,
                    
                   })
-                  alert("Thêm công việc thành công")
-                //   register(formData);
-                
+                  state ? alert("Cập nhật job thành công") : alert("Thêm job thành công") 
+                    
                 navigate("/posts")
             } 
             catch(err) {
@@ -128,15 +173,12 @@ export default function AddPost() {
             }
             
         }else {
-                    
             setErrors(errs);
-            setResError("");
+            
           }
         }
-          // call api here
-         
 
-  
+
     return (
         <div>
         <Topbar/>
@@ -147,13 +189,13 @@ export default function AddPost() {
                 <div className="post1">
                     <div className="nameJob">
                         <label htmlFor="">Tên công việc</label>
-                        <input type="text" placeholder="Tên công việc" className="inputPost1"
+                        <input type="text" value={name} placeholder="Tên công việc" className="inputPost1"
                         onChange={ (e) => setName(e.target.value) }/>
                         {errors.name && <p className="error2">{errors.name} </p>}
                     </div>
                     <div className="nameJob">
                         <label htmlFor="">Nơi làm việc</label>
-                        <input type="text" placeholder="Địa chỉ" className="inputPost1" 
+                        <input type="text" value={locationWorking} placeholder="Địa chỉ" className="inputPost1" 
                         onChange={ (e) => setLocationWorking(e.target.value)}/>
                         {errors.locationWorking && <p className="error2">{errors.locationWorking} </p>}
                     </div>
@@ -163,14 +205,14 @@ export default function AddPost() {
                     <div className="post2Left">
                         <div className="salary"> 
                             <PaidIcon className="iconUser"/>
-                            <input type="text" name="" id=""  placeholder="Lương"  
+                            <input type="text" value={salary} name="" id=""  placeholder="Lương"  
                             onChange={ (e) => setSalary(e.target.value)}/>
                             
                         </div>
                         {errors.salary && <p className="error2">{errors.salary} </p>}
                         <div className="salary"> 
                             <CalendarMonthIcon className="iconUser"/>
-                            <input type="text" name="" id=""  placeholder="Thời gian làm việc"
+                            <input type="text" name="" id="" value={hourWorking} placeholder="Thời gian làm việc"
                             onChange={(e) => setHourWorking(e.target.value)}/>
                             
                         </div>
@@ -180,7 +222,7 @@ export default function AddPost() {
                     <div className="post2Right">
                         <div className="salary2"> 
                             <FactoryIcon className="iconUser"/>
-                            <select className="dropdown" onChange={(e) => setSelected(e.target.value)}>
+                            <select value={selected} className="dropdown" onChange={(e) => setSelected(e.target.value)}>
                                 <option  value="">Chọn lĩnh vực</option>
                                 {optionList.map((m, ix) =>
                                     <option  key={m.id}  value={m._id} >{m.name} </option>)}
@@ -191,7 +233,7 @@ export default function AddPost() {
                         {errors.selected && <p className="error2">{errors.selected} </p>}
                         <div className="salary"> 
                             <HourglassTopIcon className="iconUser"/>
-                            <input type="date" name="" id="" className="deadline"  placeholder="Hạn nộp hồ sơ"
+                            <input type="date" value={deadline} name="" id="" className="deadline"  placeholder="Hạn nộp hồ sơ"
                              onChange={(e) => setDeadline(e.target.value)}/>
                             
                         </div>

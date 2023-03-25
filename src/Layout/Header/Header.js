@@ -115,14 +115,9 @@ function Header() {
 								<div onClick={handleShowLogin} className={cx("MenuItem")}>đăng nhập</div>
 								<div className={cx("EmployersButton")}>
 									<Link
-<<<<<<< HEAD
 										to={config.routes.login}
 										
 									>
-=======
-										to={config.routes.recruitment}
-										target="_blank" >
->>>>>>> 898eca25ee11eb250ea80c50efcd125549dd4f49
 										dành cho nhà tuyển dụng
 										<span><RightArrowIcon className={cx("EndIconContainer")} /></span>
 									</Link>

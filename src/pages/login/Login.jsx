@@ -3,10 +3,12 @@ import {useState } from "react";
 import FormInput from "../../components/formInput/FormInput";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 
 
 import {get, post} from "../../utils/axiosAPI";
 import {loginSuccess} from "../../redux/authSlice";
+import { login } from "../../services/authService";
 
 export default function Login() {
     const [values, setValues] = useState({
@@ -47,16 +49,17 @@ export default function Login() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       
-      try {
-        const res = await post("auth/login", { username: values.username, password: values.password})
-        console.log(res.data);
-        dispatch(loginSuccess(res.data))
+      const hasErr = await login({ username: values.username, password: values.password }, dispatch, navigate);
+      if (hasErr) {
+        setError(hasErr);
+      } else {
+        toast.success("Đăng nhập thành công!", {
+          position: "top-center"
+        });
         navigate("/reCompany")
-      } catch (error) {
-        console.log(error.response.data)
-        setError(error.response.data.message)
-      
-    };
+
+        
+      }
   }
     
     const onChange = (e) => {
