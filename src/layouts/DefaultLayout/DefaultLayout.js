@@ -8,12 +8,10 @@ import styles from './DefautLayout.module.scss';
 import Footer from '../Footer/Footer';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import ScrollTopContainer from '../../components/ScrollTopButton/ScrollTopContainer';
-import { useLog } from '../../hooks';
 
 const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
-    useLog("Render DefaultLayout", 0);
     const [gotoTop, setGoToTop] = useState(false);
     useEffect(() => {
         const handleScroll = () => {

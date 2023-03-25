@@ -7,7 +7,7 @@ import styles from "./Collapsible.module.scss";
 const cx = classNames.bind(styles);
 
 function Collapsible({ title, children }) {
-  console.log("Render Collapsible");
+  // console.log("Render Collapsible");
   const [open, setOpen] = useState(true);
   const toggleOpen = () => {
     setOpen(!open);

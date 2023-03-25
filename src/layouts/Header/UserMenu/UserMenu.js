@@ -1,20 +1,29 @@
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import { DropdownIcon } from '../../../components/Icon';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './UserMenu.module.scss';
 import { logoutSuccess } from '../../../redux/authSlice';
 import { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear, faPowerOff } from '@fortawesome/free-solid-svg-icons';
+import { logout } from '../../../services/authService';
+import { selectAccessToken, selectRefreshToken } from '../../../redux/selector';
 
 const cx = classNames.bind(styles);
 
 function UserMenu({ currentUser }) {
   const userMenuRef = useRef();
+  const accessToken = useSelector(selectAccessToken);
+  const refreshToken = useSelector(selectRefreshToken);
   const dispatch = useDispatch();
   const [showUserMenu, setShowUserMenu] = useState(false);
+
+  const handleLogout = () => {
+    
+    logout(accessToken, refreshToken, dispatch);
+  }
 
   useEffect(() => {
     const handleUserMenuMousedown = (e) => {
@@ -22,9 +31,7 @@ function UserMenu({ currentUser }) {
         setShowUserMenu(false);
       }
     }
-
     window.addEventListener("click", handleUserMenuMousedown);
-
     return () => {
       window.removeEventListener("click", handleUserMenuMousedown);
     }
@@ -58,9 +65,7 @@ function UserMenu({ currentUser }) {
                 </div>
               </Link>
               <Link to={"/"} className={cx("DropdownStyle__DropdownItemWrapper")}
-                onClick={
-                  () => { dispatch(logoutSuccess(currentUser)) }
-                } >
+                onClick={handleLogout} >
                 <div className={cx("DropdownWrapper")}>
                   <FontAwesomeIcon className={cx("IconStyle__VerticalCenteredSvg")} icon={faPowerOff} />
                   <span>Đăng xuất</span>

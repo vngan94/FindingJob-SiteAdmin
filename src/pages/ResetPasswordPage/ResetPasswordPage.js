@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import styles from "./ResetPasswordPage.module.scss";
 import { Title } from "../../components/TitleStyle";
@@ -10,8 +10,7 @@ import {
 } from "../../components/TextFieldStyle";
 import { Paragraph } from "../../components/ParagraphStyle";
 import { SolidBtnContainer, SolidButton } from "../../components/ButtonStyle";
-import { useLog } from "../../hooks";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { path, put } from "../../utils/axiosAPI";
 import { toast } from "react-toastify";
 import config from "../../config";
@@ -19,10 +18,9 @@ import config from "../../config";
 const cx = classNames.bind(styles);
 
 function ResetPasswordPage() {
-  useLog("Render ResetPasswordPage", 0);
   const { state } = useLocation();
   const navigate = useNavigate();
-  const email = state.email;
+  const email = state?.email;
   const [verifyCode, setVerifyCode] = useState("");
   const [password, setPassword] = useState("");
   const [pwConfirm, setPwConfirm] = useState("");
@@ -64,6 +62,11 @@ function ResetPasswordPage() {
     }
     fetchApi();
   }
+  useEffect(() => {
+    if (!email) {
+      navigate(config.routes.forgotPassword);
+    }
+  }, [])
   return (
     <div className={cx("GlintContainer")}>
       <section className={cx("Section")}>

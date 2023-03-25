@@ -14,7 +14,7 @@ import config from "../../../config";
 const cx = classNames.bind(styles);
 
 function LoginForm({ handleShowLogin }) {
-  console.log("Render Login Form");
+  // console.log("Render Login Form");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [usernameError, setUsernameError] = useState("");

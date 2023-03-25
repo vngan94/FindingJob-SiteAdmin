@@ -20,7 +20,7 @@ import TagContent from "../TagStyle/TagContent";
 const cx = classNames.bind(styles);
 
 function ExploreTab() {
-  console.log("Render ExploreTab");
+  // console.log("Render ExploreTab");
   const addressArray = useSelector(selectLocationWorking);
   const searchInput = useSelector(selectSearch);
   const [jobList, setJobList] = useState([]);
@@ -31,7 +31,7 @@ function ExploreTab() {
   ]
 
   const filterJob = (searchInput, addressArray) => {
-    console.log("filter job");
+    // console.log("filter job");
     const addressFilter = [];
     addressArray.forEach((item) => {
       if (item.checked) {
