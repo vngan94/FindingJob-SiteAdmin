@@ -7,6 +7,7 @@ const routes = {
     signUp: "/sign-up",
     forgotPassword: "/forgot-password",
     recruitment: "https://employers.glints.vn/",
+    resetPassword: "/reset-password",
     error: "*",
     // private
     job: "/job",

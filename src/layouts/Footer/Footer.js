@@ -11,7 +11,7 @@ function Footer() {
 				<div className={cx("CompanyInfo")}>
 					<a href="/vn">
 						<div className={cx("BrandContainer", "Logo")} role="presentation" tabIndex={0}>
-							<img className={cx("BrandImage")} src="https://glints.com/_next/static/chunks/node_modules/glints-aries/assets/image/glints-logo-white.b9cad75f26a9c8d9cfad.svg" alt="Glints Logo" tabIndex={-1} />
+							<img className={cx("BrandImage")} src="/static/images/glints-logo-white.svg" alt="Glints Logo" tabIndex={-1} />
 						</div>
 					</a>
 					<h4 className={cx("RegionalHeading")}>

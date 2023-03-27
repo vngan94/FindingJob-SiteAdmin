@@ -1,3 +1,5 @@
 import useDocumentTitle from "./useDocumentTitle";
 
-export { useDocumentTitle }
+export {
+  useDocumentTitle,
+}

@@ -379,24 +379,6 @@
     margin-bottom: 8px;
 }
 
-
-
-.TagStyle__TagContainer {
-    display: inline-flex;
-    border: 1px solid rgb(198, 198, 198);
-    border-radius: 20px;
-}
-
-.TagStyle__TagContainer:hover {
-    background-color: rgb(1, 126, 183);
-    color: rgb(255, 255, 255);
-}
-
-.TagStyle__TagContent {
-    padding: 5px 15px;
-    cursor: pointer;
-}
-
 .TextFieldStyled__TextFieldContainer {
     position: relative;
     display: flex;

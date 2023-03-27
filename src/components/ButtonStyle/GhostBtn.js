@@ -4,9 +4,10 @@ import styles from "./ButtonStyle.module.scss";
 
 const cx = classNames.bind(styles);
 
-function GhostBtn({ type, className, children }) {
+function GhostBtn({ type, onClick, className, children }) {
   return (
     <button type={type}
+      onClick={onClick}
       className={cx(className, "Button", "GhostBtn")} >
       {children}
     </button>

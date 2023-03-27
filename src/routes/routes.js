@@ -14,8 +14,9 @@ import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import ApplicationList from "../pages/applicationList/ApplicationList";
 import SignUp from "../pages/SignUp";
-import HeaderOnly from "../Layout/HeaderOnly";
+import HeaderOnly from "../layouts/HeaderOnly";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
+import ResetPasswordPage from "../pages/ResetPasswordPage/ResetPasswordPage";
 
 export const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -38,6 +39,7 @@ export const publicRoutes = [
     
     { path: config.routes.signUp, component: SignUp, layout: HeaderOnly },
     { path: config.routes.forgotPassword, component: ForgotPasswordPage, layout: HeaderOnly },
+    { path: config.routes.resetPassword, component: ResetPasswordPage, layout: HeaderOnly },
 ];
 
 // must login
