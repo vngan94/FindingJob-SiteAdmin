@@ -9,13 +9,18 @@ import GlintContainer from "../GlintContainer";
 
 import SearchContainer from "../SearchContainer";
 import { get } from "../../utils/axiosAPI";
-import Collapsible from "../Collapsible/Collapsible";
-import Checkbox from "../Checkbox";
+import Checkbox from "../CheckboxStyle";
 import JobList from "../JobList/JobList";
 import { selectLocationWorking, selectSearch } from "../../redux/selector";
-import { element } from "prop-types";
 import TagContainer from "../TagStyle/TagContainer";
 import TagContent from "../TagStyle/TagContent";
+import { ModalDialog } from "../ModalStyle";
+import {
+  CollapsibleContainer,
+  CollapsibleContent,
+  CollapsibleHeader,
+  CollapsibleBody
+} from "../CollapsibleStyle";
 
 const cx = classNames.bind(styles);
 
@@ -111,17 +116,23 @@ function ExploreTab() {
       <h1 className={cx("JobCount")}>{result.length} việc làm tại Vietnam</h1>
       <div className={cx("Body")}>
         <div className={cx("DesktopStickyFilterContainer")}>
-          <div className={cx("ModalStyle__ModalDialog")}>
+          <ModalDialog>
             <div className={cx("styles__FilterList")}>
-              <Collapsible title="Thành Phố">
-                <div className={cx("styles__CheckboxContainer")}>
-                  {addressArray.map((item) => {
-                    return <Checkbox key={item.id} obj={item} />
-                  })}
-                </div>
-              </Collapsible>
+              <CollapsibleContainer className={cx("styles__Collapsible")}>
+                <CollapsibleContent>
+                  <CollapsibleHeader title="Thành Phố"
+                    className={cx("collapsible-title")} />
+                  <CollapsibleBody>
+                    <div className={cx("styles__CheckboxContainer")}>
+                      {addressArray.map((item) => {
+                        return <Checkbox key={item.id} obj={item} />
+                      })}
+                    </div>
+                  </CollapsibleBody>
+                </CollapsibleContent>
+              </CollapsibleContainer>
             </div>
-          </div>
+          </ModalDialog>
         </div>
         <div className={cx("Box__StyledBox", "Flex__StyledFlex", "Flex")}>
           <div className={cx("CompactJobCardList__JobCardListContainer",

@@ -18,7 +18,7 @@ import styles from "./Opportunity.module.scss";
 const cx = classNames.bind(styles);
 
 function Opportunity({ openModal }) {
-  console.log("Render Opportunity");
+  // console.log("Render Opportunity");
   const job = useContext(JobContext);
   return <div className={cx("Container")}>
     <main className={cx("Main")}>

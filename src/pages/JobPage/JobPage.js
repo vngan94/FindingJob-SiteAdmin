@@ -1,7 +1,7 @@
 import ExploreTab from "../../components/ExploreTab";
 import {useDocumentTitle} from "../../hooks";
 
-function Job() {
+function JobPage() {
     useDocumentTitle("Tìm Việc Làm");
     return <>
         <ExploreTab />
@@ -9,4 +9,4 @@ function Job() {
 
 }
 
-export default Job;
+export default JobPage;

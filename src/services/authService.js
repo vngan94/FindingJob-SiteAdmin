@@ -1,12 +1,12 @@
 import { loginSuccess, logoutSuccess, setUser } from "../redux/authSlice";
-import { createAxiosJwt, get, post } from "../utils/axiosAPI";
+import { createAxiosJwt, get, patch, post } from "../utils/axiosAPI";
 import { path } from "../utils/axiosAPI";
 import config from "../config";
 
 export const login = async ({ username, password }, dispatch, navigate) => {
   try {
     const res = await post(path.login, { username, password });
-    console.log("res - login", res);
+    // console.log("res - login", res);
     if (res.success) {
       dispatch(loginSuccess(res.data));
       getUser(res.data.accessToken, res.data.refreshToken, dispatch);
@@ -22,24 +22,27 @@ export const login = async ({ username, password }, dispatch, navigate) => {
 }
 
 export const logout = async (accessToken, refreshToken, dispatch) => {
-  console.log("logout function", accessToken);
-  console.log("logout function", refreshToken);
-  console.log("logout function", dispatch);
+  // console.log("logout function", accessToken);
+  // console.log("logout function", refreshToken);
+  // console.log("logout function", dispatch);
+
   const axiosJwt = createAxiosJwt(accessToken, refreshToken, dispatch);
   try {
-    dispatch(logoutSuccess());
     const res = await axiosJwt.patch(path.logout, {}, {
       headers: {
         Authorization: `bearer ${accessToken}`
       },
       // withCredentials: true
     })
-    console.log(res);
+    if (res.data.isSuccess) {
+      dispatch(logoutSuccess());
+    }
   } catch (error) {
     console.log(error);
   }
+
   // try {
-  //   const res = await patch(path.logout, _id, {
+  //   const res = await patch(path.logout, {}, {
   //     headers: {
   //       Authorization: `bearer ${accessToken}`
   //     }
@@ -56,12 +59,12 @@ export const getUser = async (accessToken, refreshToken, dispatch) => {
   try {
     const res = await axiosJwt.get(path.getUser, {
       headers: {
-        Authorization: `bearer ${refreshToken}`
+        Authorization: `bearer ${accessToken}`
       },
       // withCredentials: true
     })
     dispatch(setUser(res.data));
-    console.log("getUser", res);
+    // console.log("getUser", res);
   } catch (error) {
     console.log(error);
   }

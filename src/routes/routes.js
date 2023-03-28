@@ -1,7 +1,7 @@
 import Home from "../pages/Home";
-import Job from "../pages/Job/";
+import JobPage from "../pages/JobPage";
 import Company from "../pages/Company";
-import Blog from "../pages/Blog/";
+import BlogPage from "../pages/BlogPage";
 import config from "../config";
 import DetailJob from "../pages/DetailJob";
 import ErrorPage from "../pages/ErrorPage";
@@ -13,10 +13,10 @@ import ResetPasswordPage from "../pages/ResetPasswordPage/ResetPasswordPage";
 export const publicRoutes = [
     { path: config.routes.home, component: Home },
     { path: config.routes.company, component: Company },
-    { path: config.routes.blog, component: Blog },
+    { path: config.routes.blog, component: BlogPage },
     { path: config.routes.error, component: ErrorPage },
     // {path: "/test", component: Test, layout: HeaderOnly}
-    { path: config.routes.job, component: Job },
+    { path: config.routes.job, component: JobPage },
     { path: config.routes.detailJob, component: DetailJob },
     { path: config.routes.signUp, component: SignUp, layout: HeaderOnly },
     { path: config.routes.forgotPassword, component: ForgotPasswordPage, layout: HeaderOnly },

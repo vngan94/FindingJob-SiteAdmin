@@ -4,12 +4,15 @@
     cursor: pointer;
 }
 
+.CollapsibleContainer .collapsible-title {
+    padding: 16px 0px;
+}
+
 .CollapsibleContent {
     outline: none;
 }
 
 .CollapsibleHeader {
-    padding: 16px 0px;
     display: flex;
     -webkit-box-pack: justify;
     justify-content: space-between;

@@ -20,31 +20,38 @@ const getNewAccessToken = async (refreshToken) => {
       }
     })
     console.log("getNewAccessToken", res);
-    return res;
+    return res.data;
   } catch (error) {
     console.log("refreshToken", error);
   }
 }
 
-export const createAxiosJwt = (accessToken, refreshToken, dispatch) => {
+export const createAxiosJwt = (accessToken, refreshToken, dispatch, navigate) => {
   const instance = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
   })
   instance.interceptors.request.use(
     async (config) => {
-      console.log("interceptors accessToken", accessToken);
+      // console.log("interceptors accessToken", accessToken);
       // console.log("interceptors", config);
       const date = new Date();
+      // check refresh token exp first, then check accesToken
+      const decodedRefresh = jwtDecode(refreshToken);
+      if (decodedRefresh.exp < date.getTime() / 1000) {
+        // navigate login
+      }
       const decodedToken = jwtDecode(accessToken);
       // console.log("decodedToken", decodedToken);
-      // console.log("date", date.getTime());
+      console.log("date", date.getTime());
       // console.log("accessToken exp", decodedToken.exp);
-      console.log(decodedToken.exp < date.getTime() / 1000);
+      // console.log(decodedToken.exp < date.getTime() / 1000);
       if (decodedToken.exp < date.getTime() / 1000) {
         const data = await getNewAccessToken(refreshToken);
         console.log("data", data);
-        dispatch(loginSuccess(data));
-        config.headers["Authorization"] = `Bearer ${data.accessToken}`
+        if (data.isSuccess) {
+          dispatch(loginSuccess(data));
+          config.headers["Authorization"] = `Bearer ${data.accessToken}`
+        }
       }
       return config;
     },

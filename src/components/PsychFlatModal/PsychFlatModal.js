@@ -16,8 +16,8 @@ import { SolidBtnContainer, SolidButton } from "../ButtonStyle";
 import styles from "./PsychFlatModal.module.scss";
 import { convertSizeFile } from "../../utils/helpers";
 import { post } from "../../utils/axiosAPI";
-import { useSelector } from "react-redux";
-import { selectAccessToken, selectUser } from "../../redux/selector";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAccessToken, selectRefreshToken, selectUser } from "../../redux/selector";
 import { applyJob } from "../../services/jobService";
 import { useNavigate } from "react-router-dom";
 
@@ -25,6 +25,7 @@ const cx = classNames.bind(styles);
 
 function PsychFlatModal({ handleShowPsychFlat }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   // should pass from higher level
   const [selectedFile, setSelectedFile] = useState(null);
   const modalRef = useRef();
@@ -34,6 +35,7 @@ function PsychFlatModal({ handleShowPsychFlat }) {
   const timeUpload = new Date();
   const currentUser = useSelector(selectUser);
   const accessToken = useSelector(selectAccessToken);
+  const refreshToken = useSelector(selectRefreshToken);
   // giải pháp tạm thời tạo input type file và ẩn
   const handleUploadFile = () => {
     if (!selectedFile) {
@@ -52,14 +54,18 @@ function PsychFlatModal({ handleShowPsychFlat }) {
       setSelectedFile(file);
     }
   }
+  // const date = new Date("2023-03-28T04:31:14.000+00:00");
+  // console.log({ date });
   const handleSubmit = (e) => {
     e.preventDefault();
+    const date = new Date();
+    console.log({ date });
     const formData = new FormData();
     formData.append("idJobSeeker", currentUser._id);
     formData.append("idJob", job._id);
     formData.append("cv", selectedFile);
-    formData.append("submitDate", new Date());
-    applyJob(formData, accessToken, navigate);
+    formData.append("submitDate", date);
+    applyJob(formData, accessToken, refreshToken, dispatch, navigate);
   }
   return (
     <ModalContainer className={cx("CustomModal")}
