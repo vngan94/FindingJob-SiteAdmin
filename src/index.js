@@ -7,13 +7,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { store, persistor } from './redux/store';
+import { PastJobSearchProvider } from './contexts/pastJobSearchContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<PersistGate loading={<p>Loading...</p>} persistor={persistor} >
-				<App />
+				<PastJobSearchProvider>
+					<App />
+				</PastJobSearchProvider>
 			</PersistGate>
 		</Provider>
 	</React.StrictMode>

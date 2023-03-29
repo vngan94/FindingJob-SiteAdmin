@@ -1,6 +1,8 @@
 import classNames from "classnames/bind";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { usePastJobSearch } from "../../contexts/pastJobSearchContext";
+import { useSearchInput } from "../../contexts/searchInputContext";
 import { searchFilter } from "../../redux/filterSlice";
 
 import { SearchIcon, LocationIcon, CloseIcon } from "../Icon";
@@ -9,15 +11,32 @@ import styles from './SearchContainer.module.scss';
 const cx = classNames.bind(styles);
 
 function SearchContainer() {
+  // console.log("Render SearchContainer");
   const dispatch = useDispatch();
-  const [userInput, setUserInput] = useState("");
-  const testArray = useRef(Array.from({ length: 2 }));
+  const PastJobSearchContext = usePastJobSearch();
+  const { pastJobSearch, updatePastJobSearch } = PastJobSearchContext;
+  const SearchInputContext = useSearchInput();
+  const { searchInput, setSearchInput } = SearchInputContext;
+  // const [userInput, setUserInput] = useState("");
+  // const testArray = useRef(Array.from({ length: 2 }));
+  const testArray = [...pastJobSearch];
   const savePastJobSearch = (keyword) => {
-    if (testArray.current.length >= 2) {
-      testArray.current?.shift();
+    if (keyword) {
+      if (testArray?.length >= 3) {
+        testArray?.shift();
+      }
+      testArray?.push({
+        label: "Tìm kiếm gần đây:",
+        keyword: keyword
+      });
+      updatePastJobSearch({
+        label: "Tìm kiếm gần đây:",
+        keyword: keyword
+      });
+      if (testArray.length) {
+        localStorage.setItem("pastJobSearch", JSON.stringify(testArray));
+      }
     }
-    testArray.current.push(keyword);
-    console.log("test array", testArray);
   }
   return (
     <div className={cx("Container")}>
@@ -25,15 +44,15 @@ function SearchContainer() {
         <div className={cx("TextFieldStyled__TextFieldContainer")}>
           <input className={cx("TextFieldStyled__TextFieldInput")}
             placeholder="Tìm kiếm việc làm" spellCheck={false}
-            value={userInput}
+            value={searchInput}
             onChange={(e) => {
-              setUserInput(e.target.value);
+              setSearchInput(e.target.value);
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 // handleSearch();
-                savePastJobSearch(userInput);
-                dispatch(searchFilter(userInput));
+                savePastJobSearch(searchInput);
+                dispatch(searchFilter(searchInput));
               }
             }}
           />
@@ -61,8 +80,8 @@ function SearchContainer() {
           className={cx("ButtonStyle__Button", "ButtonStyle__SolidBtn")}
           onClick={() => {
             // handleSearch();
-            savePastJobSearch(userInput);
-            dispatch(searchFilter(userInput));
+            savePastJobSearch(searchInput);
+            dispatch(searchFilter(searchInput));
           }}
         >TÌM KIẾM</button>
       </div>

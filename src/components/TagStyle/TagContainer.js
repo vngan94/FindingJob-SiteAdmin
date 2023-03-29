@@ -1,12 +1,22 @@
 import classNames from "classnames/bind";
+import { useDispatch } from "react-redux";
+import { useSearchInput } from "../../contexts/searchInputContext";
+import { searchFilter } from "../../redux/filterSlice";
 
 import styles from "./TagStyle.module.scss";
 
 const cx = classNames.bind(styles);
 
-function TagContainer({ isClickable = false, className, tabIndex = 0, children }) {
+function TagContainer({ keyword, isClickable = false, className, tabIndex = 0, children }) {
+  const dispatch = useDispatch();
+  const SearchInputContext = useSearchInput();
+  const { setSearchInput } = SearchInputContext;
   return (
     <div tabIndex={tabIndex}
+      onClick={() => {
+        dispatch(searchFilter(keyword));
+        setSearchInput(keyword);
+      }}
       className={cx(className, "TagStyle__TagContainer")}>
       {children}
     </div>

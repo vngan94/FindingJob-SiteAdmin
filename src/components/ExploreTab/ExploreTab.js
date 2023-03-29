@@ -2,13 +2,13 @@ import classNames from "classnames/bind";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { memo, Suspense, useEffect, useState, useTransition } from "react";
+import { createContext, memo, Suspense, useEffect, useState, useTransition } from "react";
 
 import styles from "./ExploreTab.module.scss";
 import GlintContainer from "../GlintContainer";
 
 import SearchContainer from "../SearchContainer";
-import { get } from "../../utils/axiosAPI";
+import { get, path } from "../../utils/axiosAPI";
 import Checkbox from "../CheckboxStyle";
 import JobList from "../JobList/JobList";
 import { selectLocationWorking, selectSearch } from "../../redux/selector";
@@ -21,19 +21,19 @@ import {
   CollapsibleHeader,
   CollapsibleBody
 } from "../CollapsibleStyle";
+import { PastJobSearchProvider, usePastJobSearch } from "../../contexts/pastJobSearchContext";
 
 const cx = classNames.bind(styles);
 
 function ExploreTab() {
   // console.log("Render ExploreTab");
+  const PastJobSearchContext = usePastJobSearch();
+  const { pastJobSearch } = PastJobSearchContext;
   const addressArray = useSelector(selectLocationWorking);
   const searchInput = useSelector(selectSearch);
   const [jobList, setJobList] = useState([]);
   const [isPending, startTransition] = useTransition();
-  const pastJobSearch = [
-    { id: 1, label: "Tìm kiếm gần đây:", keyword: "Reactjs" },
-    { id: 2, label: "Tìm kiếm gần đây:", keyword: "Marketing" },
-  ]
+  const [occupations, setOccupations] = useState([]);
 
   const filterJob = (searchInput, addressArray) => {
     // console.log("filter job");
@@ -61,8 +61,8 @@ function ExploreTab() {
         return job.name.includes(searchInput) && handleAddressFilter(addressFilter, job.locationWorking);
       })
     }
-
   }
+  // alter this to Array.contains
   const handleAddressFilter = (arr, value) => {
     for (let index = 0; index < arr.length; index++) {
       const element = arr[index];
@@ -74,15 +74,22 @@ function ExploreTab() {
   }
   const result = filterJob(searchInput, addressArray);
   useEffect(() => {
-    const fetchApi = async () => {
-      const res = await get("job/list/sort-by-date");
+    const fetchJobs = async () => {
+      const res = await get(path.jobList);
       startTransition(() => {
         setJobList(res.data);
       })
     }
-    fetchApi();
+    fetchJobs();
   }, []);
+  useEffect(() => {
+    const fetchOccupations = async () => {
+      const res = await get(path.occupations);
+    }
+    fetchOccupations();
+  }, [])
   return (
+
     <GlintContainer className="styles__ExploreTabBody">
       <div className={cx("DesktopSearchBoxWrapper")}>
         <div className={cx("Box__StyledBox")}>
@@ -91,26 +98,26 @@ function ExploreTab() {
       </div>
       {/* Tìm kiếm gần đây lưu ở local */}
       <div className={cx("styles__Container")}>
-        {pastJobSearch.map((element) => (
-          <div key={element.id} className={cx("styles__ItemWrapper")}>
-            <TagContainer>
+        {pastJobSearch?.map((element, index) => (
+          <div key={index} className={cx("styles__ItemWrapper")}>
+            <TagContainer keyword={element?.keyword}>
               <TagContent>
                 <FontAwesomeIcon icon={faSearch} />
-                <span className={cx("Style_SearchTypeLabel")}>{element.label}</span>
-                <span className={cx("styles__SearchKeywordLabel")}>{element.keyword}</span>
+                <span className={cx("Style_SearchTypeLabel")}>{element?.label}</span>
+                <span className={cx("styles__SearchKeywordLabel")}>{element?.keyword}</span>
               </TagContent>
             </TagContainer>
           </div>
         ))}
-        <div className={cx("styles__ItemWrapper")}>
+        {/* <div className={cx("styles__ItemWrapper")}>
           <TagContainer>
             <TagContent>
               <FontAwesomeIcon icon={faSearch} />
-              <span>Từ khóa hot:</span>
+              <span>Từ khóa hot: </span>
               <span>Component</span>
             </TagContent>
           </TagContainer>
-        </div>
+        </div> */}
       </div>
       {/* end past job search */}
       <h1 className={cx("JobCount")}>{result.length} việc làm tại Vietnam</h1>
@@ -150,4 +157,5 @@ function ExploreTab() {
   )
 }
 
-export default memo(ExploreTab);
+// export default memo(ExploreTab);
+export default ExploreTab;

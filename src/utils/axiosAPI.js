@@ -88,10 +88,12 @@ export const path = {
   logout: "auth/logout",
   register: "auth/register",
   getUser: "auth/info-user",
+  jobList: "job/list/sort-by-date",
   applyJob: "application/create",
   forgotPassword: "auth/forgot-password",
   resetPassword: "auth/confirm-password",
-  refreshToken: "auth/refresh-token"
+  refreshToken: "auth/refresh-token",
+  occupations: "occupation/list"
 }
 
 export default instance;
