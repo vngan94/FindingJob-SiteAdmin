@@ -25,12 +25,12 @@
     border-radius: 4px;
 }
 
-.CheckboxContainer[aria-checked=true] label::before {
+.CheckboxContainer input:checked+label::before {
     /* background-color: rgb(0, 132, 100); */
     background-color: var(--primary-color);
 }
 
-.CheckboxContainer[aria-checked=true] label::after {
+.CheckboxContainer input:checked+label::after {
     content: "";
     position: absolute;
     display: block;

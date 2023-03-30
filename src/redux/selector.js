@@ -8,7 +8,9 @@ export const selectUser = state => state.auth.currentUser;
 
 export const selectJobList = state => state.jobList;
 
-export const selectLocationWorking = state => state.filter.locationWorking;
+export const selectLocationWorkings = state => state.filter.locationWorkings;
+
+export const selectOccupations = state => state.filter.occupations;
 
 export const selectSearch = state => state.filter.search;
 

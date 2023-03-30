@@ -2,26 +2,20 @@ import classNames from "classnames/bind";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { createContext, memo, Suspense, useEffect, useState, useTransition } from "react";
+import { Suspense, useEffect, useState, useTransition } from "react";
 
 import styles from "./ExploreTab.module.scss";
 import GlintContainer from "../GlintContainer";
 
 import SearchContainer from "../SearchContainer";
 import { get, path } from "../../utils/axiosAPI";
-import Checkbox from "../CheckboxStyle";
 import JobList from "../JobList/JobList";
-import { selectLocationWorking, selectSearch } from "../../redux/selector";
+import { selectLocationWorkings, selectOccupations, selectSearch } from "../../redux/selector";
 import TagContainer from "../TagStyle/TagContainer";
 import TagContent from "../TagStyle/TagContent";
-import { ModalDialog } from "../ModalStyle";
-import {
-  CollapsibleContainer,
-  CollapsibleContent,
-  CollapsibleHeader,
-  CollapsibleBody
-} from "../CollapsibleStyle";
-import { PastJobSearchProvider, usePastJobSearch } from "../../contexts/pastJobSearchContext";
+
+import { usePastJobSearch } from "../../contexts/pastJobSearchContext";
+import FilterContainer from "./FilterContainer";
 
 const cx = classNames.bind(styles);
 
@@ -29,67 +23,32 @@ function ExploreTab() {
   // console.log("Render ExploreTab");
   const PastJobSearchContext = usePastJobSearch();
   const { pastJobSearch } = PastJobSearchContext;
-  const addressArray = useSelector(selectLocationWorking);
   const searchInput = useSelector(selectSearch);
+  const occupationsFilter = useSelector(selectOccupations);
+  const locationWorkingFilter = useSelector(selectLocationWorkings);
   const [jobList, setJobList] = useState([]);
   const [isPending, startTransition] = useTransition();
-  const [occupations, setOccupations] = useState([]);
 
-  const filterJob = (searchInput, addressArray) => {
-    // console.log("filter job");
-    const addressFilter = [];
-    addressArray.forEach((item) => {
-      if (item.checked) {
-        addressFilter.push(item.value);
-      }
-    })
-    if (!searchInput && !addressFilter.length) {
-      return jobList;
-    }
-    if (searchInput && !addressFilter.length) {
-      return jobList.filter((job) => {
-        return job.name.includes(searchInput);
-      })
-    }
-    if (!searchInput && addressFilter.length) {
-      return jobList.filter((job) => {
-        return job && handleAddressFilter(addressFilter, job.locationWorking);
-      })
-    }
-    if (searchInput && addressFilter.length) {
-      return jobList.filter((job) => {
-        return job.name.includes(searchInput) && handleAddressFilter(addressFilter, job.locationWorking);
-      })
-    }
-  }
-  // alter this to Array.contains
-  const handleAddressFilter = (arr, value) => {
-    for (let index = 0; index < arr.length; index++) {
-      const element = arr[index];
-      if (value?.includes(element)) {
-        return true;
-      }
-    }
-    return false;
-  }
-  const result = filterJob(searchInput, addressArray);
   useEffect(() => {
     const fetchJobs = async () => {
-      const res = await get(path.jobList);
+      const dataFilter = {};
+      if (occupationsFilter.length) {
+        dataFilter.idOccupation = occupationsFilter;
+      }
+      if (locationWorkingFilter.length) {
+        dataFilter.locationWorking = locationWorkingFilter;
+      }
+      // console.log("dataFilter", dataFilter);
+      console.log(searchInput);
+      const res = await get(path.jobListFilter, dataFilter);
       startTransition(() => {
         setJobList(res.data);
       })
     }
     fetchJobs();
-  }, []);
-  useEffect(() => {
-    const fetchOccupations = async () => {
-      const res = await get(path.occupations);
-    }
-    fetchOccupations();
-  }, [])
-  return (
+  }, [searchInput, occupationsFilter, locationWorkingFilter]);
 
+  return (
     <GlintContainer className="styles__ExploreTabBody">
       <div className={cx("DesktopSearchBoxWrapper")}>
         <div className={cx("Box__StyledBox")}>
@@ -109,44 +68,19 @@ function ExploreTab() {
             </TagContainer>
           </div>
         ))}
-        {/* <div className={cx("styles__ItemWrapper")}>
-          <TagContainer>
-            <TagContent>
-              <FontAwesomeIcon icon={faSearch} />
-              <span>Từ khóa hot: </span>
-              <span>Component</span>
-            </TagContent>
-          </TagContainer>
-        </div> */}
       </div>
       {/* end past job search */}
-      <h1 className={cx("JobCount")}>{result.length} việc làm tại Vietnam</h1>
+      <h1 className={cx("JobCount")}>
+        {jobList.length} việc làm tại Vietnam
+      </h1>
       <div className={cx("Body")}>
-        <div className={cx("DesktopStickyFilterContainer")}>
-          <ModalDialog>
-            <div className={cx("styles__FilterList")}>
-              <CollapsibleContainer className={cx("styles__Collapsible")}>
-                <CollapsibleContent>
-                  <CollapsibleHeader title="Thành Phố"
-                    className={cx("collapsible-title")} />
-                  <CollapsibleBody>
-                    <div className={cx("styles__CheckboxContainer")}>
-                      {addressArray.map((item) => {
-                        return <Checkbox key={item.id} obj={item} />
-                      })}
-                    </div>
-                  </CollapsibleBody>
-                </CollapsibleContent>
-              </CollapsibleContainer>
-            </div>
-          </ModalDialog>
-        </div>
+        <FilterContainer />
         <div className={cx("Box__StyledBox", "Flex__StyledFlex", "Flex")}>
           <div className={cx("CompactJobCardList__JobCardListContainer",
             "styles__CompactJobCardList")}>
             {/* <div className="ModalStyle__ModalContainer"></div> */}
             <Suspense fallback={() => (<p>Calling...</p>)}>
-              {isPending ? <p>loading...</p> : <JobList jobList={result} />}
+              {isPending ? <p>loading...</p> : <JobList jobList={jobList} />}
             </Suspense>
           </div>
           <div className={cx("InfiniteScroll_InfiniteScrollContainer")}></div>
@@ -156,6 +90,4 @@ function ExploreTab() {
     </GlintContainer>
   )
 }
-
-// export default memo(ExploreTab);
 export default ExploreTab;

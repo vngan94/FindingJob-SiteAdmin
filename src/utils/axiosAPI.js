@@ -32,19 +32,14 @@ export const createAxiosJwt = (accessToken, refreshToken, dispatch, navigate) =>
   })
   instance.interceptors.request.use(
     async (config) => {
-      // console.log("interceptors accessToken", accessToken);
-      // console.log("interceptors", config);
       const date = new Date();
       // check refresh token exp first, then check accesToken
       const decodedRefresh = jwtDecode(refreshToken);
       if (decodedRefresh.exp < date.getTime() / 1000) {
-        // navigate login
+        // set token null then go back home page
       }
       const decodedToken = jwtDecode(accessToken);
-      // console.log("decodedToken", decodedToken);
       console.log("date", date.getTime());
-      // console.log("accessToken exp", decodedToken.exp);
-      // console.log(decodedToken.exp < date.getTime() / 1000);
       if (decodedToken.exp < date.getTime() / 1000) {
         const data = await getNewAccessToken(refreshToken);
         console.log("data", data);
@@ -89,6 +84,7 @@ export const path = {
   register: "auth/register",
   getUser: "auth/info-user",
   jobList: "job/list/sort-by-date",
+  jobListFilter: "job/list/filter",
   applyJob: "application/create",
   forgotPassword: "auth/forgot-password",
   resetPassword: "auth/confirm-password",

@@ -1,9 +1,8 @@
 import classNames from "classnames/bind";
-import { useContext, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { usePastJobSearch } from "../../contexts/pastJobSearchContext";
 import { useSearchInput } from "../../contexts/searchInputContext";
-import { searchFilter } from "../../redux/filterSlice";
+import { updateSearch } from "../../redux/filterSlice";
 
 import { SearchIcon, LocationIcon, CloseIcon } from "../Icon";
 import styles from './SearchContainer.module.scss';
@@ -52,7 +51,7 @@ function SearchContainer() {
               if (e.key === "Enter") {
                 // handleSearch();
                 savePastJobSearch(searchInput);
-                dispatch(searchFilter(searchInput));
+                dispatch(updateSearch(searchInput));
               }
             }}
           />
@@ -81,7 +80,7 @@ function SearchContainer() {
           onClick={() => {
             // handleSearch();
             savePastJobSearch(searchInput);
-            dispatch(searchFilter(searchInput));
+            dispatch(updateSearch(searchInput));
           }}
         >TÌM KIẾM</button>
       </div>
