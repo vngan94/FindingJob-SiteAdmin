@@ -39,7 +39,7 @@ function ExploreTab() {
         dataFilter.locationWorking = locationWorkingFilter;
       }
       // console.log("dataFilter", dataFilter);
-      console.log(searchInput);
+      // console.log(searchInput);
       const res = await get(path.jobListFilter, dataFilter);
       startTransition(() => {
         setJobList(res.data);

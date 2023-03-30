@@ -18,7 +18,7 @@ function SearchContainer() {
   const { searchInput, setSearchInput } = SearchInputContext;
   // const [userInput, setUserInput] = useState("");
   // const testArray = useRef(Array.from({ length: 2 }));
-  const testArray = [...pastJobSearch];
+  const testArray = pastJobSearch ? [...pastJobSearch] : [];
   const savePastJobSearch = (keyword) => {
     if (keyword) {
       if (testArray?.length >= 3) {

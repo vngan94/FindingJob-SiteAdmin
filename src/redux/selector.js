@@ -4,7 +4,7 @@ export const selectAccessToken = state => state.auth.accessToken;
 
 export const selectRefreshToken = state => state.auth.refreshToken;
 
-export const selectUser = state => state.auth.currentUser;
+export const selectUser = state => state.user.currentUser;
 
 export const selectJobList = state => state.jobList;
 

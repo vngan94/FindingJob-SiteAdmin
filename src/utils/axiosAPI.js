@@ -36,10 +36,10 @@ export const createAxiosJwt = (accessToken, refreshToken, dispatch, navigate) =>
       // check refresh token exp first, then check accesToken
       const decodedRefresh = jwtDecode(refreshToken);
       if (decodedRefresh.exp < date.getTime() / 1000) {
-        // set token null then go back home page
+        // set token null then show login, and then redirect path before
       }
       const decodedToken = jwtDecode(accessToken);
-      console.log("date", date.getTime());
+      // console.log("date", date.getTime());
       if (decodedToken.exp < date.getTime() / 1000) {
         const data = await getNewAccessToken(refreshToken);
         console.log("data", data);

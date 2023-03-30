@@ -15,6 +15,7 @@ import UserMenu from './UserMenu/UserMenu';
 const cx = classNames.bind(styles);
 
 function Header() {
+	// console.log("Render Header");
 	const currentUser = useSelector(selectUser);
 	const [showLogin, setShowLogin] = useState(false);
 	const [showLanguageMenu, setShowLanguageMenu] = useState(false);

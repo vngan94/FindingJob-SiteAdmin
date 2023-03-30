@@ -1,7 +1,9 @@
-import { loginSuccess, logoutSuccess, setUser } from "../redux/authSlice";
+import { loginSuccess, logoutSuccess } from "../redux/authSlice";
 import { createAxiosJwt, get, patch, post } from "../utils/axiosAPI";
 import { path } from "../utils/axiosAPI";
 import config from "../config";
+import { updateUser } from "../redux/userSlice";
+import jwtDecode from "jwt-decode";
 
 export const login = async ({ username, password }, dispatch, navigate) => {
   try {
@@ -22,10 +24,6 @@ export const login = async ({ username, password }, dispatch, navigate) => {
 }
 
 export const logout = async (accessToken, refreshToken, dispatch) => {
-  // console.log("logout function", accessToken);
-  // console.log("logout function", refreshToken);
-  // console.log("logout function", dispatch);
-
   const axiosJwt = createAxiosJwt(accessToken, refreshToken, dispatch);
   try {
     const res = await axiosJwt.patch(path.logout, {}, {
@@ -36,47 +34,37 @@ export const logout = async (accessToken, refreshToken, dispatch) => {
     })
     if (res.data.isSuccess) {
       dispatch(logoutSuccess());
+      dispatch(updateUser(null));
     }
   } catch (error) {
     console.log(error);
   }
-
-  // try {
-  //   const res = await patch(path.logout, {}, {
-  //     headers: {
-  //       Authorization: `bearer ${accessToken}`
-  //     }
-  //   })
-  //   console.log(res);
-  //   dispatch(logoutSuccess());
-  // } catch (error) {
-  //   console.log(error);
-  // }
 }
 
 export const getUser = async (accessToken, refreshToken, dispatch) => {
-  const axiosJwt = createAxiosJwt(accessToken, refreshToken, dispatch);
-  try {
-    const res = await axiosJwt.get(path.getUser, {
-      headers: {
-        Authorization: `bearer ${accessToken}`
-      },
-      // withCredentials: true
-    })
-    dispatch(setUser(res.data));
-    // console.log("getUser", res);
-  } catch (error) {
-    console.log(error);
+  const date = new Date();
+  const decodedRefresh = jwtDecode(refreshToken);
+  if (refreshToken) {
+    if (!(decodedRefresh.exp < date.getTime() / 1000)) {
+      const axiosJwt = createAxiosJwt(accessToken, refreshToken, dispatch);
+      try {
+        const res = await axiosJwt.get(path.getUser, {
+          headers: {
+            Authorization: `bearer ${accessToken}`
+          },
+        })
+        const user = res.data;
+        dispatch(updateUser({
+          _id: user._id,
+          name: user.name,
+          avatar: user.avatar,
+          phone: user.phone,
+          email: user.email,
+          username: user.username
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
-  // try {
-  //   const res = await get(path.getUser, {
-  //     headers: {
-  //       Authorization: `bearer ${accessToken}`
-  //     }
-  //   })
-  //   console.log("getUser", res);
-  //   dispatch(setUser(res));
-  // } catch (error) {
-  //   console.log(error);
-  // }
 }
