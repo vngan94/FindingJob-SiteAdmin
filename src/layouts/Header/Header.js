@@ -42,7 +42,7 @@ function Header() {
 		}
 	})
 	return (
-		<div className={cx("MainHeader")}>
+		<div className={cx("test", "MainHeader")}>
 			<div className={cx("GlintContainer")}>
 				{/* LoginModal */}
 				{showLogin && <LoginModal handleShowLogin={handleShowLogin} />}

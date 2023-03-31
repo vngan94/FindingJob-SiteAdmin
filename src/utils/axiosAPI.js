@@ -85,6 +85,7 @@ export const path = {
   getUser: "auth/info-user",
   jobList: "job/list/sort-by-date",
   jobListFilter: "job/list/filter",
+  searchJob: "job/list/search",
   applyJob: "application/create",
   forgotPassword: "auth/forgot-password",
   resetPassword: "auth/confirm-password",

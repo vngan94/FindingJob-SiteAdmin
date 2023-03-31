@@ -36,7 +36,7 @@ export function PastJobSearchProvider({ children }) {
   // useRef
   const updatePastJobSearch = (newSearch) => {
     setPastJobSearch(prev => {
-      if (prev.length >= 3) {
+      if (prev?.length >= 3) {
         return prev.filter((item, index) => index !== 0)
       } else {
         return prev;
@@ -50,7 +50,7 @@ export function PastJobSearchProvider({ children }) {
       return [...prev, newSearch];
     })
     // }))
-    console.log("set new array");
+    // console.log("set new array");
     // localStorage.setItem("pastJobSearch", JSON.stringify(pastJobSearch));
     // setPastJobSearch([...pastJobSearch, newArray]);
   }

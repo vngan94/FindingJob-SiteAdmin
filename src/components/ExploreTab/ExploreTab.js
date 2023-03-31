@@ -2,15 +2,16 @@ import classNames from "classnames/bind";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { Suspense, useEffect, useState, useTransition } from "react";
+import { Suspense, useDeferredValue, useEffect, useMemo, useState, useTransition } from "react";
 
 import styles from "./ExploreTab.module.scss";
 import GlintContainer from "../GlintContainer";
+import { useDeferred } from "../../hooks";
 
 import SearchContainer from "../SearchContainer";
-import { get, path } from "../../utils/axiosAPI";
+import { path, post } from "../../utils/axiosAPI";
 import JobList from "../JobList/JobList";
-import { selectLocationWorkings, selectOccupations, selectSearch } from "../../redux/selector";
+import { selectFilter, selectLocationWorkings, selectOccupations, selectSearch } from "../../redux/selector";
 import TagContainer from "../TagStyle/TagContainer";
 import TagContent from "../TagStyle/TagContent";
 
@@ -26,27 +27,28 @@ function ExploreTab() {
   const searchInput = useSelector(selectSearch);
   const occupationsFilter = useSelector(selectOccupations);
   const locationWorkingFilter = useSelector(selectLocationWorkings);
+  const filter = useSelector(selectFilter);
   const [jobList, setJobList] = useState([]);
   const [isPending, startTransition] = useTransition();
+  const filterDeferred = useDeferred(filter, 800);
 
   useEffect(() => {
     const fetchJobs = async () => {
       const dataFilter = {};
+      dataFilter.key = searchInput;
       if (occupationsFilter.length) {
         dataFilter.idOccupation = occupationsFilter;
       }
       if (locationWorkingFilter.length) {
-        dataFilter.locationWorking = locationWorkingFilter;
+        dataFilter.localWorking = locationWorkingFilter;
       }
-      // console.log("dataFilter", dataFilter);
-      // console.log(searchInput);
-      const res = await get(path.jobListFilter, dataFilter);
+      const res = await post(path.searchJob, dataFilter);
       startTransition(() => {
         setJobList(res.data);
       })
     }
     fetchJobs();
-  }, [searchInput, occupationsFilter, locationWorkingFilter]);
+  }, [searchInput, filterDeferred]);
 
   return (
     <GlintContainer className="styles__ExploreTabBody">

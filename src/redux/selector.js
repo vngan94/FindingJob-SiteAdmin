@@ -12,6 +12,17 @@ export const selectLocationWorkings = state => state.filter.locationWorkings;
 
 export const selectOccupations = state => state.filter.occupations;
 
+export const selectFilter = createSelector(
+  selectOccupations,
+  selectLocationWorkings,
+  (occupations, locationWorkings)=>{
+    return {
+      occupations,
+      locationWorkings
+    }
+  }
+)
+
 export const selectSearch = state => state.filter.search;
 
 export const selectJobListByFilter = createSelector(
