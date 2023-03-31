@@ -17,6 +17,8 @@ import TagContent from "../TagStyle/TagContent";
 
 import { usePastJobSearch } from "../../contexts/pastJobSearchContext";
 import FilterContainer from "./FilterContainer";
+import InfiniteScrollContainer from "../InfiniteScroll/InfiniteScrollContainer";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
@@ -43,6 +45,7 @@ function ExploreTab() {
         dataFilter.localWorking = locationWorkingFilter;
       }
       const res = await post(path.searchJob, dataFilter);
+      // const res = await axios.get("https://jsonplaceholder.typicode.com/comments");
       startTransition(() => {
         setJobList(res.data);
       })
@@ -80,12 +83,13 @@ function ExploreTab() {
         <div className={cx("Box__StyledBox", "Flex__StyledFlex", "Flex")}>
           <div className={cx("CompactJobCardList__JobCardListContainer",
             "styles__CompactJobCardList")}>
-            {/* <div className="ModalStyle__ModalContainer"></div> */}
-            <Suspense fallback={() => (<p>Calling...</p>)}>
-              {isPending ? <p>loading...</p> : <JobList jobList={jobList} />}
-            </Suspense>
+            <JobList jobList={jobList} />
           </div>
-          <div className={cx("InfiniteScroll_InfiniteScrollContainer")}></div>
+          {isPending &&
+            <InfiniteScrollContainer width="3rem" height="3rem">
+              Đang tải thêm công việc khác
+            </InfiniteScrollContainer>}
+
           <div className={cx("PaginationContainer")}></div>
         </div>
       </div>

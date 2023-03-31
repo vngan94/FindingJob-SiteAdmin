@@ -174,9 +174,13 @@
     background: rgb(243, 243, 243);
 }
 
-.Flex_StyledFlex {
+.Flex__StyledFlex {
     display: flex;
-    flex-flow: column;
+    flex-flow: column nowrap;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: stretch;
+    align-items: stretch;
 }
 
 .IconStyle__VerticalCenteredSvg {
@@ -366,7 +370,7 @@
     padding: 0px 16px;
 }
 
-.styles__FilterList .styles__Collapsible:last-child{
+.styles__FilterList .styles__Collapsible:last-child {
     border-bottom: 0;
 }
 
