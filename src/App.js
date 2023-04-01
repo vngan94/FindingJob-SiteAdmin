@@ -7,6 +7,7 @@ import { privateRoutes, publicRoutes } from './routes/routes';
 import DefaultLayout from './layouts/DefaultLayout';
 import { selectUser } from './redux/selector';
 import { ToastContainer } from 'react-toastify';
+import Error from './components/Error/Error';
 
 const ProtectedRoute = ({ user, redirectPath = '/' }) => {
 	if (!user) {
@@ -42,6 +43,11 @@ function App() {
 									element={<Layout><Page /></Layout>} />
 							)
 						})}
+					</Route>
+					<Route path="test-setting" element={<ProtectedRoute user={currentUser} />}>
+						<Route index element={<p>setting</p>} />
+						<Route path=":tab" element={<p>test</p>} />
+						<Route path="*" element={<Error />} />
 					</Route>
 				</Routes>
 			</div>

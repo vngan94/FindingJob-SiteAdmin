@@ -28,6 +28,7 @@ function DetailJob() {
     }
     fetchApi();
   }, []);
+  // check if job not found caused by change url
   return <>
     <JobContext.Provider value={job}>
       {/* breadcrumpm has not completed yet */}

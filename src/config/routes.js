@@ -12,6 +12,7 @@ const routes = {
     // private
     job: "/job",
     test: "test",
+    setting: "setting",
 }
 
 export default routes;

@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import { faBookmark, faBriefcase, faClock, faDollarSign, faLocationDot, faStar } from "@fortawesome/free-solid-svg-icons";
-import { Fragment } from "react";
+import { Fragment, memo } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -9,7 +9,7 @@ import styles from "./JobList.module.scss";
 const cx = classNames.bind(styles);
 
 function JobList({ jobList }) {
-  // console.log("JobList", jobList);
+  console.log("JobList", jobList);
   return (
     jobList?.map((job, index) => {
       return (
@@ -89,4 +89,5 @@ function JobList({ jobList }) {
   )
 }
 
-export default JobList;
+export default memo(JobList); // ok
+// export default JobList;

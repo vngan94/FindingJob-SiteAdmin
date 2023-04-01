@@ -1,0 +1,48 @@
+.Title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+@media screen and (min-width: 1024px) {
+    .Title {
+        margin-top: 60px;
+    }
+}
+
+.Wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+}
+
+@media screen and (min-width: 1024px) {
+    .Wrapper{
+        flex-direction: row;
+    }
+}
+
+.SidebarWrapper {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 40px;
+}
+
+@media screen and (min-width: 1024px) {
+    .SidebarWrapper{
+        width: 30%;
+        margin-right: 60px;
+        margin-bottom: 0;
+    }
+}
+.ContentWrapper{
+    width: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+    .ContentWrapper{
+        width: calc(70% - 60px);
+        min-height: 800px;
+    }
+}

@@ -9,6 +9,7 @@ import SignUp from "../pages/SignUp";
 import HeaderOnly from "../layouts/HeaderOnly";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage/ResetPasswordPage";
+import SettingPage from "../pages/SettingPage/SettingPage";
 
 export const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -26,5 +27,5 @@ export const publicRoutes = [
 // must login
 export const privateRoutes = [
     { path: "test", component: () => (<p>test privateRoutes</p>) },
-    { path: "setting", component: () => (<p>Setting page</p>) },
+    { path: config.routes.setting, component: SettingPage, layout: HeaderOnly },
 ];

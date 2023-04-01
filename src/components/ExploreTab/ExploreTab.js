@@ -23,7 +23,7 @@ import axios from "axios";
 const cx = classNames.bind(styles);
 
 function ExploreTab() {
-  // console.log("Render ExploreTab");
+  console.log("Render ExploreTab");
   const PastJobSearchContext = usePastJobSearch();
   const { pastJobSearch } = PastJobSearchContext;
   const searchInput = useSelector(selectSearch);
@@ -37,6 +37,7 @@ function ExploreTab() {
   useEffect(() => {
     const fetchJobs = async () => {
       const dataFilter = {};
+      // Object.entries(dataFilter).length === 0
       dataFilter.key = searchInput;
       if (occupationsFilter.length) {
         dataFilter.idOccupation = occupationsFilter;
