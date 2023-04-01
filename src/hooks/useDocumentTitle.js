@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 
 function useDocumentTitle(title) {
-  useEffect(()=>{
+  window.scrollTo(0, 0);
+  useEffect(() => {
     document.title = title;
   }, [title]);
 }

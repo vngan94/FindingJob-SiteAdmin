@@ -24,6 +24,7 @@ const cx = classNames.bind(styles);
 
 function ExploreTab() {
   console.log("Render ExploreTab");
+  
   const PastJobSearchContext = usePastJobSearch();
   const { pastJobSearch } = PastJobSearchContext;
   const searchInput = useSelector(selectSearch);
@@ -32,19 +33,28 @@ function ExploreTab() {
   const filter = useSelector(selectFilter);
   const [jobList, setJobList] = useState([]);
   const [isPending, startTransition] = useTransition();
-  const filterDeferred = useDeferred(filter, 800);
+  const filterDeferred = useDeferred(filter, 600);
 
   useEffect(() => {
     const fetchJobs = async () => {
-      const dataFilter = {};
+      // const dataFilter = {};
       // Object.entries(dataFilter).length === 0
-      dataFilter.key = searchInput;
-      if (occupationsFilter.length) {
-        dataFilter.idOccupation = occupationsFilter;
+      // dataFilter.key = searchInput;
+      // // dataFilter.idCompany = 
+      // dataFilter.idOccupation = occupationsFilter;
+      // dataFilter.locationWorking = locationWorkingFilter;
+      // if (occupationsFilter.length) {
+      //   dataFilter.idOccupation = occupationsFilter;
+      // }
+      // if (locationWorkingFilter.length) {
+      //   dataFilter.localWorking = locationWorkingFilter;
+      // }
+      const dataFilter = {
+        key: searchInput,
+        idOccupation: occupationsFilter,
+        locationWorking: locationWorkingFilter
       }
-      if (locationWorkingFilter.length) {
-        dataFilter.localWorking = locationWorkingFilter;
-      }
+      console.log(dataFilter);
       const res = await post(path.searchJob, dataFilter);
       // const res = await axios.get("https://jsonplaceholder.typicode.com/comments");
       startTransition(() => {

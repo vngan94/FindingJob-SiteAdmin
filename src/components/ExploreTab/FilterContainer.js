@@ -14,6 +14,7 @@ import Checkbox from "../CheckboxStyle";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
+// create context for it to reset when enter search
 const initLocationWorking = [
   { id: 1, label: "Hồ Chí Minh", ariaLabel: "hcm", value: "Hồ Chí Minh", checked: false },
   { id: 2, label: "Hà Nội", ariaLabel: "hn", value: "Hà Nội", checked: false },
