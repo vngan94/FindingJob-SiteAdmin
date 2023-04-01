@@ -5,6 +5,9 @@ import GlintContainer from "../../components/GlintContainer";
 import { SidebarItem, SidebarTab, SidebarWrapper } from "../../components/Sidebar";
 import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
+import ContentSection from "../../components/Shared/ContentSection";
+import ContentSectionTitle from "../../components/Shared/ContentSectionTitle";
+import ContentSectionMain from "../../components/Shared/ContentSectionMain";
 
 const cx = classNames.bind(styles);
 
@@ -39,7 +42,12 @@ function SettingPage() {
           </SidebarWrapper>
         </div>
         <div className={cx("ContentWrapper")}>
-          {"Content"}
+          <ContentSection>
+            <ContentSectionTitle label={"Thay đổi mật khẩu"} />
+            <ContentSectionMain>
+
+            </ContentSectionMain>
+          </ContentSection>
         </div>
       </div>
     </GlintContainer>

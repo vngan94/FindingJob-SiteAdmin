@@ -54,7 +54,7 @@ function ExploreTab() {
         idOccupation: occupationsFilter,
         locationWorking: locationWorkingFilter
       }
-      console.log(dataFilter);
+      // console.log(dataFilter);
       const res = await post(path.searchJob, dataFilter);
       // const res = await axios.get("https://jsonplaceholder.typicode.com/comments");
       startTransition(() => {
