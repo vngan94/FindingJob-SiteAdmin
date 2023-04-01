@@ -1,0 +1,51 @@
+.titleUpdate {
+    display: flex;
+}
+.name {
+    padding-right: 5px;
+}
+.info1Acc {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px 20px 0px;
+}
+.infoUpdate {
+    margin: 10px 154px 25px;
+}
+.InputContainer {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+ /* .labelAccount {
+    margin-right: 20px;
+ } */
+
+.inputAccount:focus {
+    outline: none;
+  }
+.xongUpdate {
+    width: 15%;
+    margin-left: 40%;
+}
+
+.inputAccount {
+    border-radius: 0;
+    border: 0;
+    
+    border-bottom: 1px solid lightgray;
+}
+
+.labelAcc, .inputAcc {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.error2Acc {
+    font-size: 11px;
+    color: red;
+    text-align: center;
+}

@@ -14,7 +14,7 @@ export default function Sidebar() {
         <div className="sidebar">
             <div className="sidebarWrapper">
                 <div className="sidebarMenu">
-                    <h3 className="sidebarTitle">Dashboard</h3>
+                    {/* <h3 className="sidebarTitle">Dashboard</h3>
                     <ul className="sidebarList">
                         <Link to={"/"} style={{ textDecoration: 'none', color: '#555' }}>
                         <li className="sidebarListItem">
@@ -32,27 +32,25 @@ export default function Sidebar() {
                             <TrendingUp className="sidebarIcon" />
                             Sales
                     </li>                      
-                    </ul>
+                    </ul> */}
                 </div>
                 <div className="sidebarMenu">
                     <h3 className="sidebarTitle">Quick Menu</h3>
                     <ul className="sidebarList">
-                        <Link to={"/users"} style={{ textDecoration: 'none', color: '#555' }} >
+                        <li className="sidebarListItem">
+                            <Storefront className="sidebarIcon" />
+                            Dashboard
+                        </li>
+
+                        <Link to={"/account/:id"} style={{ textDecoration: 'none', color: '#555' }} >
                             <li className="sidebarListItem">
                                 <PermIdentity className="sidebarIcon" />
-                                Users
+                                Account
                             </li>
                         </Link>
                         
             
-                        <li className="sidebarListItem">
-                            <Storefront className="sidebarIcon" />
-                            Products
-                        </li>
-                        <li className="sidebarListItem">
-                            <AttachMoney className="sidebarIcon" />
-                            Transactions
-                        </li>  
+                       
                         <Link to={"/posts"} style={{ textDecoration: 'none', color: '#555' }} >
                             <li className="sidebarListItem">
                                 <PermIdentity className="sidebarIcon" />

@@ -19,9 +19,10 @@ const routes = {
     posts: "/posts",
     editPost: "/editPost",
     post:"/post/:id",
-    applications: ":id/applications",
+    applications: "/applications/:id",
     login: "/recLogin",
     register: "/recRegister",
+    account: "/account/:id"
 
     
 

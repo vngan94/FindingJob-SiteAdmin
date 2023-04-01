@@ -34,6 +34,7 @@ export default function PostList() {
   }
   useEffect(()=>{
     const fetchData = async()=> {
+      console.log("in ", currentUser)
         try { 
           const res = await axios.get(`http://localhost:8000/job/list/company/${currentUser._id}`)
           setPostListChange(res.data.data.map(function(item){
@@ -57,6 +58,7 @@ export default function PostList() {
     
     
 },[idDelete])
+
 
   const handleDelete = async (id) => {
     setIdDelete(id)
@@ -130,9 +132,9 @@ export default function PostList() {
           return (
             <div className="action">
               
-              <Link to = {`/editPost/${params.row.id}`}>
+              {/* <Link to = {`/editPost/?id=${params.row.id}`}>
                 <button className="btnEdit" >Edit</button>
-              </Link>
+              </Link> */}
               <Link to = {`/post/${params.row.id}`} >
                 <RemoveRedEyeIcon className="delete" />
               </Link>

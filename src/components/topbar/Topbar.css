@@ -1,3 +1,30 @@
+.buttonSearch {
+    border: none;
+    margin-left: -29px;
+    
+    background-color: white;
+}
+
+.one {
+    margin-right: -335px;
+}
+
+.inputSearch {
+    border: 1px solid #e5e5e5;
+    width: 340px;
+    border-radius: 20px;
+}
+
+.buttonSearch:hover {
+    cursor: pointer;
+}
+.searchIcon {
+    /* margin-left: -43px; */
+    margin-bottom: -5px;
+}
+.inputSearch {
+    width: 360px;
+}
 .topbarWrapper {
     display: flex;
     justify-content: space-between;

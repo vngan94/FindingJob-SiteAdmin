@@ -83,11 +83,23 @@ export default function Register() {
           role: "admin",
           username: values.username
         });
+        console.log("in ", res.data._id)
+        const res2 = await post ("http://localhost:8000/company/create", {
+            "name":values.name,
+            "totalEmployee":0,
+            "type":"",
+            "about":"",
+            "phone":values.tel,
+            "location": "",
+            "isDelete": "false",
+            "idUser": res.data._id
+        }) 
+        console.log("res ", res)
         alert("Đăng kí thành công")
         navigate("/recLogin")
 
       } catch (err) {
-        console.log(err.response.data);
+        console.log(err);
         setError(err.response.data.message);
         
         

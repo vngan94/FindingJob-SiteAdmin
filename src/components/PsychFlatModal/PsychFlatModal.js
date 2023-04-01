@@ -34,6 +34,8 @@ function PsychFlatModal({ handleShowPsychFlat }) {
   const timeUpload = new Date();
   const currentUser = useSelector(selectUser);
   const accessToken = useSelector(selectAccessToken);
+  console.log("AccessToken ", accessToken)
+  console.log("id", currentUser._id)
   // giải pháp tạm thời tạo input type file và ẩn
   const handleUploadFile = () => {
     if (!selectedFile) {

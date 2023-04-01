@@ -53,10 +53,8 @@ export default function Login() {
       if (hasErr) {
         setError(hasErr);
       } else {
-        toast.success("Đăng nhập thành công!", {
-          position: "top-center"
-        });
-        navigate("/reCompany")
+        
+        navigate("/posts")
 
         
       }

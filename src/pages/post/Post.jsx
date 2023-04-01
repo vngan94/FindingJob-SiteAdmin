@@ -21,12 +21,12 @@ export default function Post() {
     useEffect(()=>{
         const fetchData = async()=> {
             try {
-                
                 const res = await axios.get(`http://localhost:8000/job/detail?id=${postId}`)
                 setPost(res.data.data)
                 setOcc(res.data.data.idOccupation.name)
                 setPostingDate(res.data.data.postingDate.split("T")[0].split("-").reverse().join("-"))
                 setDeadline(res.data.data.deadline.split("T")[0].split("-").reverse().join("-"))
+                console.log("in ", res.data.data)
                 
                 
             }
@@ -46,7 +46,6 @@ export default function Post() {
             <Topbar/>
             <Sidebar/>
         <div className="others">
-            
             <div className="userContainer">
                 <div className="info1">
                     <div className="title">
@@ -55,14 +54,13 @@ export default function Post() {
                         <div className="adress">{post.locationWorking}</div>
                     </div>
                     <div className="action">
-                    {/* <Link to={"/write/?edit=2"} state={post}><img  state src={Edit} alt="" /></Link> */}
                     <Link to = {`/editPost/?id=${post._id}`} state={post}>
                         <button className="btnEditUser" >Edit</button>
                     </Link>
-                    <Link to = {`/3/applications`}>
+                    {post.numApply == 0 ? <></> :  <Link to = {`/applications/${post._id}`}>
                         <button className="btnEditUser" >Hồ sơ</button>
-                    </Link>
-                    
+                    </Link> }
+                   
                     </div>
                 </div>
                 <div class="break"></div>
@@ -75,23 +73,17 @@ export default function Post() {
                     <div className="info2Right">
                         <div className="salary"> <UploadIcon className="iconUser"/>{postingDate}</div>
                         <div className="salary"> <HourglassTopIcon className="iconUser"/>{deadline} </div>
-                        <div className="salary"> <AttachFileIcon className="iconUser"/>Hồ sơ đã nộp: 0 </div>
+                        <div className="salary"> <AttachFileIcon className="iconUser"/>Hồ sơ đã nộp: {post.numApply}</div>
                     </div>
                 </div>
                 <div class="break"></div>
                 <div className="info3"> 
                     <h3 className="desc">Mô tả công việc</h3>
                     <div className="post__description" dangerouslySetInnerHTML={{ __html: post.description}}  />
-                    
                 </div>
                 <div class="break"></div>
                 <div className="info4" >
                     <h3 className="desc">Kỹ năng yêu cầu</h3>
-                    {/* <p>
-                        Giọng nói dễ nghe 
-                        <br/>
-                        Giao tiếp tốt
-                    </p> */}
                     <div className="post__description" dangerouslySetInnerHTML={{ __html: post.requirement}}  />
                     </div>
             </div>

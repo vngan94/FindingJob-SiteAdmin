@@ -17,6 +17,7 @@ import SignUp from "../pages/SignUp";
 import HeaderOnly from "../layouts/HeaderOnly";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage/ResetPasswordPage";
+import Account from "../pages/Account/Account";
 
 export const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -34,6 +35,7 @@ export const publicRoutes = [
     { path: config.routes.posts, component: PostList, layout: null},
     { path: config.routes.editPost, component: AddPost, layout: null},
     { path: config.routes.post, component: Post, layout: null},
+    { path: config.routes.account, component: Account, layout: null},
     { path: config.routes.applications, component: ApplicationList, layout: null},
     { path: config.routes.register, component: Register, layout: null},
     

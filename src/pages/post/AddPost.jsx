@@ -33,8 +33,9 @@ export default function AddPost() {
     const [deadline, setDeadline] = useState(state?.deadline.split('T')[0]||'')
     const [description, setDescription] = useState(state?.description||'')
     const [postingDate, setPostingDate] = useState(state?.postingDate || '')
+    const [status, setStatus] = useState(state?.status || true)
     const current = new Date();
-    console.log("in ", currentUser._id)
+  
     const navigate = useNavigate()
 
     const isAvailable = (x) => {
@@ -55,9 +56,6 @@ export default function AddPost() {
         requirement: '',
         selected: ''
       });
-      
-      
-    
 
       const validateForm = () => {
         const errs = {};
@@ -65,8 +63,10 @@ export default function AddPost() {
           errs.name = "Vui lòng nhập tên công việc!";
         }
         if (!locationWorking) {
+            console.log("Hello")
           errs.locationWorking = "Vui lòng nhập địa chỉ làm việc!";
         }
+        console.log("Errs", errs)
         if (!salary) {
           errs.salary = "Vui lòng nhập lương";
         }
@@ -76,22 +76,24 @@ export default function AddPost() {
         if (!deadline) {
             errs.deadline = "Vui lòng nhập thời hạn nộp hồ sơ";
         }
-        else 
-            if(isAvailable(deadline) === false) {
+        else if(isAvailable(deadline) === false) 
                 errs.deadline = "Hạn nộp hồ sơ trễ hơn hoặc bằng thời điểm hiện tại"
-                
-            }
+      
         if (!description) 
           errs.description = "Vui lòng nhập mô tả công việc";
-        if (!requirement) {
+ 
+        if (!requirement) 
             errs.requirement = "Vui lòng nhập yêu công việc";
+        
         if(!selected) {
+          
             errs.selected = "Vui lòng chọn lĩnh vực của công việc";
         }
+        console.log("errs validate ", errs)
         
         return errs;
       }
-    }
+    
 
     useEffect(()=>{
         
@@ -117,22 +119,14 @@ export default function AddPost() {
       const handleSubmit = async(e) => {
         e.preventDefault();
         const errs = validateForm();
-        
-        if (errs == null) {
+        console.log("errrs ", errs)
+        console.log("test1")
+        if (Object.keys(errs).length === 0) {
+            console.log("test3")
+            console.log("Không lỗi")
             setErrors({});
             axios.defaults.headers.common = {'Authorization': `bearer ${currentUser.accessToken}`}
             try {
-                // console.log("in" , name)
-                // console.log("desc" , name)
-                // console.log("description",description)
-                // console.log("requirement",requirement)
-                // console.log("hourWorking",hourWorking)
-                // console.log("postingDate", postingDate)
-                // console.log("deadline", deadline)
-                // console.log("salary",salary)
-                // console.log("locationWorking", locationWorking)
-                 console.log("idOccupation", selected)
-                console.log("idcompany", currentUser._id)
                 let  dates = deadline.split('-')
                 dates = dates[1] + '-' + dates[2] + '-' + dates[0]
                 console.log("in ", dates)
@@ -148,7 +142,8 @@ export default function AddPost() {
                     "salary":salary,
                     "locationWorking": locationWorking,
                     "idOccupation": selected,
-                    "idcompany": state._id ,
+                    "idcompany": currentUser._id,
+                    "_id": state._id ,
                 })
 
                 : await axios.post("http://localhost:8000/job/create", {
@@ -162,6 +157,7 @@ export default function AddPost() {
                     "locationWorking": locationWorking,
                     "idOccupation": selected,
                     "idcompany": currentUser._id,
+                    "status": status
                    
                   })
                   state ? alert("Cập nhật job thành công") : alert("Thêm job thành công") 
