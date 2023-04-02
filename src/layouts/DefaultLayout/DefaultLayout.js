@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Header from "../Header/Header";
-import styles from './DefautLayout.module.scss';
+import styles from "../MainContainer.module.scss";
 import Footer from '../Footer/Footer';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import ScrollTopContainer from '../../components/ScrollTopButton/ScrollTopContainer';

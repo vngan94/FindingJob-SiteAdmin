@@ -1,22 +1,34 @@
+import { useNavigate } from "react-router-dom";
+import { Fragment } from "react";
+import { useSelector } from "react-redux";
 import classNames from "classnames/bind";
 
 import styles from "./SettingPage.module.scss";
 import GlintContainer from "../../components/GlintContainer";
 import { SidebarItem, SidebarTab, SidebarWrapper } from "../../components/Sidebar";
-import { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
-import ContentSection from "../../components/Shared/ContentSection";
-import ContentSectionTitle from "../../components/Shared/ContentSectionTitle";
-import ContentSectionMain from "../../components/Shared/ContentSectionMain";
+import {
+  UserProfileWrapper,
+  ProfilePictureWrapper,
+  ProfilePictureContainer,
+  ProfilePictureContent,
+  ProfileInfo,
+  ProfileName,
+  ProfileText
+} from "../../components/UserProfile";
+import { selectUser } from "../../redux/selector";
 
 const cx = classNames.bind(styles);
 
 const initTab = [
-  { key: "edit", label: "Thông tin cá nhân", isActive: true, url: "1" },
-  { key: "change-password", label: "Thay đổ mật khẩu", isActive: false, url: "2" },
+  { key: "edit", label: "Thông tin cá nhân", isActive: true, url: "/setting/edit" },
+  { key: "change-password", label: "Thay đổ mật khẩu", isActive: false, url: "/setting/change-password" },
 ]
 
-function SettingPage() {
+function SettingPage({ url, children = <p>test default</p> }) {
+  const currentUser = useSelector(selectUser);
+  const currentPathName = window.location.pathname;
+  console.log(currentPathName);
+  console.log(url);
   const navigate = useNavigate();
   const handleClick = (url) => {
     navigate(url);
@@ -30,10 +42,31 @@ function SettingPage() {
       <div className={cx("Wrapper")}>
         <div className={cx("SidebarWrapper")}>
           <SidebarWrapper>
+            <UserProfileWrapper>
+              <ProfilePictureWrapper>
+                <ProfilePictureContainer>
+                  <ProfilePictureContent>
+                    <img alt={currentUser.username}
+                      src={currentUser.avatar} srcSet="/static/images/defaultUser.webp" />
+                  </ProfilePictureContent>
+                </ProfilePictureContainer>
+              </ProfilePictureWrapper>
+              {/* info here */}
+              <ProfileInfo>
+                <ProfileName>
+                  {currentUser.username}
+                </ProfileName>
+                <ProfileText>
+                  Vietnam
+                </ProfileText>
+              </ProfileInfo>
+            </UserProfileWrapper>
             <SidebarTab>
               {initTab.map((tab) => (
                 <Fragment key={tab.key}>
-                  <SidebarItem label={tab.label} isActive={tab.isActive}
+                  <SidebarItem label={tab.label}
+                    // isActive={tab.isActive}
+                    isActive={tab.url === currentPathName}
                     url={tab.url}
                     onClick={handleClick} />
                 </Fragment>
@@ -42,12 +75,7 @@ function SettingPage() {
           </SidebarWrapper>
         </div>
         <div className={cx("ContentWrapper")}>
-          <ContentSection>
-            <ContentSectionTitle label={"Thay đổi mật khẩu"} />
-            <ContentSectionMain>
-
-            </ContentSectionMain>
-          </ContentSection>
+          {children}
         </div>
       </div>
     </GlintContainer>

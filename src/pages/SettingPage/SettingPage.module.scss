@@ -1,13 +1,14 @@
 .Title {
     font-size: 22px;
     font-weight: bold;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 @media screen and (min-width: 1024px) {
     .Title {
-        margin-top: 60px;
+        // margin-top: 60px;
+        margin-top: 40px;
     }
 }
 
@@ -43,6 +44,7 @@
 @media screen and (min-width: 1024px) {
     .ContentWrapper{
         width: calc(70% - 60px);
-        min-height: 800px;
+        min-height: 500px;
+        // min-height: 800px;
     }
 }

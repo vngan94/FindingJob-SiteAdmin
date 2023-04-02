@@ -21,19 +21,29 @@ function SearchContainer() {
   const testArray = pastJobSearch ? [...pastJobSearch] : [];
   const savePastJobSearch = (keyword) => {
     if (keyword) {
-      if (testArray?.length >= 3) {
-        testArray?.shift();
+      let isExist = false;
+      for (let index = 0; index < testArray.length; index++) {
+        const element = testArray[index];
+        if (element.keyword === keyword) {
+          isExist = true;
+          return;
+        }
       }
-      testArray?.push({
-        label: "Tìm kiếm gần đây:",
-        keyword: keyword
-      });
-      updatePastJobSearch({
-        label: "Tìm kiếm gần đây:",
-        keyword: keyword
-      });
-      if (testArray.length) {
-        localStorage.setItem("pastJobSearch", JSON.stringify(testArray));
+      if (!isExist) {
+        if (testArray?.length >= 3) {
+          testArray?.shift();
+        }
+        testArray?.push({
+          label: "Tìm kiếm gần đây:",
+          keyword: keyword
+        });
+        updatePastJobSearch({
+          label: "Tìm kiếm gần đây:",
+          keyword: keyword
+        });
+        if (testArray.length) {
+          localStorage.setItem("pastJobSearch", JSON.stringify(testArray));
+        }
       }
     }
   }

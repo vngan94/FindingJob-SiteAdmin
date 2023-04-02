@@ -1,19 +1,21 @@
 import classNames from "classnames/bind";
 
 import styles from "../MainContainer.module.scss";
+import SettingPage from "../../pages/SettingPage/SettingPage";
 import Header from "../Header";
 
 const cx = classNames.bind(styles);
 
-function HeaderOnly({ children }) {
+function SidebarSetting({ children }) {
   return (
     <div>
-      {/* Modal here */}
       <div className={cx("DrawerContainer")}>
         <div className={cx("MainLayout")}>
           <Header />
           <div className={cx("MainBody")}>
-            {children}
+            <SettingPage>
+              {children}
+            </SettingPage>
           </div>
         </div>
       </div>
@@ -21,4 +23,4 @@ function HeaderOnly({ children }) {
   )
 }
 
-export default HeaderOnly;
+export default SidebarSetting;
