@@ -44,11 +44,12 @@ function App() {
 									<Route key={index} path={route.path} element={<Outlet />} >
 										<Route index element={<Layout></Layout>} />
 										{children.map((childRoute) => {
+											const ChildPage = childRoute.component;
 											return (
 												<Route
 													key={childRoute.key}
 													path={childRoute.path}
-													element={<Layout>{childRoute.component}</Layout>} />
+													element={<Layout><ChildPage /></Layout>} />
 											)
 										})}
 									</Route>
