@@ -9,7 +9,7 @@ import Testimonial from "../../components/GlintContainer/Testimonial/Testimonial
 import { useDocumentTitle } from "../../hooks";
 
 function Home() {
-    useDocumentTitle("Glints - Kênh Tuyển Dụng");
+    useDocumentTitle("Glints - Kênh Tuyển Dụng", true);
     return (
         <div className="Landing">
             <SearchSection />
