@@ -16,6 +16,7 @@ import {
   ProfileText
 } from "../../components/UserProfile";
 import { selectUser } from "../../redux/selector";
+import EditProfilePage from "../EditProfilePage/EditProfilePage";
 
 const cx = classNames.bind(styles);
 
@@ -24,7 +25,7 @@ const initTab = [
   { key: "change-password", label: "Thay đổ mật khẩu", isActive: false, url: "/setting/change-password" },
 ]
 
-function SettingPage({ url, children = <p>test default</p> }) {
+function SettingPage({ url, children = <EditProfilePage /> }) {
   const currentUser = useSelector(selectUser);
   const currentPathName = window.location.pathname;
   console.log(currentPathName);
@@ -42,7 +43,8 @@ function SettingPage({ url, children = <p>test default</p> }) {
       <div className={cx("Wrapper")}>
         <div className={cx("SidebarWrapper")}>
           <SidebarWrapper>
-            <UserProfileWrapper>
+            
+            {/* <UserProfileWrapper>
               <ProfilePictureWrapper>
                 <ProfilePictureContainer>
                   <ProfilePictureContent>
@@ -51,7 +53,6 @@ function SettingPage({ url, children = <p>test default</p> }) {
                   </ProfilePictureContent>
                 </ProfilePictureContainer>
               </ProfilePictureWrapper>
-              {/* info here */}
               <ProfileInfo>
                 <ProfileName>
                   {currentUser.username}
@@ -60,7 +61,8 @@ function SettingPage({ url, children = <p>test default</p> }) {
                   Vietnam
                 </ProfileText>
               </ProfileInfo>
-            </UserProfileWrapper>
+            </UserProfileWrapper> */}
+
             <SidebarTab>
               {initTab.map((tab) => (
                 <Fragment key={tab.key}>

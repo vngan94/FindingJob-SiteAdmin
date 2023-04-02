@@ -13,6 +13,10 @@
     flex: 0 0 200px;
     align-self: flex-start;
     margin-top: 10px;
+    //
+    padding-left: 32px;
+    padding-right: 32px;
+    text-align: right;
 }
 
 .Lable__Title {
@@ -35,4 +39,17 @@
 
 .Input__Container button {
     text-transform: capitalize;
+}
+
+.Uploader span {
+    display: inline;
+    color: rgb(0, 149, 246);
+    text-overflow: ellipsis;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.Uploader span:hover {
+    color: rgb(0, 55, 107);
 }

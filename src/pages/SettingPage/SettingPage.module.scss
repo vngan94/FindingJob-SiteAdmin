@@ -33,7 +33,7 @@
 @media screen and (min-width: 1024px) {
     .SidebarWrapper{
         width: 30%;
-        margin-right: 60px;
+        margin-right: 30px;
         margin-bottom: 0;
     }
 }
@@ -43,8 +43,8 @@
 
 @media screen and (min-width: 1024px) {
     .ContentWrapper{
-        width: calc(70% - 60px);
-        min-height: 500px;
+        width: calc(70% - 30px);
+        min-height: 200px;
         // min-height: 800px;
     }
 }

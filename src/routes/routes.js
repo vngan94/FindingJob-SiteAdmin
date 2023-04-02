@@ -14,10 +14,11 @@ import SettingPage from "../pages/SettingPage/SettingPage";
 import HeaderOnly from "../layouts/HeaderOnly";
 import SidebarSetting from "../layouts/SidebarSetting/SidebarSetting";
 import ChangePasswordPage from "../pages/ChangePasswordPage/ChangePasswordPage";
+import EditProfilePage from "../pages/EditProfilePage/EditProfilePage";
 
 const settingRoutes = [
     { key: "change-password", path: "change-password", component: ChangePasswordPage },
-    { key: "edit", path: "edit", component: ChangePasswordPage },
+    { key: "edit", path: "edit", component: EditProfilePage },
 ]
 
 export const publicRoutes = [

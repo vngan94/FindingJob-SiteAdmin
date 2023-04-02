@@ -81,6 +81,7 @@ export const patch = async (path, data = {}, config = {}, axiosInstance = instan
 export const path = {
   login: "auth/login",
   logout: "auth/logout",
+  changePassword: "auth/change-password",
   register: "auth/register",
   getUser: "auth/info-user",
   jobList: "job/list/sort-by-date",
