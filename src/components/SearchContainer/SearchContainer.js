@@ -5,9 +5,20 @@ import { useSearchInput } from "../../contexts/searchInputContext";
 import { updateSearch } from "../../redux/filterSlice";
 
 import { SearchIcon, LocationIcon, CloseIcon } from "../Icon";
+import {
+  SuggestionDropdownContainer,
+  SuggestionDropdown,
+  SearchItemWrapper
+} from "../SearchField";
 import styles from './SearchContainer.module.scss';
 
 const cx = classNames.bind(styles);
+
+const initKey = [
+  "test 1",
+  "test 2",
+  "test 3"
+]
 
 function SearchContainer() {
   // console.log("Render SearchContainer");
@@ -69,6 +80,18 @@ function SearchContainer() {
             <SearchIcon className={cx("IconStyle__VerticalCenteredSvg")} />
           </div>
         </div>
+
+        {/* suggestion here */}
+        {
+          searchInput &&
+          <SuggestionDropdownContainer>
+            <SuggestionDropdown>
+              {initKey.map((item, index) => {
+                return <SearchItemWrapper key={index} keyword={item} />
+              })}
+            </SuggestionDropdown>
+          </SuggestionDropdownContainer>
+        }
       </div>
       <div className={cx("FieldWrapper")}>
         <div className={cx("TextFieldStyled__TextFieldContainer")}>

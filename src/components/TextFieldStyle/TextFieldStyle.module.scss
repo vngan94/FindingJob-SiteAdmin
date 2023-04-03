@@ -6,14 +6,24 @@
     align-items: center;
 }
 
+// .TextFieldContainer input {
+//     padding-top: 8px;
+//     padding-bottom: 8px;
+// }
+
 .TextFieldInput {
     width: 100%;
     position: relative;
     padding: 13px 15px;
+    line-height: 1.5;
 }
 
 .TextFieldInput:focus {
     outline-color: var(--primary-color);
+}
+
+.TextFieldInput:focus>svg {
+    fill: red;
 }
 
 .TextFieldInput::placeholder {
