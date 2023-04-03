@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
 
 import styles from "./EditProfilePage.module.scss";
@@ -17,6 +17,8 @@ import { Paragraph } from "../../components/ParagraphStyle";
 import { selectAccessToken, selectRefreshToken, selectUser } from "../../redux/selector";
 import { GhostBtn, GhostBtnContainer } from "../../components/ButtonStyle";
 import { ProfileInfo, ProfileName, ProfilePictureContainer, ProfilePictureContent } from "../../components/UserProfile";
+import { createAxiosJwt, path } from "../../utils/axiosAPI";
+import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
 
@@ -25,21 +27,60 @@ function EditProfilePage() {
   const accessToken = useSelector(selectAccessToken);
   const refressToken = useSelector(selectRefreshToken);
   const currentUser = useSelector(selectUser);
+  const [avatar, setAvatar] = useState();
   const uploadRef = useRef();
   const [errorMessage, setErrorMessage] = useState({
     nameError: "",
-    newPwError: "",
-    confirmPwError: ""
+    emailError: "",
+    phoneError: ""
   });
   const nameRef = useRef();
-  const newPasswordRef = useRef();
-  const confirmPasswordRef = useRef();
+  const emailRef = useRef();
+  const phoneRef = useRef();
   const handleUploadFile = () => {
-
+    uploadRef.current.value = "";
+    uploadRef.current.click();
+  }
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    file.preview = URL.createObjectURL(file);
+    console.log(file);
+    setAvatar(file);
+  }
+  const editProfile = async () => {
+    const formData = new FormData();
+    formData.append("name", nameRef.current.value);
+    formData.append("email", emailRef.current.value);
+    formData.append("phone", phoneRef.current.value);
+    formData.append("avatar", avatar);
+    const axiosInstance = createAxiosJwt(accessToken, refressToken, dispatch);
+    try {
+      const res = await axiosInstance.patch(path.editProfile, formData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      console.log(res);
+      if (res.data.isSuccess) {
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      if (!error.response.data.isSuccess) {
+        toast.error(error.response.data.message);
+      }
+    }
   }
   const handleSubmit = (e) => {
-    e.prevetDefault();
+    e.preventDefault();
+    editProfile();
   }
+  useEffect(() => {
+    return () => {
+      avatar && URL.revokeObjectURL(avatar.preview);
+    }
+  }, [avatar])
   return (
     <ContentSection>
       <ContentSectionTitle label={"Chỉnh sửa thông tin"} />
@@ -50,8 +91,13 @@ function EditProfilePage() {
               <aside className={cx("Label__Content")}>
                 <ProfilePictureContainer>
                   <ProfilePictureContent>
-                    <img alt={currentUser.username}
-                      src={currentUser.avatar} srcSet="/static/images/defaultUser.webp" />
+                    {
+                      avatar ?
+                        <img alt={currentUser.username}
+                          src={avatar.preview} /> :
+                        <img alt={currentUser.username}
+                          src={currentUser.avatar} srcSet="/static/images/defaultUser.webp" />
+                    }
                   </ProfilePictureContent>
                 </ProfilePictureContainer>
               </aside>
@@ -67,7 +113,10 @@ function EditProfilePage() {
                     Thay đổi ảnh đại diện
                   </span>
                 </div>
-                <input ref={uploadRef} style={{ display: "none" }} />
+                <input ref={uploadRef} type="file"
+                  accept="image/png, image/jpg, image/jpeg"
+                  onChange={handleFileChange}
+                  style={{ display: "none" }} />
               </div>
             </div>
             <div className={cx("UpdatePassword__Half")}>
@@ -79,9 +128,8 @@ function EditProfilePage() {
               <div className={cx("Input__Container")}>
                 <TextFieldContainer className={"aries-textfield"}>
                   <TextFieldInput name="password" ariaLabel="Tên"
-                    type={"password"}
                     isRequired
-                    // value={verifyCode}
+                    value={currentUser.name}
                     ref={nameRef}
                     onChange={() => {
                       setErrorMessage({
@@ -110,14 +158,14 @@ function EditProfilePage() {
               <div className={cx("Input__Container")}>
                 <TextFieldContainer className={"aries-textfield"}>
                   <TextFieldInput name="password" ariaLabel="Email"
-                    type={"password"}
+                    type={"email"}
                     isRequired
-                    // value={verifyCode}
-                    ref={nameRef}
+                    value={currentUser.email}
+                    ref={emailRef}
                     onChange={() => {
                       setErrorMessage({
                         ...errorMessage,
-                        nameError: ""
+                        emailError: ""
                       })
                     }}
                     placeholder={"Email"} />
@@ -127,7 +175,7 @@ function EditProfilePage() {
                 </TextFieldContainer>
                 <Paragraph color="#EC272B"
                   className={cx("aries-typography-paragraph", "FieldError")}>
-                  {errorMessage.nameError}
+                  {errorMessage.emailError}
                 </Paragraph>
               </div>
             </div>
@@ -141,14 +189,13 @@ function EditProfilePage() {
               <div className={cx("Input__Container")}>
                 <TextFieldContainer className={"aries-textfield"}>
                   <TextFieldInput name="password" ariaLabel="Số điện thoại"
-                    type={"password"}
                     isRequired
-                    // value={verifyCode}
-                    ref={nameRef}
+                    value={currentUser.phone}
+                    ref={phoneRef}
                     onChange={() => {
                       setErrorMessage({
                         ...errorMessage,
-                        nameError: ""
+                        phoneError: ""
                       })
                     }}
                     placeholder={"Số điện thoại"} />
@@ -158,7 +205,7 @@ function EditProfilePage() {
                 </TextFieldContainer>
                 <Paragraph color="#EC272B"
                   className={cx("aries-typography-paragraph", "FieldError")}>
-                  {errorMessage.nameError}
+                  {errorMessage.phoneError}
                 </Paragraph>
               </div>
             </div>
@@ -168,7 +215,6 @@ function EditProfilePage() {
                 <label className={cx("Lable__Title")}></label>
               </aside>
               <div className={cx("Input__Container")}>
-                {/* <button>Lưu</button> */}
                 <GhostBtnContainer>
                   <GhostBtn type={"submit"}>
                     Lưu
