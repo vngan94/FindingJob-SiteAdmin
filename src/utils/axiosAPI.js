@@ -88,6 +88,7 @@ export const path = {
   jobList: "job/list/sort-by-date",
   jobListFilter: "job/list/filter",
   searchJob: "job/list/search",
+  searchSuggestion: "job/search-by-key",
   applyJob: "application/create",
   forgotPassword: "auth/forgot-password",
   resetPassword: "auth/confirm-password",

@@ -11,18 +11,26 @@ import {
   SearchItemWrapper
 } from "../SearchField";
 import styles from './SearchContainer.module.scss';
+import { get, path } from "../../utils/axiosAPI";
+import { useNavigate } from "react-router-dom";
+import routes from "../../config/routes";
+import { useDeferredValue, useEffect, useState } from "react";
+import { useDeferred } from "../../hooks";
 
 const cx = classNames.bind(styles);
 
-const initKey = [
-  "test 1",
-  "test 2",
-  "test 3"
-]
+// const initKey = [
+//   "test 1",
+//   "test 2",
+//   "test 3"
+// ]
 
-function SearchContainer() {
+function SearchContainer(isHomePage = false) {
   // console.log("Render SearchContainer");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [showSuggestion, setShowSuggestion] = useState(true);
+  const [suggestionKey, setSuggestionKey] = useState([]);
   const PastJobSearchContext = usePastJobSearch();
   const { pastJobSearch, updatePastJobSearch } = PastJobSearchContext;
   const SearchInputContext = useSearchInput();
@@ -30,16 +38,20 @@ function SearchContainer() {
   // const [userInput, setUserInput] = useState("");
   // const testArray = useRef(Array.from({ length: 2 }));
   const testArray = pastJobSearch ? [...pastJobSearch] : [];
+  const deferredValue = useDeferred(searchInput, 500);
   const savePastJobSearch = (keyword) => {
     if (keyword) {
       let isExist = false;
-      for (let index = 0; index < testArray.length; index++) {
-        const element = testArray[index];
-        if (element.keyword === keyword) {
-          isExist = true;
-          return;
-        }
-      }
+      // for (let index = 0; index < testArray.length; index++) {
+      //   const element = testArray[index];
+      //   if (element.keyword === keyword) {
+      //     isExist = true;
+      //     return;
+      //   }
+      // }
+      isExist = testArray.some((item) => {
+        return item.keyword === keyword;
+      });
       if (!isExist) {
         if (testArray?.length >= 3) {
           testArray?.shift();
@@ -58,6 +70,34 @@ function SearchContainer() {
       }
     }
   }
+  useEffect(() => {
+    if (deferredValue.trim()) {
+      const fetchSuggestion = async () => {
+        try {
+          const res = await get(path.searchSuggestion, {
+            params: {
+              keyword: deferredValue
+            }
+          })
+          console.log(res);
+          setSuggestionKey(res.data);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      fetchSuggestion();
+    } else {
+      setSuggestionKey([]);
+    }
+  }, [deferredValue])
+  const handleEnter = () => {
+    if (isHomePage) {
+      navigate(routes.job);
+    }
+    savePastJobSearch(searchInput);
+    dispatch(updateSearch(searchInput));
+    setShowSuggestion(false);
+  }
   return (
     <div className={cx("Container")}>
       <div className={cx("FieldWrapper")}>
@@ -71,8 +111,7 @@ function SearchContainer() {
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 // handleSearch();
-                savePastJobSearch(searchInput);
-                dispatch(updateSearch(searchInput));
+                handleEnter();
               }
             }}
           />
@@ -83,11 +122,12 @@ function SearchContainer() {
 
         {/* suggestion here */}
         {
-          searchInput &&
+          searchInput && showSuggestion &&
           <SuggestionDropdownContainer>
             <SuggestionDropdown>
-              {initKey.map((item, index) => {
-                return <SearchItemWrapper key={index} keyword={item} />
+              {suggestionKey.map((item) => {
+                return <SearchItemWrapper key={item._id} keyword={item.name}
+                  onClick={setShowSuggestion} />
               })}
             </SuggestionDropdown>
           </SuggestionDropdownContainer>
@@ -112,8 +152,7 @@ function SearchContainer() {
           className={cx("ButtonStyle__Button", "ButtonStyle__SolidBtn")}
           onClick={() => {
             // handleSearch();
-            savePastJobSearch(searchInput);
-            dispatch(updateSearch(searchInput));
+            handleEnter();
           }}
         >TÌM KIẾM</button>
       </div>

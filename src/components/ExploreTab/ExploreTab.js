@@ -55,11 +55,11 @@ function ExploreTab() {
         idCompany: [],
         locationWorking: locationWorkingFilter,
       }
-      console.log(dataFilter);
+      // console.log(dataFilter);
       try {
         const res = await post(path.searchJob, dataFilter);
         // const res = await axios.get("https://jsonplaceholder.typicode.com/comments");
-        console.log(res);
+        // console.log(res);
         startTransition(() => {
           setJobList(res.data);
         })
