@@ -9,12 +9,13 @@ export const login = async ({ username, password }, dispatch) => {
     console.log("res - login", res);
     if (res.success) {
       dispatch(loginSuccess(res.data));
+      console.log("in" , res.data);
       getUser(res.data.accessToken, res.data.refreshToken, dispatch);
     }
     // handleShowLogin();
    
   } catch (error) {
-    console.log(error);
+    console.log("err ", error);
     return error.response.data.message;
     // return "test";
     // setErrorMessage(error.response.data.message);

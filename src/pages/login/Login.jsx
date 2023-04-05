@@ -53,7 +53,7 @@ export default function Login() {
       if (hasErr) {
         setError(hasErr);
       } else {
-        
+        console.log("Login thành công")
         navigate("/posts")
 
         

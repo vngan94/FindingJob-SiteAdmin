@@ -19,7 +19,6 @@ export default function PostList() {
   const [postList, setPostList] = useState([]);
   const [postListChange, setPostListChange] = useState([]);
   const [idDelete, setIdDelete] = useState('')
- 
   const isAvailable = (x) => {
     var y =  new Date().toISOString().split('T')[0] // yyyy-mm-dd
     return x >= y
@@ -36,7 +35,9 @@ export default function PostList() {
     const fetchData = async()=> {
       console.log("in ", currentUser)
         try { 
+          
           const res = await axios.get(`http://localhost:8000/job/list/company/${currentUser._id}`)
+          console.log(res.data.data);
           setPostListChange(res.data.data.map(function(item){
             return {
              id: item._id,
