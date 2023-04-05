@@ -22,10 +22,11 @@ const routes = {
     applications: "/applications/:id",
     login: "/recLogin",
     register: "/recRegister",
-    account: "/account/:id"
+    account: "/account/:id",
 
     
 
+    setting: "setting",
 }
 
 export default routes;

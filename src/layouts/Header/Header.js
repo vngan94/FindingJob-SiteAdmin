@@ -1,20 +1,22 @@
 import classNames from 'classnames/bind';
 import { Link, NavLink, redirect, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useRef, useState } from 'react';
 
 import styles from './Header.module.scss';
 import config from '../../config';
 import { LanguageIcon, DropdownIcon, RightArrowIcon } from '../../components/Icon';
-import { useEffect, useRef, useState } from 'react';
 import LoginModal from '../../components/LoginModal/LoginModal';
 import { selectUser } from '../../redux/selector';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell } from '@fortawesome/free-solid-svg-icons';
 import UserMenu from './UserMenu/UserMenu';
+import GlintContainer from '../../components/GlintContainer/GlintContainer';
 
 const cx = classNames.bind(styles);
 
 function Header() {
+	// console.log("Render Header");
 	const currentUser = useSelector(selectUser);
 	const [showLogin, setShowLogin] = useState(false);
 	const [showLanguageMenu, setShowLanguageMenu] = useState(false);
@@ -42,7 +44,7 @@ function Header() {
 	})
 	return (
 		<div className={cx("MainHeader")}>
-			<div className={cx("GlintContainer")}>
+			<GlintContainer>
 				{/* LoginModal */}
 				{showLogin && <LoginModal handleShowLogin={handleShowLogin} />}
 				<nav className={cx("Container")}>
@@ -125,7 +127,7 @@ function Header() {
 							</>}
 					</div>
 				</nav>
-			</div>
+			</GlintContainer>
 		</div>
 	);
 }

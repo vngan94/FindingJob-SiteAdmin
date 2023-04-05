@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import { faBookmark, faBriefcase, faClock, faDollarSign, faLocationDot, faStar } from "@fortawesome/free-solid-svg-icons";
-import { Fragment } from "react";
+import { Fragment, memo } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -9,6 +9,7 @@ import styles from "./JobList.module.scss";
 const cx = classNames.bind(styles);
 
 function JobList({ jobList }) {
+  // console.log("JobList", jobList);
   return (
     jobList?.map((job, index) => {
       return (
@@ -17,8 +18,9 @@ function JobList({ jobList }) {
             "CompactOpportunityCard__CompactJobCardWrapper")}>
             <div className={cx("JobCard__JobCardWrapper")}>
               <Link to={`/job/${job._id}`}
+                aria-label={"Click to view job detail"}
                 className={cx("CompactOpportunityCard__CardAnchorWrapper")}
-                href="/test" target="_blank" />
+                target="_blank" />
               <div className={cx("CompactOpportunityCard__CompactJobCard")}>
                 <div className={cx("CompactOpportunityCard__CompactJobCardHeader")}>
                   <div className={cx("CompactOpportunityCard__CompanyAvatarWrapper")}>
@@ -28,14 +30,14 @@ function JobList({ jobList }) {
                   </div>
                   <div className={cx("CompactOpportunityCard__CompactJobCardInfo")}>
                     <h3 className={cx("CompactOpportunityCard__JobTitle")}>
-                      {job.name}
+                      {job?.name}
                     </h3>
                     <span className={cx("CompactOpportunityCard__CompanyLinkContainer")}>
                       <div className={cx("CompactOpportunityCard__Ellipsis")}>
                         <a className={cx("CompactOpportunityCard__CompanyLink")}
                           href="www.google.com" >
                           {/* code findOne company here */}
-                          {job.idCompany.name}
+                          {job.idCompany?.name}
                         </a>
                       </div>
                     </span>
@@ -87,4 +89,5 @@ function JobList({ jobList }) {
   )
 }
 
-export default JobList;
+export default memo(JobList); // ok
+// export default JobList;

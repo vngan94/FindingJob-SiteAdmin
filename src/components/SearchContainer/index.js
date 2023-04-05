@@ -1,1 +1,3 @@
-export { default } from "./SearchContainer";
+import SearchContainer from "./SearchContainer";
+
+export default SearchContainer;

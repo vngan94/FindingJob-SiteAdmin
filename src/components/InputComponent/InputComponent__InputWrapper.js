@@ -17,7 +17,8 @@ function InputComponent__InputWrapper({ id, label, name, type = "text", valid = 
       </span>
       <div className={cx("InputComponent__InputTypeWrapper")}>
         <input type={type} id={id} value={value}
-          placeholder="placeholder" name={name}
+          placeholder="placeholder" // to remove issue input has no title
+          name={name}
           className={cx("InputComponent__InputType")}
           onChange={onChange}
           onFocus={() => {

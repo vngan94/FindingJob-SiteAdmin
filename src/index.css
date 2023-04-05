@@ -2,6 +2,7 @@
 
 :root {
     --primary-color: rgb(1, 126, 183);
+    --secondary-color: rgb(119, 119, 119);
     --menu-height: 70px;
 }
 
@@ -34,14 +35,11 @@ body {
     overflow-x: hidden;
 }
 
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-::before,
-::after {
     box-sizing: border-box;
 }
 

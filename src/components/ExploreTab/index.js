@@ -1,1 +1,3 @@
-export { default } from "./ExploreTab";
+import ExploreTab from "./ExploreTab";
+
+export default ExploreTab;

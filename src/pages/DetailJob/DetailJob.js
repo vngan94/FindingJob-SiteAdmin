@@ -12,7 +12,7 @@ import PsychFlatModal from "../../components/PsychFlatModal";
 export const JobContext = createContext();
 
 function DetailJob() {
-  console.log("Render DetailJob");
+  // console.log("Render DetailJob");
   useDocumentTitle("Chi Tiết Công Việc");
   const [showPsychFlat, setShowPsychFlat] = useState(false);
   const handleShowPsychFlat = () => {
@@ -28,6 +28,7 @@ function DetailJob() {
     }
     fetchApi();
   }, []);
+  // check if job not found caused by change url
   return <>
     <JobContext.Provider value={job}>
       {/* breadcrumpm has not completed yet */}

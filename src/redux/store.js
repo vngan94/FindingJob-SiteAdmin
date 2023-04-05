@@ -11,6 +11,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 
+import userSlice from "./userSlice";
 import authSlice from "./authSlice";
 import filterSlice from "./filterSlice";
 import jobListSlice from "./jobListSlice";
@@ -19,10 +20,11 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: ["auth"]
+  whitelist: ["auth", "user"]
 }
 
 const rootReducer = combineReducers({
+  user: userSlice,
   auth: authSlice,
   filter: filterSlice,
   jobList: jobListSlice,

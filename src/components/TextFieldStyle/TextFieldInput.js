@@ -6,20 +6,24 @@ import styles from "./TextFieldStyle.module.scss";
 const cx = classNames.bind(styles);
 
 function TextFieldInput({
-  type,
+  type = "text",
+  isRequired = false,
   placeholder,
   ariaLabel,
   value,
   maxLength,
-  onChange
+  onChange,
+  onBlur
 }, inputRef) {
   return (
     <input ref={inputRef}
+      required={isRequired}
       // type={showPassword ? "text" : "password"}
       type={type}
       aria-label={ariaLabel} className={cx("TextFieldInput")}
       value={value} maxLength={maxLength}
       onChange={onChange}
+      onBlur={onBlur}
       placeholder={placeholder} />
   )
 }

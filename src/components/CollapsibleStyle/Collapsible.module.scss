@@ -1,0 +1,36 @@
+.CollapsibleContainer {
+    color: black;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.CollapsibleContainer .collapsible-title {
+    padding: 16px 0px;
+}
+
+.CollapsibleContent {
+    outline: none;
+}
+
+.CollapsibleHeader {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.CollapsibleHeader:hover {
+    color: rgb(1, 126, 183);
+}
+
+.CollapsibleHeader svg {
+    display: block;
+    width: 14px;
+    height: 14px;
+}
+
+.CollapsibleBody {
+    padding: 0px 0px 16px;
+    cursor: default;
+}

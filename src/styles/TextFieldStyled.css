@@ -1,0 +1,41 @@
+.TextFieldStyled__TextFieldContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.TextFieldStyled__TextFieldContainer input {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.TextFieldStyled__TextFieldInput {
+    position: relative;
+    width: 100%;
+    outline: none;
+    font-size: 1.1em;
+    line-height: 1.5;
+    padding: 15px 20px 15px 38px;
+
+    display: block;
+    height: 40px;
+
+    border-radius: 8px;
+    border: unset;
+    background: linear-gradient(to left, rgba(136, 190, 219, 0.25), rgb(234, 248, 255) 40%);
+}
+
+.TextFieldStyled__TextFieldInput:focus {
+    background: linear-gradient(to left, rgba(151, 216, 253, 0.25), rgb(160, 218, 247) 40%);
+}
+
+.TextFieldStyled__StartIconContainer {
+    position: absolute;
+    left: 16px;
+}
+
+.TextFieldStyled__IconContainer {
+    position: absolute;
+    right: 1em;
+    cursor: pointer;
+}

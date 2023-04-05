@@ -11,7 +11,14 @@
 .Body {
     position: relative;
     display: flex;
-    flex-flow: row;
+    flex-flow: column;
+}
+
+@media (min-width: 1024px) {
+    .Body {
+        flex-flow: row;
+        align-items: flex-start;
+    }
 }
 
 .DesktopStickyFilterContainer {

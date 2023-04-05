@@ -1,182 +1,29 @@
 /* code theo glint, đặt tên như nó luôn */
+@import url("./styles/CompactOpportunityCard.css");
+@import url("./styles/ButtonStyle.css");
+@import url("./styles/DropdownStyle.css");
+@import url("./styles/styles.css");
+@import url("./styles/TextFieldStyled.css");
+@import url("./styles/TopFold.css");
+@import url("./styles/SimilarJobsSection.css");
+@import url("./styles/JobDescription.css");
+@import url("./styles/Skills.css");
 
 .Box__StyledBox {
     padding-bottom: 16px;
-}
-
-.ButtonStyle__SolidBtnContainer {
-    display: flex;
-}
-
-.ButtonStyle__Button {
-    display: flex;
-    position: relative;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    background-color: var(--primary-color);
-    color: rgb(255, 255, 255);
-    outline: none;
-    border: none;
-    cursor: pointer;
-}
-
-.ButtonStyle__SolidBtn {
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 14px;
-    letter-spacing: 1px;
-    min-width: 170px;
-    /* text-transform: uppercase; */
-    font-weight: bold;
-    line-height: 1.5;
-}
-
-.ButtonStyle__SolidBtn:active {
-    background-color: black;
-}
-
-.CompactOpportunityCard__BookmarkIconContainer {
-    padding-top: 5px;
 }
 
 .BookmarkButton__ButtonWrapper {
     cursor: pointer;
 }
 
-.CompactOpportunityCard__CompactJobCard {
+.Flex__StyledFlex {
     display: flex;
-    flex-flow: column;
-    border: 1px solid rgb(198, 198, 198);
-    border-radius: 4px;
-    padding: 16px 12px;
-}
-
-.CompactJobCardList__JobCardListContainer {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-}
-
-.CompactOpportunityCard__CompactJobCardWrapper {
-    min-width: 100%;
-}
-
-.CompactOpportunityCard__CompactJobCardHeader {
-    display: flex;
-}
-
-.CompactOpportunityCard__OpportunityInfoContainer {
-    margin: 10px 0;
-}
-
-.CompactOpportunityCard__OpportunityMeta {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    font-size: 12px;
-}
-
-.CompactOpportunityCard__CardBottomFlexContainer {
-    margin-top: -10px;
-}
-
-.DropdownStyle__DropdownContainer {
-    display: inline;
-}
-
-.DropdownStyle__DropdownWrapper {
-    outline: none;
-}
-
-.DropdownStyle__DropdownHeader {
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.DropdownStyle__DropdownHeader::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    left: 0;
-    bottom: -5px;
-    background-color: rgb(0, 0, 0);
-    transform: scale(0);
-    transition: all 0.2s ease-in-out 0s;
-}
-
-.DropdownStyle__DropdownHeader:hover::after {
-    transform: scale(1);
-}
-
-/* 
-.DropdownStyle__DropdownHeader:hover .DropdownStyle__IconWrapper {
-    transform: rotate(180deg);
-}
- */
-
-.DropdownStyle__DropdownHeader svg:first-child {
-    margin-right: 0.6em;
-}
-
-.DropdownStyle__DropdownHeader svg:last-child {
-    margin-left: 0.6em;
-}
-
-.DropdownStyle__IconWrapper {
-    display: flex;
-    transition: transform 0.5s ease 0s;
-}
-
-.DropdownStyle__DropdownBody {
-    display: none;
-    width: auto;
-    position: absolute;
-    border-radius: 4px;
-    background: rgb(255, 255, 255);
-    box-shadow: rgb(0 0 0 / 10%) 0px 6px 12px;
-    margin: 13px 0px 0px;
-    white-space: nowrap;
-}
-
-.DropdownStyle__DropdownBody a {
-    display: block;
-    text-decoration: none;
-}
-
-.DropdownStyle__DropdownBody a:first-child {
-    border-top-right-radius: 4px;
-    border-top-left-radius: 4px;
-}
-
-.DropdownStyle__DropdownBody a:last-child {
-    border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px;
-}
-
-.DropdownStyle__DropdownBody--Left {
-    left: 0;
-}
-
-.DropdownStyle__DropdownBody--Right {
-    right: 0;
-}
-
-.DropdownStyle__DropdownItemWrapper {
-    min-width: 110px;
-    padding: 10px 15px;
-    color: black;
-}
-
-.DropdownStyle__DropdownItemWrapper:hover {
-    background: rgb(243, 243, 243);
-}
-
-.Flex_StyledFlex {
-    display: flex;
-    flex-flow: column;
+    flex-flow: column nowrap;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: stretch;
+    align-items: stretch;
 }
 
 .IconStyle__VerticalCenteredSvg {
@@ -193,56 +40,6 @@
     width: 100%;
     height: 100%;
     background: white;
-}
-
-.CompactOpportunityCard__CardAnchorWrapper {
-    position: absolute;
-    inset: 0;
-}
-
-.CompactOpportunityCard__CardAnchorWrapper:hover {
-    box-shadow: var(--primary-color) 0 0 8px;
-    border-radius: 4px;
-}
-
-.CompactOpportunityCard__BookmarkIconContainer {
-    position: relative;
-    float: right;
-}
-
-.CompactOpportunityCard__CompanyAvatarWrapper {
-    width: 60px;
-    height: 60px;
-    margin-right: 15px;
-}
-
-.CompactOpportunityCard__CompanyAvatar {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.CompactOpportunityCard__CompactJobCardInfo {
-    width: 100%;
-}
-
-.CompactOpportunityCard__JobTitle {
-    font-size: 16px;
-    margin-bottom: 5px;
-    margin-right: 26px;
-    font-weight: 500;
-}
-
-.CompactOpportunityCard__CompanyLink {
-    text-decoration: none;
-    color: rgb(1, 126, 183) !important;
-    font-size: 14px;
-    margin-bottom: 10px;
-    position: relative;
-}
-
-.CompactOpportunityCard__CompanyLink:hover {
-    text-decoration: underline;
 }
 
 .CheckMarkHotJobBadge__CheckMarkHotJobBadgeContainer {
@@ -262,65 +59,14 @@
     left: 20px;
 }
 
-.CompactOpportunityCard__OpportunityInfoContainer {
-    margin: 10px 0;
-}
-
-.CompactOpportunityCard__OpportunityInfo {
-    display: flex;
-    flex-direction: row;
-    -webkit-box-align: center;
-    align-items: center;
-    margin-bottom: 6px;
-}
-
-.CompactOpportunityCard__OpportunityInfo svg {
-    vertical-align: middle;
-    width: 15px;
-    height: 15px;
-    margin-right: 4px;
-    color: rgb(119, 119, 119);
-}
-
-.CompactOpportunityCard__OpportunityMeta {
-    display: flex;
-    padding-top: 10px;
-    margin-top: auto;
-}
-
-.CompactOpportunityCard__UpdatedTimeContainer {
-    height: 100%;
-    margin-top: 10px;
-}
-
-.CompactOpportunityCard__UpdatedTimeContainer svg {
-    margin-right: 5px;
-    color: rgb(0, 132, 100);
-}
-
-.CompactOpportunityCard__UpdatedAtMessage {
-    color: rgb(0, 132, 100);
-    font-weight: 500;
-}
-
 .CheckMarkHotJobBadge__CheckMarkHotJobBadgeContainer span {
     margin-right: 7px;
     font-weight: 700;
 }
 
-
-
-.GlintContainer {
-    position: relative;
-    margin: 0px auto;
-    padding: 0px 32px;
-}
-
 .Large-Text {
     font-size: 18px;
 }
-
-
 
 .UnstyleButton {
     outline: none;
@@ -333,292 +79,14 @@
     font-size: 20px;
 }
 
-.styles__ExploreTabBody {
-    padding-top: 24px;
-}
-
-.styles__Container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    -webkit-box-align: center;
-}
-
-.styles__ItemWrapper {
-    margin-right: 8px;
-    margin-bottom: 8px;
-}
-
-.styles__SearchTypeLabel {
-    font-size: 14px;
-}
-
-.styles__SearchKeywordLabel {
-    margin-left: 4px;
-    text-transform: capitalize;
-}
-
-.styles__CompactJobCardList {
-    gap: 12px 16px;
-}
-
-.styles__FilterList {
-    padding: 0px 16px;
-}
-
-.styles__Collapsible {
-    border-bottom: 1px solid rgba(198, 198, 198, 0.6);
-}
-
-.styles__CheckboxContainer {
-    display: flex;
-    flex-flow: column;
-}
-
-.styles__Checkbox {
-    margin-bottom: 8px;
-}
-
-.TextFieldStyled__TextFieldContainer {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.TextFieldStyled__TextFieldInput {
-    position: relative;
-    width: 100%;
-    outline: none;
-    font-size: 1.1em;
-    line-height: 1.5;
-    padding: 15px 20px 15px 38px;
-
-    display: block;
-    height: 40px;
-
-    border-radius: 8px;
-    border: unset;
-    background: linear-gradient(to left, rgba(136, 190, 219, 0.25), rgb(234, 248, 255) 40%);
-}
-
-.TextFieldStyled__TextFieldInput:focus {
-    background: linear-gradient(to left, rgba(151, 216, 253, 0.25), rgb(160, 218, 247) 40%);
-}
-
-.TextFieldStyled__StartIconContainer {
-    position: absolute;
-    left: 16px;
-}
-
-.TextFieldStyled__IconContainer {
-    position: absolute;
-    right: 1em;
-    cursor: pointer;
-}
-
 .DividerStyle__DividerContainer {
     width: 100%;
     height: 1px;
     background: rgb(198, 198, 198);
 }
 
-.TopFold__CompanyAndJobInfo {
-    display: flex;
-    padding-top: 32px;
-}
-
-.TopFold__CompanyLogo {
-    min-width: 64px;
-}
-
-.TopFold__CompanyLogo img {
-    width: 70px;
-}
-
-.TopFold__JobOverViewContainer {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    font-size: 16px;
-    margin-left: 30px;
-}
-
-.TopFold__JobOverViewHeader {
-    display: flex;
-    gap: 20px;
-}
-
-.TopFold__JobOverViewTitle {
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 8px;
-}
-
-.TopFold__JobOverViewCompanyInfo {
-    display: flex;
-    flex-flow: row;
-    margin-bottom: 8px;
-}
-
-.TopFold__JobOverViewCompanyName {
-    margin-right: 8px;
-}
-
-div.TopFold__JobOverViewCompanyName a {
-    text-decoration: none;
-    color: rgb(1, 126, 183);
-}
-
-.TopFold__JobOverViewInfoContainer {
-    margin-left: 94px;
-    font-size: 16px;
-}
-
-.TopFold__JobOverViewInfo {
-    display: flex;
-    align-items: center;
-    -webkit-box-align: center;
-    margin-bottom: 8px;
-}
-
-.TopFold__JobOverViewInfo svg {
-    margin-right: 8px;
-}
-
-div.TopFold__JobOverViewInfo a {
-    text-decoration: none;
-    color: rgb(1, 126, 183);
-}
-
-.TopFold__SalaryJobOverView {
-    flex-wrap: unset;
-}
-
-
-.TopFold__BadgesAndJobOverViewTimeContainer {
-    display: flex;
-    flex-direction: column;
-    margin-top: 24px;
-}
-
-.TopFold__JobOverViewTime {
-    margin-bottom: 16px;
-    font-size: 14px;
-    color: rgb(119, 119, 119);
-}
-
-.TopFold__JobOverViewTime svg {
-    margin-right: 8px;
-}
-
-.TopFold__PostedAt {
-    margin-right: 8px;
-}
-
-.TopFold__UpdateAt {
-    font-size: 14px;
-    color: rgb(119, 119, 119);
-}
-
-.TopFold__ButtonContainer {
-    margin-bottom: 32px;
-}
-
-.TopFold__ApplyButtonDesktop {
-    margin-right: 16px;
-}
-
 .ApplyButton__ApplyButton .ButtonStyle__SolidBtn {
     border-radius: 0;
-}
-
-.SimilarJobsSection__HeaderWrapper {
-    margin-bottom: 16px;
-}
-
-.SimilarJobsSection__Header {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.SimilarJobsSection__JobCardWrapper {
-    margin-bottom: 16px;
-}
-
-.SimilarJobCard__Card {
-    position: relative;
-    border-radius: 4px;
-    border: 1px solid rgb(198, 198, 198);
-    padding: 8px;
-}
-
-.SimilarJobCard__Container {
-    display: flex;
-    color: black;
-}
-
-.SimilarJobCard__Logo {
-    min-width: 50px;
-    margin-right: 4px;
-    margin-top: 2px;
-}
-
-.SimilarJobCard__Logo img {
-    width: 50px;
-}
-
-.SimilarJobCard__Detail {
-    margin-left: 8px;
-    width: 252px;
-}
-
-.SimilarJobCard__Detail a,
-.SimilarJobCard__Detail a:visited {
-    position: relative;
-    text-decoration: none;
-    color: rgb(1, 126, 183);
-    z-index: 1;
-}
-
-.SimilarJobCard__Title {
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.SimilarJobCard__InfoWrapper {
-    margin-top: 4px;
-    font-size: 12px;
-}
-
-.SimilarJobCard__InfoWrapper svg {
-    margin-right: 2px;
-}
-
-.SimilarJobCard__SalaryInfoContainer {
-    display: flex;
-    align-items: center;
-}
-
-.SimilarJobCard__SalaryInfoContainer svg {
-    margin-right: 6px;
-}
-
-.SimilarJobCard__Bookmark {
-    margin-top: 5px;
-    margin-left: auto;
-}
-
-.SimilarJobCard__DividerContainer {
-    margin: 8px 0;
-}
-
-.SimilarJobCard__Footer {
-    font-size: 12px;
-    color: rgb(100, 100, 100);
-}
-
-.SimilarJobCard__Footer svg {
-    margin-right: 4px;
 }
 
 .BookmarkButton__ButtonWrapper {
@@ -628,62 +96,4 @@ div.TopFold__JobOverViewInfo a {
 .BookmarkButton__BookmarkOutlineIcon {
     width: 20px;
     height: 20px;
-}
-
-.Skills__TitleContainer {
-    margin-bottom: 16px;
-}
-
-.Skills__Title {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.SkillsTagOverride {
-    display: inline-flex;
-    margin-right: 8px;
-    margin-bottom: 8px;
-    color: rgb(0, 0, 0);
-}
-
-.SkillsTagOverride.TagStyle__TagContainer {
-    border-radius: 20px;
-    border-width: 1px;
-    border-style: solid;
-    font-size: 14px;
-    color: rgb(0, 0, 0);
-    background: rgb(243, 243, 243);
-    border-color: rgb(198, 198, 198);
-}
-
-.SkillsTagOverride .TagStyle__TagContent {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    padding: 5px 15px;
-    outline: none;
-}
-
-.JobDescription__TitleContainer {
-    margin-bottom: 16px;
-}
-
-.JobDescription__Title {
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 1.58;
-}
-
-/* .JobDescription__DescriptionContainer {}
-
-.DraftEditorContainer__DraftEditorContainer {}
-
-.DraftEditor-root {}
-
-.DraftEditor-editorContainer {}
-
-.public-DraftEditor-content {} */
-
-.JobDescription__ReadButton {
-    margin-top: 7px;
 }

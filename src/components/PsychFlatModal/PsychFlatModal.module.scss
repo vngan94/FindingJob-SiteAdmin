@@ -91,7 +91,9 @@
 
 .UploadResumesc__UploadArea .filepicker {
     padding: 21px 0px;
-    min-height: auto;
+    min-height: min-content;
+    // min-height: auto;
+    // overflow: hidden;
 }
 
 div.filepicker {
@@ -99,8 +101,8 @@ div.filepicker {
     padding: 5px;
     background-color: transparent;
     border-radius: 5px;
-    min-height: 150px;
     border: none;
+    min-height: 150px;
 }
 
 .UploadResumesc__GlintsDropzoneWrapper {

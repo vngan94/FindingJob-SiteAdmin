@@ -1,8 +1,9 @@
-import Home from "../pages/Home";
-import Job from "../pages/Job/";
-import Company from "../pages/Company";
-import Blog from "../pages/Blog/";
 import config from "../config";
+
+import Home from "../pages/Home";
+import JobPage from "../pages/JobPage";
+import Company from "../pages/Company";
+import BlogPage from "../pages/BlogPage";
 import DetailJob from "../pages/DetailJob";
 import ErrorPage from "../pages/ErrorPage";
 import HomeCompany from "../pages/HomeComany/HomeCompany";
@@ -14,7 +15,6 @@ import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import ApplicationList from "../pages/applicationList/ApplicationList";
 import SignUp from "../pages/SignUp";
-import HeaderOnly from "../layouts/HeaderOnly";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage/ResetPasswordPage";
 import Account from "../pages/Account/Account";
@@ -46,6 +46,11 @@ export const publicRoutes = [
 
 // must login
 export const privateRoutes = [
-    { path: "test", component: () => (<p>test privateRoutes</p>) },
-    { path: "setting", component: () => (<p>Setting page</p>) },
+    { key: "", path: "test", component: () => (<p>test privateRoutes</p>) },
+    {
+        key: "", path: config.routes.setting,
+        component: SettingPage,
+        layout: SidebarSetting,
+        children: settingRoutes
+    },
 ];

@@ -1,0 +1,51 @@
+@media screen and (min-width: 1024px) {
+    .styles__ExploreTabBody {
+        padding-top: 16px !important;
+    }
+}
+
+.styles__Container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    -webkit-box-align: center;
+}
+
+.styles__ItemWrapper {
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.styles__SearchTypeLabel {
+    font-size: 14px;
+}
+
+.styles__SearchKeywordLabel {
+    margin-left: 4px;
+    text-transform: capitalize;
+}
+
+.styles__CompactJobCardList {
+    gap: 12px 16px;
+}
+
+.styles__FilterList {
+    padding: 0px 16px;
+}
+
+.styles__FilterList .styles__Collapsible:last-child {
+    border-bottom: 0;
+}
+
+.styles__Collapsible {
+    border-bottom: 1px solid rgba(198, 198, 198, 0.6);
+}
+
+.styles__CheckboxContainer {
+    display: flex;
+    flex-flow: column;
+}
+
+.styles__Checkbox {
+    margin-bottom: 8px;
+}

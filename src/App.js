@@ -8,6 +8,7 @@ import DefaultLayout from './layouts/DefaultLayout';
 import { selectUser } from './redux/selector';
 import { Fragment } from 'react';
 import { ToastContainer } from 'react-toastify';
+import Error from './components/Error/Error';
 
 const ProtectedRoute = ({ user, redirectPath = '/' }) => {
 	if (!user) {
@@ -38,11 +39,38 @@ function App() {
 						{privateRoutes.map((route, index) => {
 							const Layout = route.layout ?? DefaultLayout; // null or undefined
 							const Page = route?.component;
-							return (
-								<Route key={index} path={route.path}
-									element={<Layout><Page /></Layout>} />
-							)
+							const children = route.children;
+							if (children?.length) {
+								return (
+									<Route key={index} path={route.path} element={<Outlet />} >
+										<Route index element={<Layout></Layout>} />
+										{children.map((childRoute) => {
+											const ChildPage = childRoute.component;
+											return (
+												<Route
+													key={childRoute.key}
+													path={childRoute.path}
+													element={<Layout><ChildPage /></Layout>} />
+											)
+										})}
+									</Route>
+								)
+							} else {
+								return (
+									<Route key={index} path={route.path}
+										element={<Layout><Page /></Layout>} />
+								)
+							}
+							// return (
+							// 	<Route key={index} path={route.path}
+							// 		element={<Layout><Page /></Layout>} />
+							// )
 						})}
+					</Route>
+					<Route path="test" element={<ProtectedRoute user={currentUser} />}>
+						<Route index element={<p>setting</p>} />
+						<Route path="cc" element={<p>test</p>} />
+						<Route path="*" element={<Error />} />
 					</Route>
 				</Routes>
 			</div>
