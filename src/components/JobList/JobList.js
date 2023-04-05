@@ -9,7 +9,7 @@ import styles from "./JobList.module.scss";
 const cx = classNames.bind(styles);
 
 function JobList({ jobList }) {
-  console.log("JobList", jobList);
+  // console.log("JobList", jobList);
   return (
     jobList?.map((job, index) => {
       return (

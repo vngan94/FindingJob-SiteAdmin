@@ -23,8 +23,8 @@ import axios from "axios";
 const cx = classNames.bind(styles);
 
 function ExploreTab() {
-  console.log("Render ExploreTab");
-  
+  // console.log("Render ExploreTab");
+
   const PastJobSearchContext = usePastJobSearch();
   const { pastJobSearch } = PastJobSearchContext;
   const searchInput = useSelector(selectSearch);
@@ -52,14 +52,20 @@ function ExploreTab() {
       const dataFilter = {
         key: searchInput,
         idOccupation: occupationsFilter,
-        locationWorking: locationWorkingFilter
+        idCompany: [],
+        locationWorking: locationWorkingFilter,
       }
-      // console.log(dataFilter);
-      const res = await post(path.searchJob, dataFilter);
-      // const res = await axios.get("https://jsonplaceholder.typicode.com/comments");
-      startTransition(() => {
-        setJobList(res.data);
-      })
+      console.log(dataFilter);
+      try {
+        const res = await post(path.searchJob, dataFilter);
+        // const res = await axios.get("https://jsonplaceholder.typicode.com/comments");
+        console.log(res);
+        startTransition(() => {
+          setJobList(res.data);
+        })
+      } catch (error) {
+        console.log(error);
+      }
     }
     fetchJobs();
   }, [searchInput, filterDeferred]);

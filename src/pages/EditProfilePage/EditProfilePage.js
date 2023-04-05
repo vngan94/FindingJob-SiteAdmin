@@ -27,7 +27,7 @@ function EditProfilePage() {
   const accessToken = useSelector(selectAccessToken);
   const refressToken = useSelector(selectRefreshToken);
   const currentUser = useSelector(selectUser);
-  const [avatar, setAvatar] = useState();
+  const [newAvatar, setAvatar] = useState();
   const uploadRef = useRef();
   const [errorMessage, setErrorMessage] = useState({
     nameError: "",
@@ -52,7 +52,7 @@ function EditProfilePage() {
     formData.append("name", nameRef.current.value);
     formData.append("email", emailRef.current.value);
     formData.append("phone", phoneRef.current.value);
-    formData.append("avatar", avatar);
+    formData.append("avatar", newAvatar);
     const axiosInstance = createAxiosJwt(accessToken, refressToken, dispatch);
     try {
       const res = await axiosInstance.patch(path.editProfile, formData, {
@@ -78,9 +78,9 @@ function EditProfilePage() {
   }
   useEffect(() => {
     return () => {
-      avatar && URL.revokeObjectURL(avatar.preview);
+      newAvatar && URL.revokeObjectURL(newAvatar.preview);
     }
-  }, [avatar])
+  }, [newAvatar])
   return (
     <ContentSection>
       <ContentSectionTitle label={"Chỉnh sửa thông tin"} />
@@ -92,11 +92,14 @@ function EditProfilePage() {
                 <ProfilePictureContainer>
                   <ProfilePictureContent>
                     {
-                      avatar ?
+                      newAvatar ?
                         <img alt={currentUser.username}
-                          src={avatar.preview} /> :
+                          src={newAvatar.preview} /> :
                         <img alt={currentUser.username}
-                          src={currentUser.avatar} srcSet="/static/images/defaultUser.webp" />
+                          src={
+                            currentUser.avatar ?
+                              `${process.env.REACT_APP_BASE_URL}image/${currentUser.avatar}` :
+                              "/static/images/defaultUser.webp"} />
                     }
                   </ProfilePictureContent>
                 </ProfilePictureContainer>

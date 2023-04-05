@@ -41,7 +41,10 @@ function UserMenu({ currentUser }) {
     <div className={cx("UserMenuContainer")}>
       <a>
         <img className={cx("ProfilePicture")} alt="default user"
-          src="/static/images/defaultUser.webp" />
+          src={
+            currentUser.avatar ?
+              `${process.env.REACT_APP_BASE_URL}image/${currentUser.avatar}` :
+              "/static/images/defaultUser.webp"} />
       </a>
       <div className={cx("UserSettingSection")}>
         <div className={cx("DropdownStyle__DropdownContainer")}>
