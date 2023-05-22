@@ -1,27 +1,25 @@
 import "./addPost.css"
-
+import { toast } from "react-toastify";
 import PaidIcon from '@mui/icons-material/Paid';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {  useLocation, useNavigate } from "react-router-dom";
 import FactoryIcon from '@mui/icons-material/Factory';
-import UploadIcon from '@mui/icons-material/Upload';
+
 import HourglassTopIcon from '@mui/icons-material/HourglassTop';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
+
 import ReactQuill from 'react-quill';
 import { useEffect, useState } from "react";
 import 'react-quill/dist/quill.snow.css';
 import Topbar from "../../components/topbar/Topbar";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { useSelect } from "@mui/base";
+
 import { useSelector } from "react-redux";
 import { selectUser } from '../../redux/selector';
 import axios from "axios";
-import { post } from "../../utils/axiosAPI";
+
 
 export default function AddPost() {
     const state = useLocation().state
-    console.log("state ", state)
-    const [value, setValue] = useState(state?.description||'')
     const currentUser = useSelector(selectUser);
     const [requirement, setRequirement] = useState(state?.requirement||'')
     const [optionList,setOptionList] = useState([]);
@@ -32,17 +30,12 @@ export default function AddPost() {
     const [hourWorking, setHourWorking] = useState(state?.hourWorking||'')
     const [deadline, setDeadline] = useState(state?.deadline.split('T')[0]||'')
     const [description, setDescription] = useState(state?.description||'')
-    const [postingDate, setPostingDate] = useState(state?.postingDate || '')
-    const [status, setStatus] = useState(state?.status || true)
-    const current = new Date();
-  
-    const navigate = useNavigate()
+    const [postingDate] = useState(state?.postingDate || '')
 
+    const current = Date.now()
+    const navigate = useNavigate()
     const isAvailable = (x) => {
         var y =  new Date().toISOString().split('T')[0] // yyyy-mm-dd
-        
- 
-    
         return x >= y
       }
     
@@ -63,10 +56,9 @@ export default function AddPost() {
           errs.name = "Vui lòng nhập tên công việc!";
         }
         if (!locationWorking) {
-            console.log("Hello")
           errs.locationWorking = "Vui lòng nhập địa chỉ làm việc!";
         }
-        console.log("Errs", errs)
+        
         if (!salary) {
           errs.salary = "Vui lòng nhập lương";
         }
@@ -89,16 +81,13 @@ export default function AddPost() {
           
             errs.selected = "Vui lòng chọn lĩnh vực của công việc";
         }
-        console.log("errs validate ", errs)
-        
         return errs;
       }
     
 
     useEffect(()=>{
-        
         const fetchData = async()=> {
-            fetch('http://localhost:8000/occupation/list', {
+            fetch('https://job-seeker-smy5.onrender.com/occupation/list', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${currentUser.accessToken}`,
@@ -108,7 +97,7 @@ export default function AddPost() {
             })
             .then((response) => response.json())
             .then((responseData) => { 
-                setOptionList(responseData.data)
+                setOptionList(responseData.data.data)
              })
             .catch((error) => { console.log(error) })
             
@@ -116,23 +105,22 @@ export default function AddPost() {
         fetchData()
     },[])
 
+    
+ 
       const handleSubmit = async(e) => {
         e.preventDefault();
         const errs = validateForm();
-        console.log("errrs ", errs)
-        console.log("test1")
+        
         if (Object.keys(errs).length === 0) {
-            console.log("test3")
-            console.log("Không lỗi")
+          
             setErrors({});
-            axios.defaults.headers.common = {'Authorization': `bearer ${currentUser.accessToken}`}
+            axios.defaults.headers.common = {'Authorization': `bearer ${currentUser.accessTokenn}`}
             try {
                 let  dates = deadline.split('-')
                 dates = dates[1] + '-' + dates[2] + '-' + dates[0]
-                console.log("in ", dates)
-                const res = state 
                 ? 
-                await axios.put("http://localhost:8000/job/update", {
+                await axios.put("https://job-seeker-smy5.onrender.com/job/update", {
+
                     "name": name,
                     "description":description,
                     "requirement":requirement,
@@ -142,30 +130,35 @@ export default function AddPost() {
                     "salary":salary,
                     "locationWorking": locationWorking,
                     "idOccupation": selected,
-                    "idcompany": currentUser._id,
+                    "idcompany": currentUser.congtyId                    ,
                     "_id": state._id ,
                 })
 
-                : await axios.post("http://localhost:8000/job/create", {
+                :
+                 await axios.post("https://job-seeker-smy5.onrender.com/job/create", {
+                  
                     "name": name,
                     "description":description,
                     "requirement":requirement,
                     "hourWorking":hourWorking,
-                    "postingDate": current.toLocaleDateString(),
+                    "postingDate": current,
+     
                     "deadline": deadline,
                     "salary":salary,
                     "locationWorking": locationWorking,
                     "idOccupation": selected,
-                    "idcompany": currentUser._id,
-                    "status": status
-                   
-                  })
-                  state ? alert("Cập nhật job thành công") : alert("Thêm job thành công") 
+                    "idcompany": currentUser.congtyId                    ,
+
                     
+                  })
+                  
+              
+                  state ? toast("Cập nhật thành công") : toast("Thêm thành công") 
+                  
                 navigate("/posts")
             } 
             catch(err) {
-                console.log(err)
+                console.log("err ", err)
             }
             
         }else {
@@ -220,7 +213,8 @@ export default function AddPost() {
                             <FactoryIcon className="iconUser"/>
                             <select value={selected} className="dropdown" onChange={(e) => setSelected(e.target.value)}>
                                 <option  value="">Chọn lĩnh vực</option>
-                                {optionList.map((m, ix) =>
+                                
+                                {optionList.map((m) =>
                                     <option  key={m.id}  value={m._id} >{m.name} </option>)}
                             </select>
   

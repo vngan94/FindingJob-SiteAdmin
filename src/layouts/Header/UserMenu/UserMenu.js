@@ -4,7 +4,7 @@ import { DropdownIcon } from '../../../components/Icon';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './UserMenu.module.scss';
-import { logoutSuccess } from '../../../redux/authSlice';
+
 import { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear, faPowerOff } from '@fortawesome/free-solid-svg-icons';

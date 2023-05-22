@@ -3,11 +3,6 @@ import {useState } from "react";
 import FormInput from "../../components/formInput/FormInput";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { toast, ToastContainer } from "react-toastify";
-
-
-import {get, post} from "../../utils/axiosAPI";
-import {loginSuccess} from "../../redux/authSlice";
 import { login } from "../../services/authService";
 
 export default function Login() {

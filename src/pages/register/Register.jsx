@@ -3,9 +3,13 @@ import { useState } from "react";
 import FormInput from "../../components/formInput/FormInput";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {get, post} from "../../utils/axiosAPI";
-import {loginSuccess} from "../../redux/authSlice";
+import { post} from "../../utils/axiosAPI";
 
+import { login } from "../../services/authService";
+
+
+import axios from "axios";
+import { toast } from "react-toastify";
 export default function Register() {
   const [error, setError] = useState("")
     const [values, setValues] = useState({
@@ -68,6 +72,7 @@ export default function Register() {
         },
       ];
     const navigate = useNavigate()
+   
       
   const dispatch = useDispatch();
 
@@ -83,8 +88,16 @@ export default function Register() {
           role: "admin",
           username: values.username
         });
-        console.log("in ", res.data._id)
-        const res2 = await post ("http://localhost:8000/company/create", {
+       toast("Đăng ký thành công")
+      
+      
+     const loginn = await axios.post ("https://job-seeker-smy5.onrender.com/auth/login", {
+          "username":  values.username,
+          "password": values.password
+        }) 
+        axios.defaults.headers.common = {'Authorization': `bearer ${loginn.data.data.accessToken}`}
+        console.log("Login thành công")
+         await axios.post ("https://job-seeker-smy5.onrender.com/company/create", {
             "name":values.name,
             "totalEmployee":0,
             "type":"",
@@ -94,10 +107,13 @@ export default function Register() {
             "isDelete": "false",
             "idUser": res.data._id
         }) 
-        console.log("res ", res)
-        alert("Đăng kí thành công")
-        navigate("/recLogin")
-
+        const hasErr = await login({ username: values.username, password: values.password }, dispatch, navigate);
+        if (hasErr) {
+          setError(hasErr);
+        } else {
+         
+          navigate("/")
+        }
       } catch (err) {
         console.log(err);
         setError(err.response.data.message);
@@ -127,7 +143,7 @@ export default function Register() {
             {error && <p>{error}</p>}
             <button className="btnLogin" onClick={handleSubmit}>Đăng ký</button>
             <div className="forgetPassword">
-            <Link to={"/recLogin"} style={{ textDecoration: 'none', color: 'darkblue' }} ><p className="">Bạn đã có tài khoản?</p>  </Link>
+            <Link to={"/"} style={{ textDecoration: 'none', color: 'darkblue' }} ><p className="">Bạn đã có tài khoản?</p>  </Link>
             
             </div>
             

@@ -7,6 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { logout } from "../../services/authService";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAccessToken, selectRefreshToken } from "../../redux/selector";
+import {  useState } from "react";
 
 
 
@@ -14,10 +15,12 @@ export default function Topbar() {
     const accessToken = useSelector(selectAccessToken);
     const refreshToken = useSelector(selectRefreshToken);
     const dispatch = useDispatch();
-
+    const [search, setSearch] = useState("")
+    
     const handleLogout = () => {
         logout(accessToken, refreshToken, dispatch);
     }
+    
     return (
         <div className="topbar">
             <div className="topbarWrapper">
@@ -28,8 +31,13 @@ export default function Topbar() {
                 <div className="search">
                     
 <div class="one">
-  <input type="text" className="inputSearch" placeholder="Tìm kiếm"/>
-  <button type="submit" className="buttonSearch"> <SearchIcon className="searchIcon"/></button>
+    <input type="text" className="inputSearch" placeholder="Tìm kiếm"  onChange={ (e) => setSearch(e.target.value) } />
+    <button type="submit" className="buttonSearch" > 
+    <Link to={`/posts/?name=${search}`} >
+        <SearchIcon className="searchIcon" />             
+    </Link>
+        
+    </button>
 </div>
                 </div>
                 <div className="topRight">
@@ -37,7 +45,7 @@ export default function Topbar() {
                         <Button className="btnPosting">Đăng tin tuyển dụng</Button>
                     </Link>
                     
-                    <Link to={"/recLogin"}  style={{ textDecoration: 'none', color: 'darkblue' }}  onClick={handleLogout} >
+                    <Link to={"/"}  style={{ textDecoration: 'none', color: 'darkblue' }}  onClick={handleLogout} >
                         <div className="topbarIcons">
                                 <LogoutIcon />
                         </div>

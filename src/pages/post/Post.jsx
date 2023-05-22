@@ -1,7 +1,7 @@
 import "./post.css"
 import PaidIcon from '@mui/icons-material/Paid';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import FactoryIcon from '@mui/icons-material/Factory';
 import UploadIcon from '@mui/icons-material/Upload';
 import HourglassTopIcon from '@mui/icons-material/HourglassTop';
@@ -16,17 +16,16 @@ export default function Post() {
     const [deadline, setDeadline] = useState('')
     const [occ, setOcc] = useState('')
     const location = useLocation()
-    const navigate = useNavigate()
     const postId = location.pathname.split("/")[2]
     useEffect(()=>{
         const fetchData = async()=> {
             try {
-                const res = await axios.get(`http://localhost:8000/job/detail?id=${postId}`)
+                const res = await axios.get(`https://job-seeker-smy5.onrender.com/job/detail?id=${postId}`)
                 setPost(res.data.data)
                 setOcc(res.data.data.idOccupation.name)
                 setPostingDate(res.data.data.postingDate.split("T")[0].split("-").reverse().join("-"))
                 setDeadline(res.data.data.deadline.split("T")[0].split("-").reverse().join("-"))
-                console.log("in ", res.data.data)
+                
                 
                 
             }
@@ -37,10 +36,12 @@ export default function Post() {
         fetchData()
     },[postId])
     
-    console.log(post.requirement)
-    const getDate = (date) => {
-        return date.split("T")[0].split("-").reverse().join("-")
-    }
+    console.log("post ", post)
+
+    // const getText = (html) =>{
+    //     const doc = new DOMParser().parseFromString(html, "text/html")
+    //     return doc.body.textContent
+    //   }
     return (
         <div>
             <Topbar/>
@@ -54,10 +55,10 @@ export default function Post() {
                         <div className="adress">{post.locationWorking}</div>
                     </div>
                     <div className="action">
-                    <Link to = {`/editPost/?id=${post._id}`} state={post}>
+                    {post.status === false ? <></> :  <Link to = {`/editPost/?id=${post._id}`} state={post}>
                         <button className="btnEditUser" >Edit</button>
-                    </Link>
-                    {post.numApply == 0 ? <></> :  <Link to = {`/applications/${post._id}`}>
+                    </Link> }
+                    {post.numApply === 0 ? <></> :  <Link to = {`/applications/${post._id}`}>
                         <button className="btnEditUser" >Hồ sơ</button>
                     </Link> }
                    
@@ -78,13 +79,13 @@ export default function Post() {
                 </div>
                 <div class="break"></div>
                 <div className="info3"> 
-                    <h3 className="desc">Mô tả công việc</h3>
-                    <div className="post__description" dangerouslySetInnerHTML={{ __html: post.description}}  />
+                    <h3 className="desc">Mô tả công việc </h3>
+                    <div className="post__description" dangerouslySetInnerHTML={{ __html: post.description}}   />
                 </div>
                 <div class="break"></div>
                 <div className="info4" >
                     <h3 className="desc">Kỹ năng yêu cầu</h3>
-                    <div className="post__description" dangerouslySetInnerHTML={{ __html: post.requirement}}  />
+                    <div className="post__description"  dangerouslySetInnerHTML={{ __html: post.requirement}}  />
                     </div>
             </div>
         </div>

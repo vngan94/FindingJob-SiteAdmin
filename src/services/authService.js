@@ -1,17 +1,17 @@
 import { loginSuccess, logoutSuccess } from "../redux/authSlice";
-import { createAxiosJwt, get, patch, post } from "../utils/axiosAPI";
+import { createAxiosJwt, post } from "../utils/axiosAPI";
 import { path } from "../utils/axiosAPI";
-import config from "../config";
 import { updateUser } from "../redux/userSlice";
 import jwtDecode from "jwt-decode";
 
 export const login = async ({ username, password }, dispatch) => {
   try {
+    
     const res = await post(path.login, { username, password });
+    
     // console.log("res - login", res);
     if (res.success) {
       dispatch(loginSuccess(res.data));
-      console.log("in" , res.data);
       getUser(res.data.accessToken, res.data.refreshToken, dispatch);
     }
     // handleShowLogin();
@@ -56,14 +56,24 @@ export const getUser = async (accessToken, refreshToken, dispatch) => {
         })
         const user = res.data;
         dispatch(updateUser({
+          accessTokenn: accessToken,
+          refreshTokenn: refreshToken,
           _id: user._id,
           name: user.name,
           avatar: user.avatar,
           phone: user.phone,
           email: user.email,
-          username: user.username
+          username: user.username,
+          congtyName: user.company.name,
+          congtyTotal: user.company.totalEmployee,
+          congtyId: user.company._id,
+          congtyPhone: user.company.phone,
+          congtyType: user.company.type,
+          congtyLocation: user.company.location,
+          congtyAbout: user.company.about,
         }));
       } catch (error) {
+        console.log("error");
         console.log(error);
       }
     }

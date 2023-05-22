@@ -64,6 +64,7 @@ export const get = async (path, config = {}, axiosInstance = instance) => {
 }
 
 export const post = async (path, data = {}, config = {}, axiosInstance = instance) => {
+  console.log("Data ", data)
   const response = await axiosInstance.post(path, data, config);
   return response.data;
 }
@@ -79,12 +80,12 @@ export const patch = async (path, data = {}, config = {}, axiosInstance = instan
 }
 
 export const path = {
-  login: "auth/login",
-  logout: "auth/logout",
+  login: "https://job-seeker-smy5.onrender.com/auth/login",
+  logout: "https://job-seeker-smy5.onrender.com/auth/logout",
   changePassword: "auth/change-password",
   editProfile: "auth/edit-profile",
   register: "auth/register",
-  getUser: "auth/info-user",
+  getUser: "https://job-seeker-smy5.onrender.com/auth/info-user",
   jobList: "job/list/sort-by-date",
   jobListFilter: "job/list/filter",
   searchJob: "job/list/search",

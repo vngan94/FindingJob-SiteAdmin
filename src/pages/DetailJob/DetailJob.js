@@ -27,7 +27,7 @@ function DetailJob() {
       setJob(res.data);
     }
     fetchApi();
-  }, []);
+  }, [_id]);
   // check if job not found caused by change url
   return <>
     <JobContext.Provider value={job}>

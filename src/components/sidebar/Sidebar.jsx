@@ -9,6 +9,7 @@ import {
     AttachMoney,
     
   } from "@material-ui/icons";
+  import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 export default function Sidebar() {
     return (
         <div className="sidebar">
@@ -42,7 +43,7 @@ export default function Sidebar() {
                             Dashboard
                         </li>
 
-                        <Link to={"/account/:id"} style={{ textDecoration: 'none', color: '#555' }} >
+                        <Link to={"/account/"} style={{ textDecoration: 'none', color: '#555' }} >
                             <li className="sidebarListItem">
                                 <PermIdentity className="sidebarIcon" />
                                 Account
@@ -53,7 +54,7 @@ export default function Sidebar() {
                        
                         <Link to={"/posts"} style={{ textDecoration: 'none', color: '#555' }} >
                             <li className="sidebarListItem">
-                                <PermIdentity className="sidebarIcon" />
+                                <WorkOutlineIcon className="sidebarIcon" />
                                 Posts
                             </li>
                         </Link>
