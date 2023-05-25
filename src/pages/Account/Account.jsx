@@ -97,7 +97,7 @@ export default function Account() {
                       }));
                     
                     // alert("Cập nhật tài khoản thành công")
-                    toast("Update successfully")
+                    toast("Cập nhật thành công")
                       
                  
                 } 
