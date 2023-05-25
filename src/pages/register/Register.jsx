@@ -79,7 +79,7 @@ export default function Register() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const res = await post("/auth/register", {
+        const res = await post("https://job-seeker-smy5.onrender.com/auth/register", {
           name: values.name,
           avatar: null,
           phone: values.tel,
@@ -117,8 +117,6 @@ export default function Register() {
       } catch (err) {
         console.log(err);
         setError(err.response.data.message);
-        
-        
       }
       
     };
