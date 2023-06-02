@@ -118,6 +118,7 @@ export default function AddPost() {
             try {
                 let  dates = deadline.split('-')
                 dates = dates[1] + '-' + dates[2] + '-' + dates[0]
+                const res = state 
                 ? 
                 await axios.put("https://job-seeker-smy5.onrender.com/job/update", {
 
