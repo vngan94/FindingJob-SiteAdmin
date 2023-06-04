@@ -68,7 +68,7 @@ export default function Post() {
                 <div className="info2">
                     <div className="info2Left">
                         <div className="salary"> <PaidIcon className="iconUser"/>{post.salary}</div>
-                        <div className="salary"> <CalendarMonthIcon className="iconUser"/>{post.locationWorking}</div>
+                        <div className="salary"> <CalendarMonthIcon className="iconUser"/>{post.hourWorking}</div>
                         <div className="salary"> <FactoryIcon className="iconUser"/>{occ}</div>
                     </div>
                     <div className="info2Right">
