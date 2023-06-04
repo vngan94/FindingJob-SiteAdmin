@@ -73,8 +73,10 @@ export default function PostList() {
     const fetchData = async () => {
       try {
         console.log("currentUser", currentUser)
+        axios.defaults.headers.common = {'Authorization': `bearer ${currentUser.accessTokenn}`}
         const res = await axios.get(
-          `https://job-seeker-smy5.onrender.com/job/list/company/${currentUser.congtyId}/${searchname}`
+          `https://job-seeker-smy5.onrender.com/job/list/company/admin/${currentUser.congtyId}/${searchname}`
+
         );
         console.log(res.data.data);
         setPostListChange(

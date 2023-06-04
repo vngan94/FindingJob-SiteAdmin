@@ -131,7 +131,7 @@ export default function AddPost() {
                     "salary":salary,
                     "locationWorking": locationWorking,
                     "idOccupation": selected,
-                    "idcompany": currentUser.congtyId                    ,
+                    "idCompany": currentUser.congtyId                    ,
                     "_id": state._id ,
                 })
 
@@ -148,7 +148,7 @@ export default function AddPost() {
                     "salary":salary,
                     "locationWorking": locationWorking,
                     "idOccupation": selected,
-                    "idcompany": currentUser.congtyId                    ,
+                    "idCompany": currentUser.congtyId                    ,
 
                     
                   })
